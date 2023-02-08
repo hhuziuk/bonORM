@@ -68,9 +68,3 @@ export function Entity(tableName: string): ClassDecorator {
         };
     };
 }
-
-
-
-
-
-
