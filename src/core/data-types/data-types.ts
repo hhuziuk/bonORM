@@ -6,3 +6,4 @@ export const dataType = {
     Array: { key: 'ARRAY' },
     Object: { key: 'JSON' }
 }
+
