@@ -1,6 +1,6 @@
 import { Pool, Client } from 'pg';
 
-export const pool = new Pool({
+export const pgConfig = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'postgres',

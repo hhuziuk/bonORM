@@ -1,4 +1,7 @@
-export const createModel = function(schemaName: string, schema: any) {
+import {QueryResult} from "pg";
+import {pgConfig} from "../../configs/pgConfig";
+
+export const createModel = async function(schemaName: string, schema: any) {
     const { tableName, attributes, options } = schema;
     const columns = Object.keys(attributes).map((attribute) => {
         const {
@@ -24,8 +27,14 @@ export const createModel = function(schemaName: string, schema: any) {
             query += `\nALTER TABLE ${schemaName} ADD COLUMN updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP;`;
         }
     }
-
-    return query;
+    try {
+        const client = await pgConfig.connect();
+        const res: QueryResult = await client.query(query);
+        client.release();
+        return res;
+    } catch (err) {
+        throw new Error(`Error doing query: ${err}`);
+    }
 };
 
 
