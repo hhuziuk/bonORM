@@ -1,8 +1,11 @@
-export const createManyToManyRelation = function(
+import {pgConfig} from "../../configs/pgConfig";
+import {QueryResult} from "pg";
+
+export const createManyToManyRelation = async function(
     tableName: string,
     intermediateTableName: string,
     referenceTableName: string
-): string {
+) {
     const query = `CREATE TABLE IF NOT EXISTS "${intermediateTableName}" (
         "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
         "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -10,5 +13,12 @@ export const createManyToManyRelation = function(
         "${referenceTableName}Id" INTEGER REFERENCES "${referenceTableName}" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
         PRIMARY KEY ("${tableName}Id","${referenceTableName}Id")
 )`;
-    return query;
+    try {
+        const client = await pgConfig.connect();
+        const res: QueryResult = await client.query(query);
+        client.release();
+        return res;
+    } catch (err) {
+        throw new Error(`Error doing query: ${err}`);
+    }
 };
