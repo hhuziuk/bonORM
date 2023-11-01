@@ -1,4 +1,6 @@
-const createTableSql = function(schemaName: string, schema: any) {
+import {createOneToOneRelation} from "../relations/One-To-One";
+
+export const createTable = function(schemaName: string, schema: any) {
     const { tableName, attributes, options } = schema;
     const columns = Object.keys(attributes).map((attribute) => {
         const {
@@ -6,7 +8,6 @@ const createTableSql = function(schemaName: string, schema: any) {
             unique,
             allowNull,
             defaultValue,
-            timestamps,
             autoIncrement,
             primaryKey,
         } = attributes[attribute];
@@ -28,9 +29,7 @@ const createTableSql = function(schemaName: string, schema: any) {
         }
         return columnDefinition;
     });
-
     let query = `CREATE TABLE IF NOT EXISTS ${schemaName} (${columns.join(', ')});`;
-
     if (options) {
         if (options.timestamps) {
             query += `\nALTER TABLE ${schemaName} ADD COLUMN created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP;`;
