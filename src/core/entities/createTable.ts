@@ -1,6 +1,6 @@
 import {createOneToOneRelation} from "../relations/One-To-One";
 
-export const createTable = function(schemaName: string, schema: any) {
+export const createModel = function(schemaName: string, schema: any) {
     const { tableName, attributes, options } = schema;
     const columns = Object.keys(attributes).map((attribute) => {
         const {
