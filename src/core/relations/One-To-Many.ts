@@ -11,7 +11,7 @@ export const createOneToManyRelation = async function(
     const alterQuery = `ALTER TABLE ${tableName} ADD ${query};`;
     try {
         const client = await pgConfig.connect();
-        const res: QueryResult = await client.query(query);
+        const res: QueryResult = await client.query(alterQuery);
         client.release();
         return res;
     } catch (err) {

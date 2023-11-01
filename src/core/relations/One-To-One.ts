@@ -1,9 +1,20 @@
-export const createOneToOneRelation = function(
+import {pgConfig} from "../../configs/pgConfig";
+import {QueryResult} from "pg";
+
+export const createOneToOneRelation = async function(
     tableName: string,
     key: string,
     referenceTable: string,
     referenceKey: string
-) : string {
+) {
     const query = `${key} INTEGER REFERENCES ${referenceTable} ("${referenceKey}") ON DELETE SET NULL ON UPDATE CASCADE`;
-    return `ALTER TABLE ${tableName} ADD ${query};`;
+    const alterQuery = `ALTER TABLE ${tableName} ADD ${query};`;
+    try {
+        const client = await pgConfig.connect();
+        const res: QueryResult = await client.query(alterQuery);
+        client.release();
+        return res;
+    } catch (err) {
+        throw new Error(`Error doing query: ${err}`);
+    }
 };
