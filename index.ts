@@ -26,10 +26,6 @@ const table = createModel("Table1", {
     }
 });
 
-console.log(table);
-console.log(createManyToManyRelation("One", "OneTwo", "Two"));
-console.log(createOneToManyRelation("One", "id", "Two", "id"));
-console.log(createOneToOneRelation("Two", "id", "One", "id"));
 
 
 

@@ -7,8 +7,8 @@ export const createOneToManyRelation = async function(
     referenceTable: string,
     referenceKey: string
 ) {
-    const query = `${key} INTEGER REFERENCES ${referenceTable}("${referenceKey}") ON DELETE SET NULL ON UPDATE CASCADE`;
-    const alterQuery = `ALTER TABLE ${tableName} ADD ${query};`;
+    const query: string = `${key} INTEGER REFERENCES ${referenceTable}("${referenceKey}") ON DELETE SET NULL ON UPDATE CASCADE`;
+    const alterQuery: string = `ALTER TABLE ${tableName} ADD ${query};`;
     try {
         const client = await pgConfig.connect();
         const res: QueryResult = await client.query(alterQuery);

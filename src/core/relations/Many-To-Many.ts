@@ -6,7 +6,7 @@ export const createManyToManyRelation = async function(
     intermediateTableName: string,
     referenceTableName: string
 ) {
-    const query = `CREATE TABLE IF NOT EXISTS "${intermediateTableName}" (
+    const query: string = `CREATE TABLE IF NOT EXISTS "${intermediateTableName}" (
         "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
         "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
         "${tableName}Id" INTEGER REFERENCES "${tableName}" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
