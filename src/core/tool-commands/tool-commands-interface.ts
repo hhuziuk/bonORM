@@ -13,7 +13,8 @@ export interface toolCommandsInterface {
         where?: Record<string, any>;
     }): Promise<QueryResult>;
     create(object: Object): Promise<any>;
-    save(object: Object): Promise<QueryResult<any>>;
-    deleteOne(object: Object): Promise<QueryResult<any>>;
-    deleteAll(object: Object): Promise<QueryResult<any>>;
+    save(object: Object): Promise<QueryResult>;
+    delete(options: {
+        where?: Record<string, any>;
+    }): Promise<QueryResult>;
 }

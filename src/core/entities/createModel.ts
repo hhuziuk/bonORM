@@ -75,13 +75,15 @@ export class Model implements toolCommandsInterface {
         return this.runQuery(query);
     }
 
-    async deleteOne(): Promise<QueryResult> {
-        let query: string = `DELETE FROM ${this.tableName} WHERE `;
-        return this.runQuery(query);
-    }
-
-    async deleteAll(): Promise<QueryResult> {
-        let query: string = `DELETE FROM ${this.tableName};`;
+    async delete(options: {
+        where?: Record<string, any>;
+    }): Promise<QueryResult> {
+        let query: string = `DELETE FROM ${this.tableName}`;
+        query += options.where && Object.keys(options.where).length > 0
+            ? ` WHERE ${Object.keys(options.where).map(key => typeof options.where[key] === 'string'
+                ? `${key} = '${options.where[key]}'`
+                : `${key} = ${options.where[key]}`).join(" AND ")}`
+            : "";
         return this.runQuery(query);
     }
 
