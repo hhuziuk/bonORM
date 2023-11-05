@@ -1,6 +1,7 @@
 import { QueryResult } from "pg";
 import { pgConfig } from "../../configs/pgConfig";
 import { toolCommandsInterface } from "../tool-commands/tool-commands-interface";
+import * as querystring from "querystring";
 
 export class Model implements toolCommandsInterface {
     private readonly tableName: string;
@@ -65,8 +66,18 @@ export class Model implements toolCommandsInterface {
         return this.runQuery(query);
     }
 
-    async create(): Promise<QueryResult> {
-        let query: string = `INSERT INTO ${this.tableName} `;
+    async create(data?: Record<string, any>): Promise<QueryResult> {
+        if(!data || Object.keys(data).length < 0){
+            throw new Error("No data for insertion");
+        }
+        const columns = Object.keys(data).join(', ');
+        const values = Object.values(data).map((value) => {
+            if (typeof value === 'string') {
+                return `'${value}'`;
+            }
+            return value;
+        }).join(', ');
+        const query: string = `INSERT INTO ${this.tableName} ($(columns)) VALUES (${values});`;
         return this.runQuery(query);
     }
 
