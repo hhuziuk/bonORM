@@ -9,7 +9,9 @@ export interface toolCommandsInterface {
         skip?: number;
         take?: number;
     }): Promise<QueryResult>
-    findOne(object: Object): Promise<any>;
+    findOne(options: {
+        where?: Record<string, any>;
+    }): Promise<QueryResult>;
     create(object: Object): Promise<any>;
     save(object: Object): Promise<QueryResult<any>>;
     deleteOne(object: Object): Promise<QueryResult<any>>;

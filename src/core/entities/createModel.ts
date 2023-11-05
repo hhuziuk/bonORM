@@ -53,8 +53,15 @@ export class Model implements toolCommandsInterface {
         return this.runQuery(query);
     }
 
-    async findOne(): Promise<QueryResult> {
-        let query: string = `SELECT * FROM ${this.tableName} WHERE ;`;
+    async findOne(options: {
+        where?: Record<string, any>;
+    }): Promise<QueryResult> {
+        let query = `SELECT * FROM ${this.tableName}`;
+        query += options.where && Object.keys(options.where).length > 0
+            ? ` WHERE ${Object.keys(options.where).map(key => typeof options.where[key] === 'string'
+                ? `${key} = '${options.where[key]}'`
+                : `${key} = ${options.where[key]}`).join(" AND ")}`
+            : "";
         return this.runQuery(query);
     }
 
