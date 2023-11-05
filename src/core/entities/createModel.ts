@@ -15,6 +15,7 @@ export class Model implements toolCommandsInterface {
             const client = await pgConfig.connect();
             const res: QueryResult = await client.query(query);
             client.release();
+            console.log("connected to database");
             return res;
         } catch (err) {
             throw new Error(`Error doing query: ${err}`);
@@ -29,15 +30,15 @@ export class Model implements toolCommandsInterface {
         skip?: number;
         take?: number;
     }): Promise<QueryResult> {
-        let query: string = `SELECT ${options.select && options.select.length > 0 
-            ? options.select.join(', ') 
-                : '*'} FROM ${this.tableName}`;
+        let query: string = `SELECT ${options.select && options.select.length > 0
+            ? options.select.join(', ')
+            : '*'} FROM ${this.tableName}`;
         query += options.relations && options.relations.length > 0
             ? `LEFT JOIN ${options.relations.join(" LEFT JOIN ")}`
             : '';
         query += options.where && Object.keys(options.where).length > 0
-            ? ` WHERE ${Object.keys(options.where).map(key => typeof options.where[key] === 'string' 
-                ? `${key} = '${options.where[key]}'` 
+            ? ` WHERE ${Object.keys(options.where).map(key => typeof options.where[key] === 'string'
+                ? `${key} = '${options.where[key]}'`
                 : `${key} = ${options.where[key]}`).join(" AND ")}`
             : "";
         query += options.order && Object.keys(options.order).length > 0
@@ -46,7 +47,7 @@ export class Model implements toolCommandsInterface {
         query += options.skip && options.take
             ? ` OFFSET ${options.skip} LIMIT ${options.take}`
             : options.skip
-            ? ` OFFSET ${options.skip}`
+                ? ` OFFSET ${options.skip}`
                 : options.take
                     ? ` LIMIT ${options.take}`
                     : "";
@@ -103,11 +104,19 @@ export class Model implements toolCommandsInterface {
         const columns = Object.keys(attributes).map((attribute) => {
             const { type, unique, allowNull, defaultValue, autoIncrement, primaryKey } = attributes[attribute];
             let columnDefinition: string = `${attribute} ${type.key}`;
-            unique ? (columnDefinition += " UNIQUE") : "";
-            !allowNull ? (columnDefinition += " NOT NULL") : "";
-            defaultValue ? (columnDefinition += ` DEFAULT ${defaultValue}`) : "";
-            primaryKey ? (columnDefinition += " PRIMARY KEY") : "";
-            autoIncrement ? (columnDefinition += " SERIAL") : "";
+            if (unique) columnDefinition += " UNIQUE";
+            if (!allowNull) columnDefinition += " NOT NULL";
+            if (defaultValue) {
+                if (typeof defaultValue === 'string') {
+                    columnDefinition += ` DEFAULT '${defaultValue}'`;
+                } else {
+                    columnDefinition += ` DEFAULT ${defaultValue}`;
+                }
+            }
+            if (primaryKey) columnDefinition += " PRIMARY KEY";
+            if (autoIncrement && type.key === 'INTEGER') {
+                columnDefinition += " GENERATED ALWAYS AS IDENTITY";
+            }
             return columnDefinition;
         });
         let query: string = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${columns.join(", ")});`;

@@ -1,19 +1,16 @@
 import express from "express"
 import {dataType} from "./src/core/data-types/data-types";
-import {createModel} from "./src/core/entities/createModel";
-import {createManyToManyRelation} from "./src/core/relations/Many-To-Many";
-import {createOneToManyRelation} from "./src/core/relations/One-To-Many";
-import {createOneToOneRelation} from "./src/core/relations/One-To-One";
+import {Model} from "./src/core/entities/createModel";
+
 const app = express();
 
-const table = createModel("Table1", {
+const table = new Model('table1');
+table.createModel({
     attributes: {
         id: {
-            type: dataType.String,
+            type: dataType.Integer,
             unique: true,
             allowNull: false,
-            defaultValue: "default",
-            timestamps: true,
             autoIncrement: true,
         },
         name: {
@@ -25,6 +22,9 @@ const table = createModel("Table1", {
         timestamps: true,
     }
 });
+console.log("Started")
+
+
 
 
 
