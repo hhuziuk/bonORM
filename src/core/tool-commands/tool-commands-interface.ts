@@ -12,7 +12,7 @@ export interface toolCommandsInterface {
     findOne(options: {
         where?: Record<string, any>;
     }): Promise<QueryResult>;
-    create(object: Object): Promise<any>;
+    create(data?: Record<string, any>): Promise<QueryResult>;
     save(object: Object): Promise<QueryResult>;
     delete(options: {
         where?: Record<string, any>;
