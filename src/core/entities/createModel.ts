@@ -1,7 +1,6 @@
 import { QueryResult } from "pg";
 import { pgConfig } from "../../configs/pgConfig";
 import { toolCommandsInterface } from "../tool-commands/tool-commands-interface";
-import * as querystring from "querystring";
 
 export class Model implements toolCommandsInterface {
     private readonly tableName: string;
@@ -71,6 +70,12 @@ export class Model implements toolCommandsInterface {
         if(!data || Object.keys(data).length < 0){
             throw new Error("No data for insertion");
         }
+
+        const checkQuery = `SELECT * FROM ${this.tableName} WHERE name = '${data.name}'`;
+        const checkQueryResult = await this.runQuery(checkQuery);
+        if(checkQueryResult.rows.length > 0){
+            throw new Error(`The value ${data.name} already exists in database`);
+        }
         const columns = Object.keys(data).join(', ');
         const values = Object.values(data).map((value) => {
             if (typeof value === 'string') {
@@ -78,7 +83,7 @@ export class Model implements toolCommandsInterface {
             }
             return value;
         }).join(', ');
-        const query: string = `INSERT INTO ${this.tableName} ($(columns)) VALUES (${values});`;
+        const query: string = `INSERT INTO ${this.tableName} (${columns}) VALUES (${values});`;
         return this.runQuery(query);
     }
 
@@ -99,7 +104,7 @@ export class Model implements toolCommandsInterface {
         return this.runQuery(query);
     }
 
-    async createModel(schema: any): Promise<QueryResult> {
+     createModel(schema: any): Promise<QueryResult> {
         const { attributes, options } = schema;
         const columns = Object.keys(attributes).map((attribute) => {
             const { type, unique, allowNull, defaultValue, autoIncrement, primaryKey } = attributes[attribute];

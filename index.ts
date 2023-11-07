@@ -9,7 +9,6 @@ table.createModel({
     attributes: {
         id: {
             type: dataType.Integer,
-            unique: true,
             allowNull: false,
             autoIncrement: true,
         },
@@ -22,8 +21,21 @@ table.createModel({
         timestamps: true,
     }
 });
-console.log("Started")
 
+const table2 = new Model('table2');
+table2.createModel({
+    attributes: {
+        id: {
+            type: dataType.Integer,
+            unique: true,
+            autoIncrement: true,
+        },
+        email: {
+            type: dataType.String,
+            unique: true
+        }
+    }
+});
 
 
 
