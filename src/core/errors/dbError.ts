@@ -3,5 +3,9 @@ class dbError extends Error {
         super(message);
         Object.setPrototypeOf(this, dbError.prototype);
     }
+
+    static ExistingData(){
+        return new dbError("This data already exists in database");
+    }
 }
 export default dbError;
