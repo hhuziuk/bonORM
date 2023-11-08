@@ -4,5 +4,6 @@ export const dataType = {
     Date: { key: 'DATE' },
     Boolean: { key: 'BOOLEAN' },
     Array: { key: 'ARRAY' },
-    Object: { key: 'JSON' }
+    Object: { key: 'JSON' },
+    Enum: {key: 'ENUM'}
 };
