@@ -18,7 +18,7 @@ export class Model implements toolCommandsInterface {
             console.log("connected to database");
             return res;
         } catch (err) {
-            throw new Error(`Error doing query: ${err}`);
+            dbError.QueryError(err);
         }
     }
 
@@ -75,8 +75,7 @@ export class Model implements toolCommandsInterface {
         const checkQuery = `SELECT * FROM ${this.tableName} WHERE name = '${data.name}'`;
         const checkQueryResult = await this.runQuery(checkQuery);
         if(checkQueryResult.rows.length > 0){
-            //throw new Error(`The value ${data.name} already exists in database`);
-            console.log(dbError.ExistingDataError(data.name))
+            dbError.ExistingDataError(data.name);
         }
         const columns = Object.keys(data).join(', ');
         const values = Object.values(data).map((value) => {
