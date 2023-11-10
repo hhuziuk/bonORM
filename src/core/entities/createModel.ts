@@ -76,7 +76,7 @@ export class Model implements toolCommandsInterface {
         const checkQueryResult = await this.runQuery(checkQuery);
         if(checkQueryResult.rows.length > 0){
             //throw new Error(`The value ${data.name} already exists in database`);
-            console.log(dbError.ExistingData(data.name))
+            console.log(dbError.ExistingDataError(data.name))
         }
         const columns = Object.keys(data).join(', ');
         const values = Object.values(data).map((value) => {

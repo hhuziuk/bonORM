@@ -22,6 +22,8 @@ table.createModel({
     }
 });
 
+table.delete({where: {name: "Abdullah"}})
+
 const table2 = new Model('table2');
 table2.createModel({
     attributes: {

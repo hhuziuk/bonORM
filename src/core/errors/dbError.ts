@@ -4,8 +4,11 @@ class dbError extends Error {
         Object.setPrototypeOf(this, dbError.prototype);
     }
 
-    static ExistingData(values: any[]){
+    static ExistingDataError(values: any[]){
         return new dbError(`${values} already exists in database`);
+    }
+    static ConnectionError(){
+        return new dbError(`Can not connect to database`);
     }
 }
 export default dbError;
