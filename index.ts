@@ -3,6 +3,7 @@ import {dataType} from "./src/core/data-types/data-types";
 import {Model} from "./src/core/entities/createModel";
 import {createOneToOneRelation} from "./src/core/relations/One-To-One";
 import {createManyToManyRelation} from "./src/core/relations/Many-To-Many";
+import {createOneToManyRelation} from "./src/core/relations/One-To-Many";
 
 const app = express();
 
@@ -40,8 +41,8 @@ table2.createModel({
     },
 });
 
-createManyToManyRelation('table1', 'table12', 'table2');
-
+//createOneToOneRelation('table1', 'table1Id', 'table2', 'id');
+//createOneToManyRelation('table1', 'table1newId', 'table2', 'id');
 
 
 

@@ -1,5 +1,6 @@
 import {QueryResult} from "pg";
 import {pgConfig} from "../../configs/pgConfig";
+import dbError from "../errors/dbError";
 
 export const createManyToManyRelation = async function (
     tableName: string,
@@ -19,6 +20,6 @@ export const createManyToManyRelation = async function (
         client.release();
         return res;
     } catch (err) {
-        throw new Error(`Error doing query: ${err}`);
+        dbError.QueryError(err)
     }
 };

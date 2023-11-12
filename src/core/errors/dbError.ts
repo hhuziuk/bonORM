@@ -5,16 +5,16 @@ class dbError extends Error {
     }
 
     static ExistingDataError(values: any[]){
-        return new dbError(`${values} already exists in database`);
+        throw new dbError(`${values} already exists in database`);
     }
     static ConnectionError(){
-        return new dbError(`Can not connect to database`);
+        throw new dbError(`Can not connect to database`);
     }
     static QueryError(message: any[]){
-        return new dbError(`Error doing query: ${message}`);
+        throw new dbError(`Error doing query: ${message}`);
     }
     static EmptyQuery(){
-        return new dbError(`No data for insertion`);
+        throw new dbError(`No data for insertion`);
     }
 }
 export default dbError;
