@@ -1,6 +1,7 @@
 import { Migration } from "./migration-test";
 import { QueryResult } from 'pg';
 import fs from 'fs';
+import {queryResult} from "pg-promise";
 
 export const generateMigration = (argv: any) => {
     const createFileName = `MigrationV${new Date().getTime()}.ts`;
@@ -24,11 +25,11 @@ export const generateMigration = (argv: any) => {
 };
 
 export const runMigration = async (argv: any) => {
-    // Логіка для виконання міграції
-    // Зчитайте ім'я міграції з аргументів та викличте відповідний метод в вашому ORM
+    const migrationName = argv._[2];
+    const migration = new Migration();
+    //await migration.up();
 };
 
 export const rollbackMigration = async (argv: any) => {
-    // Логіка для відката міграції
-    // Зчитайте ім'я міграції з аргументів та викличте відповідний метод в вашому ORM
+
 };
