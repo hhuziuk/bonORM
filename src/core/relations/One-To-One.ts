@@ -1,5 +1,6 @@
 import {pgConfig} from "../../configs/pgConfig";
 import {QueryResult} from "pg";
+import dbError from "../errors/dbError";
 
 export const createOneToOneRelation = async function(
     tableName: string,
@@ -15,6 +16,6 @@ export const createOneToOneRelation = async function(
         client.release();
         return res;
     } catch (err) {
-        throw new Error(`Error doing query: ${err}`);
+        dbError.QueryError(err);
     }
 };

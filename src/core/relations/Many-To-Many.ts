@@ -1,7 +1,7 @@
-import {pgConfig} from "../../configs/pgConfig";
 import {QueryResult} from "pg";
+import {pgConfig} from "../../configs/pgConfig";
 
-export const createManyToManyRelation = async function(
+export const createManyToManyRelation = async function (
     tableName: string,
     intermediateTableName: string,
     referenceTableName: string
@@ -12,7 +12,7 @@ export const createManyToManyRelation = async function(
         "${tableName}Id" INTEGER REFERENCES "${tableName}" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
         "${referenceTableName}Id" INTEGER REFERENCES "${referenceTableName}" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
         PRIMARY KEY ("${tableName}Id","${referenceTableName}Id")
-)`;
+  )`;
     try {
         const client = await pgConfig.connect();
         const res: QueryResult = await client.query(query);
