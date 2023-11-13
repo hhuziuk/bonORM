@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "generate:migration": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm generate:migration",
+    "generate:migration": "ts-node ./src/core/migrations/cli.ts generate:migration ./src/core/testMigrations ",
     "up:migration": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run up:migration",
     "down:migration": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert down:migration"
   },
