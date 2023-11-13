@@ -3,9 +3,8 @@ import fs from 'fs';
 
 export const generateMigration = (argv: any) => {
     const path = argv.path || '.';
-    const createFileName = `${path}/MigrationV${new Date().getTime()}.ts`;
+    const createFileName = `MigrationV${new Date().getTime()}.ts`;
     const migrationFile = `
-    import {MigrationInterface} from "./migrationInterface";
     import {QueryResult} from "pg";
     export class ${createFileName.replace('.ts', '')} implements MigrationInterface {
       migrationName = '${createFileName.replace('.ts', '')}';
