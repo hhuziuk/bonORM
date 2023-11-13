@@ -5,8 +5,7 @@ import {queryResult} from "pg-promise";
 
 export const generateMigration = (argv: any) => {
     const createFileName = `MigrationV${new Date().getTime()}.ts`;
-    const migrationFile =
-        `
+    const migrationFile = `
         import {MigrationInterface} from "./migrationInterface";
         import {QueryResult} from "pg";
         export class ${createFileName.replace('.ts', '')} implements MigrationInterface{
@@ -24,12 +23,14 @@ export const generateMigration = (argv: any) => {
     console.log(`Migration ${createFileName} generated successfully.`);
 };
 
-export const runMigration = async (argv: any) => {
-    const migrationName = argv._[2];
-    const migration = new Migration();
-    //await migration.up();
+export const runMigration = async (name: string) => {
+    const migrationModule = require(`./${name}`)
+    const migration = new Migration[name]();
+    await migration.up();
 };
 
-export const rollbackMigration = async (argv: any) => {
-
+export const rollbackMigration = async (name: string) => {
+    const migrationModule = require(`./${name}`);
+    const migration = new Migration[name]();
+    await migration.down();
 };
