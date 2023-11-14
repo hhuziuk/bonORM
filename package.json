@@ -1,16 +1,30 @@
 {
   "name": "bonorm",
   "version": "1.0.0",
-  "description": "",
+  "description": "![BonORM](https://github.com/hhuziuk/bonORM/blob/main/logo.jpeg?raw=true)",
   "main": "index.js",
+  "exports": {
+    ".": {
+      "import": "./index.ts",
+      "require": "./index.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "index.ts",
+    "src/"
+  ],
+  "bin": {
+    "bonorm": "index.js"
+  },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
     "generate:migration": "ts-node ./src/core/migrations/cli.ts generate:migration ./src/core/testMigrations ",
-    "up:migration": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run up:migration",
-    "down:migration": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert down:migration"
+    "up:migration": "ts-node ./node_modules/.bin/typeorm migration:run up:migration",
+    "down:migration": "ts-node ./node_modules/.bin/typeorm migration:revert down:migration"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "hhuziuk",
+  "license": "MIT",
   "dependencies": {
     "@types/express": "^4.17.20",
     "@types/pg": "^8.10.7",
@@ -21,5 +35,10 @@
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2",
     "yargs": "^17.7.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "hhuziuk"
   }
 }

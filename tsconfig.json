@@ -7,13 +7,23 @@
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./build",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "resolveJsonModule": true,
+    "allowJs": false,
+    "declaration": true,
+    "sourceRoot": "",
+    "outDir": "./types",
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "BonORM": ["./index.ts"]
+    },
+    "rootDir": "./src",
+    "types": ["node"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "typeRoots": ["./node_modules/@types", "./tools"]
-  }
+    "forceConsistentCasingInFileNames": true,
+    "checkJs": false,
+    "stripInternal": false,
+    "exactOptionalPropertyTypes": true
+  },
+  "include": ["./src/**/*.ts"]
 }

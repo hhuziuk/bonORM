@@ -1,49 +1,10 @@
-import express from "express"
-import {dataType} from "./src/core/data-types/data-types";
-import {Model} from "./src/core/entities/createModel";
-import {createOneToOneRelation} from "./src/core/relations/One-To-One";
-import {createManyToManyRelation} from "./src/core/relations/Many-To-Many";
-import {createOneToManyRelation} from "./src/core/relations/One-To-Many";
-
+import express from "express";
 const app = express();
 
-const table1: Model = new Model('table1');
-table1.createModel({
-    attributes: {
-        id: {
-            type: dataType.Integer,
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-        },
-        name: {
-            type: dataType.String,
-            unique: true,
-        },
-    },
-    options: {
-        timestamps: true,
-    },
-});
-
-const table2: Model = new Model('table2');
-table2.createModel({
-    attributes: {
-        id: {
-            type: dataType.Integer,
-            autoIncrement: true,
-            primaryKey: true,
-        },
-        email: {
-            type: dataType.String,
-            unique: true,
-        },
-    },
-});
-
-//createOneToOneRelation('table1', 'table1Id', 'table2', 'id');
-//createOneToManyRelation('table1', 'table1newId', 'table2', 'id');
-
-
-
-
+export * from './src/core/data-types/data-types';
+export * from './src/core/entities/createModel';
+export * from './src/core/migrations/createMigration';
+export * from './src/core/migrations/migrationInterface';
+export * from './src/core/relations/One-To-One';
+export * from './src/core/relations/Many-To-Many';
+export * from './src/core/relations/One-To-Many';
