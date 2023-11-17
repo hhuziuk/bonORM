@@ -23,7 +23,6 @@
     "forceConsistentCasingInFileNames": true,
     "checkJs": false,
     "stripInternal": false,
-    "exactOptionalPropertyTypes": true
   },
   "include": ["./src/**/*.ts"]
 }
