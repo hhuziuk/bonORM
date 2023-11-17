@@ -1,3 +1,3 @@
 node_modules/
 .env
-configs/pgConfig.ts/
+src/configs/pgConfig.ts
