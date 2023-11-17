@@ -1,6 +1,6 @@
 import fs from "fs";
 
-export const generatePgConfig = (argv: any) => {
+export const generateMySqlConfig = (argv: any) => {
     const path = argv.path || '.';
     const createFileName = `mySqlConfig.ts`;
     const configFile = `
