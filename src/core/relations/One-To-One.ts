@@ -8,7 +8,7 @@ export const createOneToOneRelation = async function(
     referenceTable: string,
     referenceKey: string
 ) {
-    const query = `${key} INTEGER UNIQUE REFERENCES ${referenceTable} ("${referenceKey}") ON DELETE SET NULL ON UPDATE CASCADE`;
+    const query = `${key} BIGINT UNIQUE REFERENCES ${referenceTable} ("${referenceKey}") ON DELETE SET NULL ON UPDATE CASCADE`;
     const alterQuery = `ALTER TABLE ${tableName} ADD ${query};`;
     try {
         const client = await pgConfig.connect();
@@ -16,7 +16,6 @@ export const createOneToOneRelation = async function(
         client.release();
         return res;
     } catch (err) {
-        throw new Error(`Error doing query: ${err}`);
-        //dbError.QueryError(err);
+        dbError.QueryError(err);
     }
 };
