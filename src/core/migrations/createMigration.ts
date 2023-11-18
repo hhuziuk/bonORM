@@ -3,6 +3,7 @@ import fs from 'fs';
 
 export const generateMigration = (argv: any) => {
     const path = argv.path || '.';
+    console.log(`PATH: ${path}`)
     const createFileName = `MigrationV${new Date().getTime()}.ts`;
     const migrationFile = `
     import {QueryResult} from "pg";

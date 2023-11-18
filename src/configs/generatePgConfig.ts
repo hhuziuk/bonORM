@@ -1,7 +1,7 @@
 import fs from "fs";
 
 export const generatePgConfig = (argv: any) => {
-    const path = argv.path || '.';
+    const path = argv || '.';
     const createFileName = `pgConfig.ts`;
     const configFile = `
         import { Pool } from 'pg';

@@ -19,9 +19,11 @@
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "generate:migration": "ts-node src/cli.ts generate:migration ./src/core/testMigrations ",
-    "up:migration": "ts-node ./node_modules/.bin/typeorm migration:run up:migration",
-    "down:migration": "ts-node ./node_modules/.bin/typeorm migration:revert down:migration"
+    "create:pgConfig": "ts-node src/cli.ts create:pgConfig ./src/configs",
+    "create:mySqlConfig": "ts-node src/cli.ts create:mySqlConfig ./src/configs",
+    "generate:migration": "ts-node src/cli.ts generate:migration ./src/core/testMigrations",
+    "up:migration": "ts-node src/cli.ts up:migration ./src/core/testMigrations",
+    "down:migration": "ts-node src/cli.ts down:migration ./src/core/testMigrations"
   },
   "author": "hhuziuk",
   "license": "MIT",

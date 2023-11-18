@@ -2,7 +2,7 @@ import fs from "fs";
 
 export const generateMySqlConfig = (argv: any) => {
     const path = argv.path || '.';
-    const createFileName = `mySqlConfig.ts`;
+    const createFileName = `${path}/mySqlConfig.ts`;
     const configFile = `
         import {createPool} from 'mysql';
 
