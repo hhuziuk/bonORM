@@ -22,8 +22,8 @@
     "create:pgConfig": "ts-node src/cli.ts create:pgConfig ./src/configs",
     "create:mySqlConfig": "ts-node src/cli.ts create:mySqlConfig ./src/configs",
     "generate:migration": "ts-node src/cli.ts generate:migration ./src/core/testMigrations",
-    "up:migration": "ts-node src/cli.ts up:migration ./src/core/testMigrations",
-    "down:migration": "ts-node src/cli.ts down:migration ./src/core/testMigrations"
+    "up:migration": "ts-node src/cli.ts up:migration ./src/core/testMigrations/MigrationV1700340410907.ts",
+    "down:migration": "ts-node src/cli.ts down:migration ./src/core/testMigrations/MigrationV1700340410907.ts"
   },
   "author": "hhuziuk",
   "license": "MIT",
