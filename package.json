@@ -1,6 +1,6 @@
 {
   "name": "bonorm",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "BonORM is my implementation of an object-relational mapping (ORM) designed for use on the NodeJS platform and in projects developed using Typescript.",
   "main": "index.js",
   "exports": {
