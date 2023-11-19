@@ -1,11 +1,11 @@
 {
   "name": "bonorm",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "BonORM is my implementation of an object-relational mapping (ORM) designed for use on the NodeJS platform and in projects developed using Typescript.",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hhuziuk/bonORM.git"
+    "url": "hhuziuk"
   },
   "exports": {
     ".": {
@@ -43,9 +43,5 @@
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2",
     "yargs": "^17.7.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "hhuziuk"
   }
 }
