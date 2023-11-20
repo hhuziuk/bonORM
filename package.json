@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "hhuziuk"
+    "url": "https://github.com/hhuziuk/bonORM.git"
   },
   "exports": {
     ".": {
