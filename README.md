@@ -28,3 +28,36 @@
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+BonORM is my own implementation of an object-relational mapping (ORM) designed for use on the NodeJS platform and in projects developed using Typescript. I created this tool to ensure that users can use only the tools they need for their work, making the process of interacting with the database much easier and more enjoyable. BonORM makes it easy to interact with the database, providing efficient management of objects and their relationships so that your development is more productive.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Built With
+
+This section describes the technologies and frameworks ORM can be used with.
+
+[![Technologies](https://skillicons.dev/icons?i=ts,postgres&perline=5)](https://skillicons.dev)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+* npm (as a simple dependency)
+  ```sh
+  npm i bonorm
+  ```
+* npm (as a dev dependency)
+  ```sh
+  npm install bonorm --save-dev
+  ```
