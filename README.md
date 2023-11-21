@@ -70,4 +70,11 @@ TEXT
   ```sh
   npm run create:pgConfig <path> 
   ```
+* Your script block in package.json
+  ```json
+  "scripts": {
+  "create:pgConfig": "ts-node src/cli.ts create:pgConfig",
+  "create:mySqlConfig": "ts-node src/cli.ts create:mySqlConfig"
+  }
+  ```
   
