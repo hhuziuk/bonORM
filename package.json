@@ -23,8 +23,8 @@
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "create:pgConfig": "ts-node src/cli.ts create:pgConfig ./src/configs",
-    "create:mySqlConfig": "ts-node src/cli.ts create:mySqlConfig ./src/configs",
+    "create:pgConfig": "ts-node src/cli.ts create:pgConfig",
+    "create:mySqlConfig": "ts-node src/cli.ts create:mySqlConfig",
     "generate:migration": "ts-node src/cli.ts generate:migration ./src/core/testMigrations",
     "up:migration": "ts-node src/cli.ts up:migration ./src/core/testMigrations/MigrationV1700340410907.ts",
     "down:migration": "ts-node src/cli.ts down:migration ./src/core/testMigrations/MigrationV1700340410907.ts"

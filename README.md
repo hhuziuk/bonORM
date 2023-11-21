@@ -47,12 +47,10 @@ This section describes the technologies and frameworks ORM can be used with.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+TEXT
 
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
+### Installation
+TEXT
 * npm (as a simple dependency)
   ```sh
   npm i bonorm
@@ -61,3 +59,15 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   npm install bonorm --save-dev
   ```
+
+### Configuration files 
+
+* Create configuartion file for MySQL
+  ```sh
+  npm run create:mySqlConfig <path> 
+  ```
+* Create configuartion file for PostgreSQL
+  ```sh
+  npm run create:pgConfig <path> 
+  ```
+  
