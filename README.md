@@ -19,10 +19,11 @@
       <ul>
         <li><a href="#data-types">Data types</a></li>
         <li><a href="#entity">Entity</a></li>
+        <li><a href="#errors">Errors</a></li>
         <li><a href="#migrations">Migrations</a></li>
+        <li><a href="#basic-operations">Basic operations</a></li>
         <li><a href="#relations">Relations</a></li>
       </ul>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
