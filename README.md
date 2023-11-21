@@ -1,8 +1,6 @@
 <a name="readme-top"></a>
 # BonORM
 ![BonORM](https://github.com/hhuziuk/bonORM/blob/main/logo.jpeg?raw=true)
-<details>
-  <summary>Table of Contents</summary>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
@@ -29,4 +27,3 @@
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
-</details>
