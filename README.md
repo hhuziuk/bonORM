@@ -46,11 +46,11 @@ This section describes the technologies and frameworks ORM can be used with.
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
-TEXT
-
 ### Installation
-TEXT
+
+Here you can get in touch with installation and basic setup guide
+
+Firstly, you should install a package from npm
 * npm (as a simple dependency)
   ```sh
   npm i bonorm
@@ -62,6 +62,8 @@ TEXT
 
 ### Configuration files 
 
+If you want to get start with concrete database, you can generate a desirable configuration
+
 * Create configuartion file for MySQL
   ```sh
   npm run create:mySqlConfig <path> 
@@ -70,7 +72,7 @@ TEXT
   ```sh
   npm run create:pgConfig <path> 
   ```
-* Your script block in package.json
+* Your script block in package.json should look like this code snippet:
   ```json
   "scripts": {
   "create:pgConfig": "ts-node src/cli.ts create:pgConfig",
@@ -79,6 +81,15 @@ TEXT
   ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- FEATURES -->
+## Features
+### Data types
+### Entity
+### Errors
+### Migrations
+### Migrations
+### Basic operations
+### Relations
 
 <!-- CONTRIBUTING -->
 ## Contributing
