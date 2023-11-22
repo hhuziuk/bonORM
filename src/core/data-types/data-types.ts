@@ -5,5 +5,6 @@ export enum dataType {
     Boolean = 'BOOLEAN',
     Array = 'ARRAY',
     Object = 'JSON',
-    Enum = 'ENUM'
+    Enum = 'ENUM',
+    UUID = 'UUID'
 };
