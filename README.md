@@ -125,7 +125,30 @@ To access a built-in data type, you must import dataTypes:
 ### Entity
 ### Errors
 ### Migrations
-### Migrations
+You can also use the migration generator and additional tools to install and roll back migrations.
+To generate migrations, you need to add a few lines of code to the `"scripts"` area of the `package.json` file:
+```json
+"scripts": {
+    "generate:migration": "ts-node node_modules/bonorm/src/cli.ts generate:migration <path to directory>",
+    "up:migration": "ts-node node_modules/bonorm/src/cli.ts up:migration <path to file with generated migration>",
+    "down:migration": "ts-node node_modules/bonorm/src/cli.ts down:migration <path to file with generated migration>"
+  }
+```
+Here is an example of a generated migration file named `MigrationV1700835172879.ts`:
+```ts
+import {MigrationInterface} from "bonorm"
+import {QueryResult} from "pg";
+export class MigrationV1700835172879 implements MigrationInterface {
+    migrationName = 'MigrationV1700835172879';
+    public async up(query: QueryResult) {
+        // Your migration logic
+    }
+    public async down(query: QueryResult) {
+        // Your rollback logic
+    }
+}
+export { MigrationV1700835172879 as Migration };
+```
 ### Basic operations
 ### Relations
 
