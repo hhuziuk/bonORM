@@ -84,6 +84,44 @@ If you want to get start with concrete database, you can generate a desirable co
 <!-- FEATURES -->
 ## Features
 ### Data types
+In this section, you can learn more about the available data types that ORM works with.
+To access a built-in data type, you must import dataTypes:
+  ```ts
+  import {dataType} from "BonORM";
+  ```
+#### Numbers
+  ```ts
+  dataType.Integer // INTEGER
+  ```
+#### Strings
+  ```ts
+  dataType.String
+  ```
+#### Dates
+  ```ts
+  dataType.Date
+  ```
+#### Enum
+  ```ts
+  dataType.Enum
+  ```
+#### JSON
+  ```ts
+  dataType.Object
+  ```
+#### Arrays
+  ```ts
+  dataType.Array
+  ```
+#### Boolean
+  ```ts
+  dataType.Boolean
+  ```
+#### UUID
+  ```ts
+  dataType.UUID
+  ```
+
 ### Entity
 ### Errors
 ### Migrations
