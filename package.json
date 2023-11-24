@@ -1,6 +1,6 @@
 {
   "name": "bonorm",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "BonORM is my implementation of an object-relational mapping (ORM) designed for use on the NodeJS platform and in projects developed using Typescript.",
   "main": "index.js",
   "repository": {
@@ -23,11 +23,11 @@
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "create:pgConfig": "ts-node src/cli.ts create:pgConfig",
-    "create:mySqlConfig": "ts-node src/cli.ts create:mySqlConfig",
-    "generate:migration": "ts-node src/cli.ts generate:migration ./src/core/testMigrations",
-    "up:migration": "ts-node src/cli.ts up:migration ./src/core/testMigrations/MigrationV1700340410907.ts",
-    "down:migration": "ts-node src/cli.ts down:migration ./src/core/testMigrations/MigrationV1700340410907.ts"
+    "create:pgConfig": "ts-node node_modules/bonorm/src/cli.ts create:pgConfig",
+    "create:mySqlConfig": "ts-node node_modules/bonorm/src/cli.ts create:mySqlConfig",
+    "generate:migration": "ts-node node_modules/bonorm/src/cli.ts generate:migration ./src/core/testMigrations",
+    "up:migration": "ts-node node_modules/bonorm/src/cli.ts up:migration ./src/core/testMigrations/MigrationV1700340410907.ts",
+    "down:migration": "ts-node node_modules/bonorm/src/cli.ts down:migration ./src/core/testMigrations/MigrationV1700340410907.ts"
   },
   "author": "hhuziuk",
   "license": "MIT",
@@ -36,6 +36,7 @@
     "@types/mysql": "^2.15.24",
     "@types/pg": "^8.10.7",
     "@types/yargs": "^17.0.31",
+    "bonorm": "^1.0.5",
     "express": "^4.18.2",
     "mysql": "^2.18.1",
     "pg": "^8.11.3",
