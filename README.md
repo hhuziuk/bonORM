@@ -11,7 +11,6 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -151,6 +150,21 @@ export { MigrationV1700835172879 as Migration };
 ```
 ### Basic operations
 ### Relations
+ORM also makes it possible to create relations between databases. 
+Relations help you to work with related entities easily. 
+There are several types of relationships:
+<ul>
+<li><a href="#one-to-one">One-To-One</a></li>
+<li><a href="#one-to-many">One-To-Many</a></li>
+<li><a href="#many-to-many">Many-To-Many</a></li>
+</ul>
+
+#### One-To-One
+
+#### One-To-Many
+
+#### Many-To-Many
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
