@@ -9,8 +9,8 @@
   },
   "exports": {
     ".": {
-      "import": "./index.js",
-      "require": "./index.js"
+      "import": "./node_modules/bonorm/index.ts",
+      "require": "./node_modules/bonorm/index.ts"
     }
   },
   "files": [
