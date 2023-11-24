@@ -16,6 +16,7 @@
   "files": [
     "index.js",
     "index.ts",
+    "tsconfig.json",
     "src/"
   ],
   "bin": {

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es5",
+      "es6"
+    ],
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "sourceRoot": "",
+    "outDir": "./types",
+    "strict": false,
+    "baseUrl": "./",
+    "paths": {
+      "BonORM": ["./index.ts"]
+    },
+    "rootDir": "./src",
+    "types": ["node"],
+    "forceConsistentCasingInFileNames": true,
+    "checkJs": false,
+    "stripInternal": false,
+  },
+  "include": ["./src/**/*.ts"]
+}
