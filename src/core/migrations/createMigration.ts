@@ -9,6 +9,7 @@ export const generateMigration = (argv: any) => {
     const fileName = `MigrationV${new Date().getTime()}`;
     const createFileName = `${path}/${fileName}.ts`;
     const migrationFile = `
+import {MigrationInterface} from "bonorm"
 import {QueryResult} from "pg";
 export class ${fileName} implements MigrationInterface {
     migrationName = '${fileName}';
