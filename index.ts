@@ -1,4 +1,4 @@
-import express from "express";
+import express from "express"
 const app = express();
 
 export * from './src/core/data-types/data-types';

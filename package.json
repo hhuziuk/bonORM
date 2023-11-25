@@ -26,6 +26,7 @@
   "bin": {
     "bonorm": "index.js"
   },
+  "module": "module",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
     "create:pgConfig": "ts-node node_modules/bonorm/src/cli.ts create:pgConfig",
