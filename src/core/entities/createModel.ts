@@ -2,6 +2,7 @@ import { QueryResult } from "pg";
 import { pgConfig } from "../../configs/pgConfig";
 import { toolCommandsInterface } from "../tool-commands/tool-commands-interface";
 import dbError from "../errors/dbError";
+import * as console from "console";
 
 export class Model implements toolCommandsInterface {
     private readonly tableName: string;
@@ -31,9 +32,9 @@ export class Model implements toolCommandsInterface {
         take?: number;
     }): Promise<QueryResult> {
         let query: string = `SELECT ${
-            options.select && options.select.length > 0
-                ? options.select.join(', ')
-                : '*'
+                options.select && options.select.length > 0
+                        ? options.select.join(', ')
+                        : '*'
         } FROM ${this.tableName}`;
         query += options.relations && options.relations.length > 0
             ? ` LEFT JOIN ${options.relations.join(" LEFT JOIN ")}`
@@ -130,7 +131,10 @@ export class Model implements toolCommandsInterface {
         const { attributes, options } = schema;
         const columns = Object.keys(attributes).map(attribute => {
             const { type, unique, allowNull, defaultValue, autoIncrement, primaryKey } = attributes[attribute];
-            let columnDefinition: string = `${attribute} ${type.key}`;
+            if (!type) {
+                dbError.QueryError(`Type for attribute ${attribute} is undefined.`);
+            }
+            let columnDefinition: string = `${attribute} ${type}`;
             if (unique) columnDefinition += " UNIQUE";
             if (!allowNull) columnDefinition += " NOT NULL";
             if (defaultValue) {
@@ -141,7 +145,7 @@ export class Model implements toolCommandsInterface {
                 }
             }
             if (primaryKey) columnDefinition += " PRIMARY KEY";
-            if (autoIncrement && type.key === 'INTEGER') {
+            if (autoIncrement && type === 'INTEGER') {
                 columnDefinition += " GENERATED ALWAYS AS IDENTITY";
             }
             return columnDefinition;

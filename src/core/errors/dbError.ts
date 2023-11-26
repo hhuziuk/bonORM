@@ -10,7 +10,7 @@ class dbError extends Error {
     static ConnectionError(){
         throw new dbError(`Can not connect to database`);
     }
-    static QueryError(message: any[]){
+    static QueryError(message: any[] | string){
         throw new dbError(`Error doing query: ${message}`);
     }
     static EmptyQuery(){

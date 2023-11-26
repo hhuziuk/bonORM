@@ -3,7 +3,7 @@ declare class dbError extends Error {
     constructor(message?: string, errors?: any[]);
     static ExistingDataError(values: any[]): void;
     static ConnectionError(): void;
-    static QueryError(message: any[]): void;
+    static QueryError(message: any[] | string): void;
     static EmptyQuery(): void;
 }
 export default dbError;
