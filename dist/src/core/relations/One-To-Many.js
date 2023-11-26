@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createOneToManyRelation = void 0;
-const pgConfig_1 = require("../../configs/pgConfig");
+const pgConfig_1 = require("../../../../../configs/pgConfig");
 const dbError_1 = __importDefault(require("../errors/dbError"));
 const createOneToManyRelation = function (tableName, key, referenceTable, referenceKey) {
     return __awaiter(this, void 0, void 0, function* () {

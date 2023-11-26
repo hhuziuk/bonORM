@@ -29,7 +29,7 @@
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "create:pgConfig": "ts-node node_modules/bonorm/src/cli.ts create:pgConfig",
+    "create:pgConfig": "ts-node node_modules/bonorm/src/cli.ts create:pgConfig ",
     "create:mySqlConfig": "ts-node node_modules/bonorm/src/cli.ts create:mySqlConfig",
     "generate:migration": "ts-node node_modules/bonorm/src/cli.ts generate:migration <path>",
     "up:migration": "ts-node node_modules/bonorm/src/cli.ts up:migration <path>",

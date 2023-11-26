@@ -1,5 +1,5 @@
 import { QueryResult } from "pg";
-import { pgConfig } from "../../configs/pgConfig";
+import { pgConfig } from "../../../../../configs/pgConfig";
 import { toolCommandsInterface } from "../tool-commands/tool-commands-interface";
 import dbError from "../errors/dbError";
 import * as console from "console";

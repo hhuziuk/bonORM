@@ -36,7 +36,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Model = void 0;
-const pgConfig_1 = require("../../configs/pgConfig");
+const pgConfig_1 = require("../../../../../configs/pgConfig");
 const dbError_1 = __importDefault(require("../errors/dbError"));
 const console = __importStar(require("console"));
 class Model {
