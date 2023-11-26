@@ -78,6 +78,41 @@ If you want to get start with concrete database, you can generate a desirable co
   "create:mySqlConfig": "ts-node src/cli.ts create:mySqlConfig"
   }
   ```
+* Also, to connect to the database you need to create a folder called `configs` in the working 
+directory, and generate the config file there, here's how this process looks like:
+  ```sh
+  cd <your project name>
+  mkdir configs
+  npm run create:pgConfig ./configs
+  ```
+* Then you need to provide all the necessary information about the database 
+in place of the brackets:
+```ts
+// pgConfig.ts
+import { Pool } from 'pg';
+export const pgConfig = new Pool({
+  user: 'username of your database',
+  host: 'name of your host',
+  database: 'name of your database',
+  password: 'password for your database',
+  port: 5432, // or any other port
+  // you can also add any other configurations
+});
+```
+
+```ts
+// mySqlConfig.ts
+import {createPool} from 'mysql';
+export const mySqlConfig  = createPool({
+  // connectionLimit : 10,
+  host: 'name of your host(for example localhost)',
+  user: 'username of your database',
+  password: 'password for your database',
+  database: 'name of your database',
+  // you can also add any other configurations
+});
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FEATURES -->
