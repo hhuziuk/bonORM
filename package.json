@@ -21,6 +21,7 @@
     "index.js",
     "index.ts",
     "tsconfig.json",
+    "dist/",
     "src/"
   ],
   "bin": {
