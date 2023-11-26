@@ -74,8 +74,8 @@ If you want to get start with concrete database, you can generate a desirable co
 * Your script block in package.json should look like this code snippet:
   ```json
   "scripts": {
-  "create:pgConfig": "ts-node src/cli.ts create:pgConfig",
-  "create:mySqlConfig": "ts-node src/cli.ts create:mySqlConfig"
+  "create:pgConfig": "ts-node node_modules/bonorm/src/cli.ts create:pgConfig",
+  "create:mySqlConfig": "ts-node node_modules/bonorm/src/cli.ts create:mySqlConfig"
   }
   ```
 * Also, to connect to the database you need to create a folder called `configs` in the working 
@@ -231,6 +231,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 Heorhii Huziuk - huziukwork@gmail.com
+
+Why BonOrm?(it's like a word game with Bono and ORM): https://en.wikipedia.org/wiki/Bono
 
 Project link: [https://github.com/hhuziuk/bonORM.git](https://github.com/hhuziuk/bonORM.git)
 
