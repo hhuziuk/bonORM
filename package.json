@@ -9,12 +9,12 @@
   },
   "exports": {
     ".": {
-      "import": "./index.ts",
-      "require": "./index.ts"
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
     },
     "./node_modules/bonorm/": {
-      "import": "./index.ts",
-      "require": "./index.ts"
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
     }
   },
   "files": [
@@ -30,9 +30,9 @@
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
     "create:pgConfig": "ts-node node_modules/bonorm/src/cli.ts create:pgConfig",
     "create:mySqlConfig": "ts-node node_modules/bonorm/src/cli.ts create:mySqlConfig",
-    "generate:migration": "ts-node node_modules/bonorm/src/cli.ts generate:migration ./src/core/testMigrations",
-    "up:migration": "ts-node node_modules/bonorm/src/cli.ts up:migration ./src/core/testMigrations/MigrationV1700340410907.ts",
-    "down:migration": "ts-node node_modules/bonorm/src/cli.ts down:migration ./src/core/testMigrations/MigrationV1700340410907.ts"
+    "generate:migration": "ts-node node_modules/bonorm/src/cli.ts generate:migration <path>",
+    "up:migration": "ts-node node_modules/bonorm/src/cli.ts up:migration <path>",
+    "down:migration": "ts-node node_modules/bonorm/src/cli.ts down:migration <path>"
   },
   "author": "hhuziuk",
   "license": "MIT",
@@ -41,7 +41,6 @@
     "@types/mysql": "^2.15.24",
     "@types/pg": "^8.10.7",
     "@types/yargs": "^17.0.31",
-    "bonorm": "^1.0.5",
     "express": "^4.18.2",
     "mysql": "^2.18.1",
     "pg": "^8.11.3",
