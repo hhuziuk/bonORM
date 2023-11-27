@@ -17,7 +17,7 @@
     <li><a href="#features">Features</a></li>
       <ul>
         <li><a href="#data-types">Data types</a></li>
-        <li><a href="#entity">Entity</a></li>
+        <li><a href="#models">Models</a></li>
         <li><a href="#errors">Errors</a></li>
         <li><a href="#migrations">Migrations</a></li>
         <li><a href="#basic-operations">Basic operations</a></li>
@@ -156,7 +156,57 @@ To access a built-in data type, you must import dataTypes:
   dataType.UUID
   ```
 
-### Entity
+### Models
+To create your own model, you need to use the Model class and pass the name of 
+the table to it as arguments. After that, you need to call the `createModel` 
+method and pass it the necessary attributes and options as arguments. 
+Here is an example:
+```ts
+import { Model, dataType } from 'bonorm';
+const table = new Model('Name');
+table.createModel({...}); // here you should add all the options and attributes you want to use
+```
+### Attributes
+```ts
+id: {
+    type: dataType.Integer, // define type of your attribute
+    unique: true, // other options...
+    allowNull: false,
+    timestamps: true,
+    autoIncrement: true
+}
+```
+### Options
+
+### Usage example
+In this code, a `Player` model is created with attributes `id` and `name`. 
+The `id` attribute is of type `integer`, `unique`, `not nullable`, and `auto-incremented`. 
+The `name` attribute is of type `string` and `unique`.
+Additionally, the model-wide option of timestamps is set to true, indicating the inclusion of creation and update timestamps.
+
+```ts
+import { Model, dataType } from 'bonorm';
+
+const table = new Model('Player');
+table.createModel({
+    attributes: {
+        id: {
+            type: dataType.Integer,
+            unique: true,
+            allowNull: false,
+            timestamps: true,
+            autoIncrement: true,
+        },
+        name: {
+            type: dataType.String,
+            unique: true
+        }
+    },
+    options: {
+        timestamps: true,
+    }
+});
+```
 ### Errors
 ### Migrations
 You can also use the migration generator and additional tools to install and roll back migrations.
