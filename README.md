@@ -232,6 +232,16 @@ table.createModel({
 ```
 
 ### Errors
+The `dbError` class is a custom error class extending the built-in Error class. 
+It is designed to handle various types of errors related to database operations.
+here is a typical example of using the `dbError` class to check for the presence 
+of a type in an attribute
+```ts
+if(!type) {
+  dbError.QueryError(`Type for attribute ${attribute} is undefined.`);
+}
+```
+
 #### ExistingDataError
 Throws an error when attempting to insert data that already exists in the database.
 ```ts
