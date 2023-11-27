@@ -232,6 +232,27 @@ table.createModel({
 ```
 
 ### Errors
+#### ExistingDataError
+Throws an error when attempting to insert data that already exists in the database.
+```ts
+static ExistingDataError(values: any[]);
+```
+#### ConnectionError
+Throws an error when unable to connect to the database.
+```ts
+static ConnectionError();
+```
+#### QueryError
+Throws an error when there is an issue with executing a database query.
+```ts
+static QueryError(message: any[] | string);
+```
+#### EmptyQuery
+Throws an error when attempting to perform a database query with no data for insertion.
+```ts
+static EmptyQuery();
+```
+
 ### Migrations
 You can also use the migration generator and additional tools to install and roll back migrations.
 To generate migrations, you need to add a few lines of code to the `"scripts"` area of the `package.json` file:
