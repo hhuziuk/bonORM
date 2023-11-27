@@ -299,7 +299,7 @@ There are several types of relationships:
 <li><a href="#many-to-many">Many-To-Many</a></li>
 </ul>
 
-* #### One-To-One
+* ### One-To-One
 In a one-to-one relationship, each record in one table is associated with exactly one 
 record in another table, and vice versa. This is achieved by having a foreign key in one table 
 that references the primary key of the other table.
@@ -339,7 +339,7 @@ The `"player"` table gets a foreign key column named `"teamId"` referencing the 
 in the `"team"` table. This relationship implies that each player can be associated with one team, 
 and each team can be associated with one player.
 
-* #### One-To-Many
+* ### One-To-Many
 In a one-to-many relationship, each record in the primary table can be associated with multiple 
 records in the related table, but each record in the related table is associated with only one 
 record in the primary table. This is typically implemented by having a foreign key in the related 
@@ -379,7 +379,7 @@ In the following example, a one-to-many relationship is established between the 
 `"Team"` tables. The primary table, "player," gains a foreign key column named `"teamId"` which references 
 the primary key `"id"` in the related table `"team"`.
 
-* #### Many-To-Many
+* ### Many-To-Many
 In a many-to-many relationship, each record in the primary table can be associated with multiple 
 records in the related table, and vice versa. This relationship is typically implemented using an 
 intermediate table that contains foreign keys referencing both primary tables.
