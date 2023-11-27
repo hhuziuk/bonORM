@@ -299,12 +299,123 @@ There are several types of relationships:
 <li><a href="#many-to-many">Many-To-Many</a></li>
 </ul>
 
-#### One-To-One
+* #### One-To-One
+In a one-to-one relationship, each record in one table is associated with exactly one 
+record in another table, and vice versa. This is achieved by having a foreign key in one table 
+that references the primary key of the other table.
+#### Arguments
+```ts
+createOneToManyRelation("tableName", "key", "referenceTable", "referenceKey");
+```
+Where:
 
-#### One-To-Many
+_**tableName:**_ The name of the primary table where the one-to-one relationship is being created.
 
-#### Many-To-Many
+_Example:_ `"player"`
 
+_**key:**_ The foreign key column to be added to the primary table `tableName` that references the related table's primary key.
+
+_Example:_ `"teamId"`
+
+_**referenceTable:**_ The name of the related table that forms the other side of the one-to-one relationship.
+
+_Example:_ `"team"`
+
+_**referenceTable:**_ The primary key column in the related table (`referenceTable`) that is being referenced by the foreign key in the primary table.
+
+_Example:_ `"id"`
+
+```ts
+import { createOneToOneRelation } from "bonorm"
+
+const playerTable = new Model('Player');
+// ...
+const teamTable = new Model('Team');
+// ...
+createOneToOneRelation("player", "teamId", "team", "id");
+```
+In this example, a one-to-one relationship is established between the `"Player"` and `"Team"` tables. 
+The `"player"` table gets a foreign key column named `"teamId"` referencing the primary key `"id"` 
+in the `"team"` table. This relationship implies that each player can be associated with one team, 
+and each team can be associated with one player.
+
+* #### One-To-Many
+In a one-to-many relationship, each record in the primary table can be associated with multiple 
+records in the related table, but each record in the related table is associated with only one 
+record in the primary table. This is typically implemented by having a foreign key in the related 
+table that refers to the primary key in the primary table.
+#### Arguments
+```ts
+createOneToManyRelation("tableName", "key", "referenceTable", "referenceKey");
+```
+Where:
+
+_**tableName:**_ The name of the primary table where the one-to-many relationship is being created.
+
+_Example:_ `"player"`
+
+_**key:**_ The foreign key column to be added to the primary table `tableName` that references the related table's primary key.
+
+_Example:_ `"teamId"`
+
+_**referenceTable:**_ The name of the related table that forms the other side of the one-to-many relationship.
+
+_Example:_ `"team"`
+
+_**referenceTable:**_ The primary key column in the related table (`referenceTable`) that is being referenced by the foreign key in the primary table.
+
+_Example:_ `"id"`
+
+```ts
+import { createOneToManyRelation } from "bonorm"
+
+const playerTable = new Model('Player');
+// ...
+const teamTable = new Model('Team');
+// ...
+createOneToManyRelation("player", "teamId", "team", "id");
+```
+In the following example, a one-to-many relationship is established between the `"Player"` and 
+`"Team"` tables. The primary table, "player," gains a foreign key column named `"teamId"` which references 
+the primary key `"id"` in the related table `"team"`.
+
+* #### Many-To-Many
+In a many-to-many relationship, each record in the primary table can be associated with multiple 
+records in the related table, and vice versa. This relationship is typically implemented using an 
+intermediate table that contains foreign keys referencing both primary tables.
+
+#### Arguments
+```ts
+createManyToManyRelation("tableName", "intermediateTableName", "referenceTable");
+```
+Where:
+
+_**tableName:**_ The name of the first primary table participating in the many-to-many relationship.
+
+_Example:_ `"player"`
+
+_**intermediateTableName:**_ The name of the intermediate table created to represent the many-to-many relationship.
+
+_Example:_ `"playerTeam"`
+
+_**referenceTable:**_ The name of the second primary table participating in the many-to-many relationship.
+
+_Example:_ `"team"`
+
+```ts
+import { createManyToManyRelation } from "bonorm"
+
+const playerTable = new Model('Player');
+// ...
+const teamTable = new Model('Team');
+// ...
+createManyToManyRelation("player", "playerTeam", "team");
+```
+In this example, a many-to-many relationship is established between the `"Player"` and `"Team"` 
+tables using the intermediate table `"PlayerTeam"` This allows each player to be associated with 
+multiple teams, and each team to be associated with multiple players. The createManyToManyRelation
+function is used to create the `"PlayerTeam"` table, which acts as a bridge between the `"Player"` 
+and `"Team"` tables, facilitating the many-to-many relationship.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
