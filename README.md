@@ -172,11 +172,34 @@ id: {
     type: dataType.Integer, // define type of your attribute
     unique: true, // other options...
     allowNull: false,
-    timestamps: true,
     autoIncrement: true
 }
 ```
-### Options
+
+* #### type
+Each attribute must be assigned a type, so you can use data types that already exist in `data-types`
+```ts
+type: dataType.Integer
+```
+Find more here: <a href="#data-types">data types</a>
+
+* #### unique
+To create an unique index you need to specify `{ unique: true }` in the attribute options
+* #### allowNull
+Makes column NULL or NOT NULL in the database. By default column is `allowNull: true`.
+* #### autoIncrement
+Indicates whether the attribute should auto-increment
+* #### defaultValue
+The `defaultValue` field in the context of creating a table model 
+in the database indicates the default value for a particular attribute of this table. 
+This value will be used for new records if no specific value is specified for this 
+attribute when inserting.
+```ts
+defaultValue: 'Unknown'
+```
+```ts
+defaultValue: 0
+```
 
 ### Usage example
 In this code, a `Player` model is created with attributes `id` and `name`. 
@@ -207,6 +230,7 @@ table.createModel({
     }
 });
 ```
+
 ### Errors
 ### Migrations
 You can also use the migration generator and additional tools to install and roll back migrations.

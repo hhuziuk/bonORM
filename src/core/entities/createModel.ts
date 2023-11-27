@@ -138,11 +138,7 @@ export class Model implements toolCommandsInterface {
             if (unique) columnDefinition += " UNIQUE";
             if (!allowNull) columnDefinition += " NOT NULL";
             if (defaultValue) {
-                if (typeof defaultValue === 'string') {
-                    columnDefinition += ` DEFAULT '${defaultValue}'`;
-                } else {
-                    columnDefinition += ` DEFAULT ${defaultValue}`;
-                }
+                (typeof defaultValue === 'string') ? columnDefinition += ` DEFAULT '${defaultValue}'` : columnDefinition += ` DEFAULT ${defaultValue}`;
             }
             if (primaryKey) columnDefinition += " PRIMARY KEY";
             if (autoIncrement && type === 'INTEGER') {
