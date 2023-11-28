@@ -289,6 +289,17 @@ export class MigrationV1700835172879 implements MigrationInterface {
 export { MigrationV1700835172879 as Migration };
 ```
 ### Basic operations
+
+* ### create
+
+* ### find
+
+* ### finOne
+
+* ### save
+
+* ### delete
+
 ### Relations
 ORM also makes it possible to create relations between databases. 
 Relations help you to work with related entities easily. 
