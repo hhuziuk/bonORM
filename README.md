@@ -294,7 +294,7 @@ export { MigrationV1700835172879 as Migration };
 
 * ### find
 
-* ### finOne
+* ### findOne
 
 * ### save
 
