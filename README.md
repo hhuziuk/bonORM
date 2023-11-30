@@ -121,7 +121,7 @@ export const mySqlConfig  = createPool({
 In this section, you can learn more about the available data types that ORM works with.
 To access a built-in data type, you must import dataTypes:
   ```ts
-  import {dataType} from "BonORM";
+  import {dataType} from "bonorm";
   ```
 #### Numbers
   ```ts
