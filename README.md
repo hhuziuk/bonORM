@@ -315,6 +315,7 @@ const result = await dbModel.create(newData);
 The `find` function was designed
 to facilitate the retrieval of records from a specified database table based on specified criteria.
 This function supports asynchronous execution and returns a Promise that resolves to a QueryResult object.
+#### Example:
 ```ts
 const dbModel = new Model('Employers');
 const findResult = await dbModel.find({
@@ -332,6 +333,7 @@ const findResult = await dbModel.find({
 * **`skip`:** The number of records to skip (for pagination).
 * **`take`:** The maximum number of records to retrieve.
 
+#### Example:
 ```ts
 const dbModel = new Model('Employers');
 const findResult = await dbModel.find({
@@ -348,6 +350,20 @@ const findResult = await dbModel.find({
 * ### save
 
 * ### delete
+The `delete` function was designed to simplify
+the process of removing records from a specified database table. This function supports asynchronous execution
+and returns a Promise that resolves to a QueryResult object.
+
+#### Arguments:
+###### **options (required):**
+* **`where:`** A JavaScript object representing the conditions for the WHERE clause.
+#### Example:
+```ts
+const dbModel = new Model('Employers');
+const deleteResult = await dbModel.delete({
+  where: { id: 123 }
+});
+```
 
 ### Relations
 ORM also makes it possible to create relations between databases. 
