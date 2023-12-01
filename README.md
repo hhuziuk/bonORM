@@ -294,10 +294,10 @@ export { MigrationV1700835172879 as Migration };
 The `create` function designed to simplify the process of inserting new records into a specified database table.
 This function supports asynchronous execution and returns a Promise that resolves to a QueryResult object.
 ```ts
-playerTable.create({name: 'Tysin'});
+playerTable.create({name: 'Nazar'});
 ```
 #### Arguments:
-* **data (optional):** 
+* **`data(optional)`:**
 A JavaScript object representing the data to be inserted into 
 the database table. It should be in the form of key-value pairs, where keys correspond 
 to column names and values represent the data to be inserted.
@@ -310,9 +310,37 @@ const newData = {
   email: 'john.doe@example.com'
 };
 const result = await dbModel.create(newData);
-
 ```
 * ### find
+The `find` function was designed
+to facilitate the retrieval of records from a specified database table based on specified criteria.
+This function supports asynchronous execution and returns a Promise that resolves to a QueryResult object.
+```ts
+const findResult = await databaseManager.find({
+  select: ['id', 'name'],
+  where: { name: 'Example Team' },
+  order: { id: 'ASC' }
+});
+```
+#### Arguments:
+###### **options (required):**
+* **`select`:** An array of column names to be selected.
+* **`relations`:** An array of table names for LEFT JOIN operations.
+* **`where`:** A JavaScript object representing the conditions for the WHERE clause.
+* **`order`:** A JavaScript object representing the order criteria.
+* **`skip`:** The number of records to skip (for pagination).
+* **`take`:** The maximum number of records to retrieve.
+
+```ts
+const dbModel = new Model('Employers');
+const findResult = await databaseManager.find({
+    select: ['id', 'name'],
+    relations: ['relatedTable'],
+    where: { name: 'Example Team' },
+    order: { id: 'ASC' },
+    take: 1
+});
+```
 
 * ### findOne
 
