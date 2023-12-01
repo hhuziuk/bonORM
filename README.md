@@ -316,7 +316,8 @@ The `find` function was designed
 to facilitate the retrieval of records from a specified database table based on specified criteria.
 This function supports asynchronous execution and returns a Promise that resolves to a QueryResult object.
 ```ts
-const findResult = await databaseManager.find({
+const dbModel = new Model('Employers');
+const findResult = await dbModel.find({
   select: ['id', 'name'],
   where: { name: 'Example Team' },
   order: { id: 'ASC' }
@@ -333,7 +334,7 @@ const findResult = await databaseManager.find({
 
 ```ts
 const dbModel = new Model('Employers');
-const findResult = await databaseManager.find({
+const findResult = await dbModel.find({
     select: ['id', 'name'],
     relations: ['relatedTable'],
     where: { name: 'Example Team' },
