@@ -346,6 +346,17 @@ const findResult = await dbModel.find({
 ```
 
 * ### findOne
+The `findOne` function was designed to retrieve a single record from a specified database table based on specified criteria.
+This function supports asynchronous execution and returns a Promise that resolves to a QueryResult object.
+#### Arguments:
+###### **options (required):**
+* **`where`:** A JavaScript object representing the conditions for the WHERE clause.
+#### Example:
+```ts
+const data = await playerTable.find({
+    where: { name: "Nazar" }
+});
+```
 
 * ### save
 The `save` function was designed for updating existing records in a specified database table.
