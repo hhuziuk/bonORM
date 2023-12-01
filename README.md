@@ -348,6 +348,13 @@ const findResult = await dbModel.find({
 * ### findOne
 
 * ### save
+The `save` function was designed for updating existing records in a specified database table.
+This function supports asynchronous execution and returns a Promise that resolves to a QueryResult object.
+#### Example:
+```ts
+const dbModel = new Model('Employers');
+const saveResult = await dbModel.save();
+```
 
 * ### delete
 The `delete` function was designed to simplify
