@@ -135,6 +135,8 @@ export class Model implements toolCommandsInterface {
                 dbError.QueryError(`Type for attribute ${attribute} is undefined.`);
             }
             let columnDefinition: string = `${attribute} ${type}`;
+            // TODO: rewrite all "if" statements on ternary operators
+            /////
             if (unique) columnDefinition += " UNIQUE";
             if (!allowNull) columnDefinition += " NOT NULL";
             if (defaultValue) {
@@ -144,6 +146,7 @@ export class Model implements toolCommandsInterface {
             if (autoIncrement && type === 'INTEGER') {
                 columnDefinition += " GENERATED ALWAYS AS IDENTITY";
             }
+            ///////
             return columnDefinition;
         });
         let query: string = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${columns.join(", ")});`;

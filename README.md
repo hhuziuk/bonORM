@@ -291,7 +291,27 @@ export { MigrationV1700835172879 as Migration };
 ### Basic operations
 
 * ### create
+The `create` function designed to simplify the process of inserting new records into a specified database table.
+This function supports asynchronous execution and returns a Promise that resolves to a QueryResult object.
+```ts
+playerTable.create({name: 'Tysin'});
+```
+#### Arguments:
+* **data (optional):** 
+A JavaScript object representing the data to be inserted into 
+the database table. It should be in the form of key-value pairs, where keys correspond 
+to column names and values represent the data to be inserted.
+#### Usage:
+```ts
+const dbModel = new Model('Employers');
+const newData = {
+  name: 'John Doe',
+  age: 30,
+  email: 'john.doe@example.com'
+};
+const result = await dbModel.create(newData);
 
+```
 * ### find
 
 * ### findOne
