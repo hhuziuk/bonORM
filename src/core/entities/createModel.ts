@@ -135,18 +135,13 @@ export class Model implements toolCommandsInterface {
                 dbError.QueryError(`Type for attribute ${attribute} is undefined.`);
             }
             let columnDefinition: string = `${attribute} ${type}`;
-            // TODO: rewrite all "if" statements on ternary operators
-            /////
-            if (unique) columnDefinition += " UNIQUE";
-            if (!allowNull) columnDefinition += " NOT NULL";
+            columnDefinition += (unique) ? " UNIQUE" : "";
+            columnDefinition += (!allowNull) ? " NOT NULL" : "";
             if (defaultValue) {
                 (typeof defaultValue === 'string') ? columnDefinition += ` DEFAULT '${defaultValue}'` : columnDefinition += ` DEFAULT ${defaultValue}`;
             }
-            if (primaryKey) columnDefinition += " PRIMARY KEY";
-            if (autoIncrement && type === 'INTEGER') {
-                columnDefinition += " GENERATED ALWAYS AS IDENTITY";
-            }
-            ///////
+            columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
+            columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
             return columnDefinition;
         });
         let query: string = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${columns.join(", ")});`;
