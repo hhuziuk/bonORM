@@ -59,44 +59,59 @@ class Model {
     }
     find(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            let query = `SELECT ${options.select && options.select.length > 0
-                ? options.select.join(', ')
-                : '*'} FROM ${this.tableName}`;
-            query += options.relations && options.relations.length > 0
-                ? ` LEFT JOIN ${options.relations.join(" LEFT JOIN ")}`
-                : '';
-            query += options.where && Object.keys(options.where).length > 0
-                ? ` WHERE ${Object.keys(options.where)
-                    .map(key => typeof options.where[key] === 'string'
-                    ? `${key} = '${options.where[key]}'`
-                    : `${key} = ${options.where[key]}`)
-                    .join(" AND ")}`
-                : "";
-            query += options.order && Object.keys(options.order).length > 0
-                ? ` ORDER BY ${Object.keys(options.order)
+            let query;
+            if (options.select && options.select.length > 0) {
+                query = `SELECT ${options.select.join(', ')} FROM ${this.tableName}`;
+            }
+            else {
+                query = `SELECT * FROM ${this.tableName}`;
+            }
+            if (options.relations && options.relations.length > 0) {
+                query += ` LEFT JOIN ${options.relations.join(" LEFT JOIN ")}`;
+            }
+            else {
+                query += '';
+            }
+            if (options.where && Object.keys(options.where).length > 0) {
+                query += ` WHERE ${Object.keys(options.where)
+                    .map(key => typeof options.where[key] === 'string' ? `${key} = '${options.where[key]}'` : `${key} = ${options.where[key]}`)
+                    .join(" AND ")}`;
+            }
+            if (options.order && Object.keys(options.order).length > 0) {
+                query += ` ORDER BY ${Object.keys(options.order)
                     .map(key => `${key} ${options.order[key]}`)
-                    .join(", ")}`
-                : "";
-            query += options.skip && options.take
-                ? ` OFFSET ${options.skip} LIMIT ${options.take}`
-                : options.skip
-                    ? ` OFFSET ${options.skip}`
-                    : options.take
-                        ? ` LIMIT ${options.take}`
-                        : "";
+                    .join(", ")}`;
+            }
+            if ((options.skip && options.take)) {
+                query += ` OFFSET ${options.skip} LIMIT ${options.take}`;
+            }
+            else if (options.skip) {
+                query += ` OFFSET ${options.skip}`;
+            }
+            else if (options.take) {
+                query += ` LIMIT ${options.take}`;
+            }
             return this.runQuery(query);
         });
     }
     findOne(options) {
         return __awaiter(this, void 0, void 0, function* () {
             let query = `SELECT * FROM ${this.tableName}`;
-            query += options.where && Object.keys(options.where).length > 0
-                ? ` WHERE ${Object.keys(options.where)
-                    .map(key => typeof options.where[key] === 'string'
-                    ? `${key} = '${options.where[key]}'`
-                    : `${key} = ${options.where[key]}`)
-                    .join(" AND ")}`
-                : "";
+            if (options.where && Object.keys(options.where).length > 0) {
+                ` WHERE ${Object.keys(options.where)
+                    .map(function (key) {
+                    if (typeof options.where[key] === 'string') {
+                        `${key} = '${options.where[key]}'`;
+                    }
+                    else {
+                        `${key} = ${options.where[key]}`;
+                    }
+                })
+                    .join(" AND ")}`;
+            }
+            else {
+                query += "";
+            }
             return this.runQuery(query);
         });
     }
@@ -132,13 +147,21 @@ class Model {
     delete(options) {
         return __awaiter(this, void 0, void 0, function* () {
             let query = `DELETE FROM ${this.tableName}`;
-            query += options.where && Object.keys(options.where).length > 0
-                ? ` WHERE ${Object.keys(options.where)
-                    .map(key => typeof options.where[key] === 'string'
-                    ? `${key} = '${options.where[key]}'`
-                    : `${key} = ${options.where[key]}`)
-                    .join(" AND ")}`
-                : "";
+            if (options.where && Object.keys(options.where).length > 0) {
+                query += " WHERE " + Object.keys(options.where)
+                    .map(function (key) {
+                    if (typeof options.where[key] === 'string') {
+                        return key + " = '" + options.where[key] + "'";
+                    }
+                    else {
+                        return key + " = " + options.where[key];
+                    }
+                })
+                    .join(" AND ");
+            }
+            else {
+                query += "";
+            }
             return this.runQuery(query);
         });
     }
@@ -150,23 +173,13 @@ class Model {
                 dbError_1.default.QueryError(`Type for attribute ${attribute} is undefined.`);
             }
             let columnDefinition = `${attribute} ${type}`;
-            if (unique)
-                columnDefinition += " UNIQUE";
-            if (!allowNull)
-                columnDefinition += " NOT NULL";
+            columnDefinition += (unique) ? " UNIQUE" : "";
+            columnDefinition += (!allowNull) ? " NOT NULL" : "";
             if (defaultValue) {
-                if (typeof defaultValue === 'string') {
-                    columnDefinition += ` DEFAULT '${defaultValue}'`;
-                }
-                else {
-                    columnDefinition += ` DEFAULT ${defaultValue}`;
-                }
+                (typeof defaultValue === 'string') ? columnDefinition += ` DEFAULT '${defaultValue}'` : columnDefinition += ` DEFAULT ${defaultValue}`;
             }
-            if (primaryKey)
-                columnDefinition += " PRIMARY KEY";
-            if (autoIncrement && type === 'INTEGER') {
-                columnDefinition += " GENERATED ALWAYS AS IDENTITY";
-            }
+            columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
+            columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
             return columnDefinition;
         });
         let query = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${columns.join(", ")});`;
