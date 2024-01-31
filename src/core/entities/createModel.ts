@@ -4,8 +4,39 @@ import { toolCommandsInterface } from "../tool-commands/tool-commands-interface"
 import dbError from "../errors/dbError";
 import * as console from "console";
 
+interface ColumnOptions {
+    type?: string;
+    unique?: boolean;
+    allowNull?: boolean;
+    defaultValue?: string | number;
+    autoIncrement?: boolean;
+    primaryKey?: boolean;
+}
+
+function Column(options: ColumnOptions = {}): PropertyDecorator {
+    return function (target: any, key: string) {
+        const columns = target._columns || {};
+        columns[key] = options;
+        target._columns = columns;
+    };
+}
+
+function Entity(tableName: string): ClassDecorator {
+    return function (target: any) {
+        target.prototype._tableName = tableName;
+    };
+}
+
+function PrimaryGeneratedColumn(): PropertyDecorator {
+    return function (target: any, key: string) {
+        target._primaryColumn = key;
+    };
+}
+
 export class Model implements toolCommandsInterface {
     private readonly tableName: string;
+    private _columns: Record<string, ColumnOptions> = {};
+    private _primaryColumn: string;
 
     public constructor(tableName: string) {
         this.tableName = tableName;
@@ -77,12 +108,12 @@ export class Model implements toolCommandsInterface {
         if(options.where && Object.keys(options.where).length > 0){
             ` WHERE ${Object.keys(options.where)
                 .map(function (key) {
-                        if(typeof options.where[key] === 'string'){
-                            `${key} = '${options.where[key]}'`
-                        } else {
-                            `${key} = ${options.where[key]}`
-                        }
-                    })
+                    if(typeof options.where[key] === 'string'){
+                        `${key} = '${options.where[key]}'`
+                    } else {
+                        `${key} = ${options.where[key]}`
+                    }
+                })
                 .join(" AND ")}`
         } else {
             query += "";
@@ -138,10 +169,9 @@ export class Model implements toolCommandsInterface {
         return this.runQuery(query);
     }
 
-    createModel(schema: any): Promise<QueryResult> {
-        const { attributes, options } = schema;
-        const columns = Object.keys(attributes).map(attribute => {
-            const { type, unique, allowNull, defaultValue, autoIncrement, primaryKey } = attributes[attribute];
+    createModel(): Promise<QueryResult> {
+        const columns = Object.keys(this._columns).map(attribute => {
+            const { type, unique, allowNull, defaultValue, autoIncrement, primaryKey } = this._columns[attribute];
             if (!type) {
                 dbError.QueryError(`Type for attribute ${attribute} is undefined.`);
             }
@@ -155,7 +185,7 @@ export class Model implements toolCommandsInterface {
             columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
             return columnDefinition;
         });
-        let query: string = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${columns.join(", ")});`;
+        let query: string = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${columns.join(",")});`;
         return this.runQuery(query);
     }
 }
