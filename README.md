@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 # BonORM
-![BonORM](https://github.com/hhuziuk/bonORM/blob/main/logo.jpeg?raw=true)
+![BonORM](https://github.com/hhuziuk/bonORM/blob/main/logo.PNG?raw=true)
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>

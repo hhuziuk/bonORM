@@ -74,7 +74,6 @@ export class Model implements toolCommandsInterface {
     }): Promise<QueryResult> {
 
         let query = `SELECT * FROM ${this.tableName}`;
-
         if(options.where && Object.keys(options.where).length > 0){
             ` WHERE ${Object.keys(options.where)
                 .map(function (key) {
@@ -88,7 +87,6 @@ export class Model implements toolCommandsInterface {
         } else {
             query += "";
         }
-
         return this.runQuery(query);
     }
 
@@ -123,7 +121,6 @@ export class Model implements toolCommandsInterface {
     async delete(options: {
         where?: Record<string, string | object>;
     }): Promise<QueryResult> {
-
         let query: string = `DELETE FROM ${this.tableName}`;
         if (options.where && Object.keys(options.where).length > 0) {
             query += " WHERE " + Object.keys(options.where)
@@ -138,7 +135,6 @@ export class Model implements toolCommandsInterface {
         } else {
             query += "";
         }
-
         return this.runQuery(query);
     }
 
