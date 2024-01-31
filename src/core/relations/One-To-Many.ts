@@ -1,4 +1,4 @@
-import { pgConfig } from "../../../../../configs/pgConfig";
+import { pgConfig } from "../../../../../configs/generatePgConfig";
 import {QueryResult} from "pg";
 import dbError from "../errors/dbError";
 
