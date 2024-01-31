@@ -26,41 +26,45 @@ export class Model implements toolCommandsInterface {
     async find(options: {
         select?: string[];
         relations?: string[];
-        where?: Record<string, any>;
+        where?: Record<string, string | object>;
         order?: Record<string, 'ASC' | 'DESC'>;
         skip?: number;
         take?: number;
     }): Promise<QueryResult> {
-        let query: string = `SELECT ${
-                options.select && options.select.length > 0
-                        ? options.select.join(', ')
-                        : '*'
-        } FROM ${this.tableName}`;
-        query += options.relations && options.relations.length > 0
-            ? ` LEFT JOIN ${options.relations.join(" LEFT JOIN ")}`
-            : '';
-        query += options.where && Object.keys(options.where).length > 0
-            ? ` WHERE ${Object.keys(options.where)
-                .map(
-                    key =>
-                        typeof options.where[key] === 'string'
-                            ? `${key} = '${options.where[key]}'`
-                            : `${key} = ${options.where[key]}`
-                )
-                .join(" AND ")}`
-            : "";
-        query += options.order && Object.keys(options.order).length > 0
-            ? ` ORDER BY ${Object.keys(options.order)
+
+        let query: string;
+
+        if(options.select && options.select.length > 0){
+            query = `SELECT ${options.select.join(', ')} FROM ${this.tableName}`;
+        } else {
+            query = `SELECT * FROM ${this.tableName}`;
+        }
+
+        if(options.relations && options.relations.length > 0){
+            query += ` LEFT JOIN ${options.relations.join(" LEFT JOIN ")}`;
+        } else {
+            query += '';
+        }
+
+        if(options.where && Object.keys(options.where).length > 0){
+            query += ` WHERE ${Object.keys(options.where)
+                .map(key => typeof options.where[key] === 'string' ? `${key} = '${options.where[key]}'` : `${key} = ${options.where[key]}`)
+                .join(" AND ")}`;
+        }
+
+        if(options.order && Object.keys(options.order).length > 0) {
+            query += ` ORDER BY ${Object.keys(options.order)
                 .map(key => `${key} ${options.order[key]}`)
-                .join(", ")}`
-            : "";
-        query += options.skip && options.take
-            ? ` OFFSET ${options.skip} LIMIT ${options.take}`
-            : options.skip
-                ? ` OFFSET ${options.skip}`
-                : options.take
-                    ? ` LIMIT ${options.take}`
-                    : "";
+                .join(", ")}`;
+        }
+
+        if((options.skip && options.take) ){
+            query += ` OFFSET ${options.skip} LIMIT ${options.take}`;
+        } else if(options.skip) {
+            query += ` OFFSET ${options.skip}`;
+        } else if(options.take) {
+            query += ` LIMIT ${options.take}`;
+        }
 
         return this.runQuery(query);
     }
