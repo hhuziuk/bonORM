@@ -1,4 +1,6 @@
 export * from './src/core/data-types/PgDataTypes';
+//export * from './src/core/data-types/mySqlDataTypes';
+export * from './src/validators/validator';
 export * from './src/core/entities/createModel';
 export * from './src/core/migrations/createMigration';
 export * from './src/core/migrations/migrationInterface';
