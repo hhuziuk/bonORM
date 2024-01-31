@@ -70,19 +70,25 @@ export class Model implements toolCommandsInterface {
     }
 
     async findOne(options: {
-        where?: Record<string, any>;
+        where?: Record<string, string | object>;
     }): Promise<QueryResult> {
+
         let query = `SELECT * FROM ${this.tableName}`;
-        query += options.where && Object.keys(options.where).length > 0
-            ? ` WHERE ${Object.keys(options.where)
-                .map(
-                    key =>
-                        typeof options.where[key] === 'string'
-                            ? `${key} = '${options.where[key]}'`
-                            : `${key} = ${options.where[key]}`
-                )
+
+        if(options.where && Object.keys(options.where).length > 0){
+            ` WHERE ${Object.keys(options.where)
+                .map(key => {
+                        if(typeof options.where[key] === 'string'){
+                            `${key} = '${options.where[key]}'`
+                        } else {
+                            `${key} = ${options.where[key]}`
+                        }
+                    })
                 .join(" AND ")}`
-            : "";
+        } else {
+            query += "";
+        }
+
         return this.runQuery(query);
     }
 
