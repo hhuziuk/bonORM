@@ -77,7 +77,7 @@ export class Model implements toolCommandsInterface {
 
         if(options.where && Object.keys(options.where).length > 0){
             ` WHERE ${Object.keys(options.where)
-                .map(key => {
+                .map(function (key) {
                         if(typeof options.where[key] === 'string'){
                             `${key} = '${options.where[key]}'`
                         } else {
@@ -121,19 +121,24 @@ export class Model implements toolCommandsInterface {
     }
 
     async delete(options: {
-        where?: Record<string, any>;
+        where?: Record<string, string | object>;
     }): Promise<QueryResult> {
+
         let query: string = `DELETE FROM ${this.tableName}`;
-        query += options.where && Object.keys(options.where).length > 0
-            ? ` WHERE ${Object.keys(options.where)
-                .map(
-                    key =>
-                        typeof options.where[key] === 'string'
-                            ? `${key} = '${options.where[key]}'`
-                            : `${key} = ${options.where[key]}`
-                )
-                .join(" AND ")}`
-            : "";
+        if (options.where && Object.keys(options.where).length > 0) {
+            query += " WHERE " + Object.keys(options.where)
+                .map(function (key) {
+                    if (typeof options.where[key] === 'string') {
+                        return key + " = '" + options.where[key] + "'";
+                    } else {
+                        return key + " = " + options.where[key];
+                    }
+                })
+                .join(" AND ");
+        } else {
+            query += "";
+        }
+
         return this.runQuery(query);
     }
 
