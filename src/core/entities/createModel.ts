@@ -24,6 +24,27 @@ export function Column(options: ColumnOptions = {}): PropertyDecorator {
 export function Entity(tableName: string): ClassDecorator {
     return function (target: any) {
         target.prototype._tableName = tableName;
+
+        target.prototype.createModel = async function (): Promise<QueryResult> {
+            const columns = Object.keys(this._columns).map(attribute => {
+                const { type, unique, allowNull, defaultValue, autoIncrement, primaryKey } = this._columns[attribute];
+                if (!type) {
+                    dbError.QueryError(`Type for attribute ${attribute} is undefined.`);
+                }
+                let columnDefinition: string = `${attribute} ${type}`;
+                columnDefinition += (unique) ? " UNIQUE" : "";
+                columnDefinition += (!allowNull) ? " NOT NULL" : "";
+                if (defaultValue) {
+                    (typeof defaultValue === 'string') ? columnDefinition += ` DEFAULT '${defaultValue}'` : columnDefinition += ` DEFAULT ${defaultValue}`;
+                }
+                columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
+                columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
+                return columnDefinition;
+            });
+
+            let query: string = `CREATE TABLE IF NOT EXISTS ${this._tableName} (${columns.join(",")});`;
+            return this.runQuery(query);
+        };
     };
 }
 
@@ -169,23 +190,4 @@ export class Model implements toolCommandsInterface {
         return this.runQuery(query);
     }
 
-    createModel(): Promise<QueryResult> {
-        const columns = Object.keys(this._columns).map(attribute => {
-            const { type, unique, allowNull, defaultValue, autoIncrement, primaryKey } = this._columns[attribute];
-            if (!type) {
-                dbError.QueryError(`Type for attribute ${attribute} is undefined.`);
-            }
-            let columnDefinition: string = `${attribute} ${type}`;
-            columnDefinition += (unique) ? " UNIQUE" : "";
-            columnDefinition += (!allowNull) ? " NOT NULL" : "";
-            if (defaultValue) {
-                (typeof defaultValue === 'string') ? columnDefinition += ` DEFAULT '${defaultValue}'` : columnDefinition += ` DEFAULT ${defaultValue}`;
-            }
-            columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
-            columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
-            return columnDefinition;
-        });
-        let query: string = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${columns.join(",")});`;
-        return this.runQuery(query);
-    }
 }

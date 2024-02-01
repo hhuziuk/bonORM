@@ -33,7 +33,6 @@ export declare class Model implements toolCommandsInterface {
     delete(options: {
         where?: Record<string, string | object>;
     }): Promise<QueryResult>;
-    createModel(): Promise<QueryResult>;
 }
 export {};
 //# sourceMappingURL=createModel.d.ts.map

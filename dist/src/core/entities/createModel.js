@@ -50,6 +50,27 @@ exports.Column = Column;
 function Entity(tableName) {
     return function (target) {
         target.prototype._tableName = tableName;
+        target.prototype.createModel = function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                const columns = Object.keys(this._columns).map(attribute => {
+                    const { type, unique, allowNull, defaultValue, autoIncrement, primaryKey } = this._columns[attribute];
+                    if (!type) {
+                        dbError_1.default.QueryError(`Type for attribute ${attribute} is undefined.`);
+                    }
+                    let columnDefinition = `${attribute} ${type}`;
+                    columnDefinition += (unique) ? " UNIQUE" : "";
+                    columnDefinition += (!allowNull) ? " NOT NULL" : "";
+                    if (defaultValue) {
+                        (typeof defaultValue === 'string') ? columnDefinition += ` DEFAULT '${defaultValue}'` : columnDefinition += ` DEFAULT ${defaultValue}`;
+                    }
+                    columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
+                    columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
+                    return columnDefinition;
+                });
+                let query = `CREATE TABLE IF NOT EXISTS ${this._tableName} (${columns.join(",")});`;
+                return this.runQuery(query);
+            });
+        };
     };
 }
 exports.Entity = Entity;
@@ -185,25 +206,6 @@ class Model {
             }
             return this.runQuery(query);
         });
-    }
-    createModel() {
-        const columns = Object.keys(this._columns).map(attribute => {
-            const { type, unique, allowNull, defaultValue, autoIncrement, primaryKey } = this._columns[attribute];
-            if (!type) {
-                dbError_1.default.QueryError(`Type for attribute ${attribute} is undefined.`);
-            }
-            let columnDefinition = `${attribute} ${type}`;
-            columnDefinition += (unique) ? " UNIQUE" : "";
-            columnDefinition += (!allowNull) ? " NOT NULL" : "";
-            if (defaultValue) {
-                (typeof defaultValue === 'string') ? columnDefinition += ` DEFAULT '${defaultValue}'` : columnDefinition += ` DEFAULT ${defaultValue}`;
-            }
-            columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
-            columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
-            return columnDefinition;
-        });
-        let query = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${columns.join(",")});`;
-        return this.runQuery(query);
     }
 }
 exports.Model = Model;
