@@ -36,7 +36,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Model = exports.PrimaryGeneratedColumn = exports.Entity = exports.Column = void 0;
-const generatePgConfig_1 = require("../../../../../configs/generatePgConfig");
+const pgConfig_1 = require("../../../../../../configs/pgConfig");
 const dbError_1 = __importDefault(require("../errors/dbError"));
 const console = __importStar(require("console"));
 function Column(options = {}) {
@@ -67,7 +67,7 @@ class Model {
     runQuery(query) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const client = yield generatePgConfig_1.pgConfig.connect();
+                const client = yield pgConfig_1.pgConfig.connect();
                 const res = yield client.query(query);
                 client.release();
                 console.log("connected to database");
