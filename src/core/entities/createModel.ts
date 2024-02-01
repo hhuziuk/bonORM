@@ -45,6 +45,9 @@ export function Entity(tableName: string): ClassDecorator {
             let query: string = `CREATE TABLE IF NOT EXISTS ${this._tableName} (${columns.join(",")});`;
             return this.runQuery(query);
         };
+
+        const instance = new target();
+        instance.createModel();
     };
 }
 
@@ -189,5 +192,4 @@ export class Model implements toolCommandsInterface {
         }
         return this.runQuery(query);
     }
-
 }

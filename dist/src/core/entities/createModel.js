@@ -71,6 +71,8 @@ function Entity(tableName) {
                 return this.runQuery(query);
             });
         };
+        const instance = new target();
+        instance.createModel();
     };
 }
 exports.Entity = Entity;
