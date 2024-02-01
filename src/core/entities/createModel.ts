@@ -3,6 +3,7 @@ import { pgConfig } from "../../../../../../configs/pgConfig";
 import { toolCommandsInterface } from "../tool-commands/tool-commands-interface";
 import dbError from "../errors/dbError";
 import * as console from "console";
+import {dataType} from "../data-types/PgDataTypes";
 
 interface ColumnOptions {
     type?: string;
@@ -37,8 +38,12 @@ export function Entity(tableName: string): ClassDecorator {
                 if (defaultValue) {
                     (typeof defaultValue === 'string') ? columnDefinition += ` DEFAULT '${defaultValue}'` : columnDefinition += ` DEFAULT ${defaultValue}`;
                 }
-                columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
-                columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
+                if (primaryKey && autoIncrement) {
+                    columnDefinition += " PRIMARY KEY GENERATED ALWAYS AS IDENTITY";
+                } else {
+                    columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
+                    columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
+                }
                 return columnDefinition;
             });
 
@@ -53,7 +58,8 @@ export function Entity(tableName: string): ClassDecorator {
 
 export function PrimaryGeneratedColumn(): PropertyDecorator {
     return function (target: any, key: string) {
-        target._primaryColumn = key;
+        target._columns = target._columns || {};
+        target._columns[key] = { type: dataType.Integer, autoIncrement: true, primaryKey: true };
     };
 }
 

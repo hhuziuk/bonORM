@@ -1,1 +1,0 @@
-{"version":3,"file":"migrationInterface.d.ts","sourceRoot":"","sources":["../../../../src/core/migrations/migrationInterface.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,WAAW,EAAC,MAAM,IAAI,CAAC;AAE/B,MAAM,WAAW,kBAAkB;IAC/B,aAAa,EAAE,MAAM,CAAC;IACtB,EAAE,CAAC,KAAK,CAAC,EAAE,WAAW,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;IACvC,IAAI,CAAC,KAAK,CAAC,EAAE,WAAW,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;CAC5C"}
