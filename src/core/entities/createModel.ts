@@ -5,19 +5,30 @@ import dbError from "../errors/dbError";
 import * as console from "console";
 import {dataType} from "../data-types/PgDataTypes";
 
-interface ColumnOptions {
-    type?: string;
+export interface ColumnOptions {
+    type?: dataType;
     unique?: boolean;
     allowNull?: boolean;
     defaultValue?: string | number;
     autoIncrement?: boolean;
-    primaryKey?: boolean;
+}
+
+export interface PrimaryGeneratedColumnOptions extends ColumnOptions {
+    autoIncrement?: boolean;
+}
+
+export function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnOptions = {}): PropertyDecorator {
+    return function (target: any, key: string) {
+        const columns = target._columns || [];
+        columns.push(`${key} INTEGER${options.unique ? ' UNIQUE' : ''}${options.allowNull === false ? ' NOT NULL' : ''}${options.autoIncrement ? " GENERATED ALWAYS AS IDENTITY" : ''}`);
+        target._columns = columns;
+    };
 }
 
 export function Column(options: ColumnOptions = {}): PropertyDecorator {
     return function (target: any, key: string) {
-        const columns = target._columns || {};
-        columns[key] = options;
+        const columns = target._columns || [];
+        columns.push(`${key} ${options.type}${options.unique ? ' UNIQUE' : ''}${options.allowNull === false ? ' NOT NULL' : ''}${options.defaultValue ? (typeof options.defaultValue === 'string' ? ` DEFAULT '${options.defaultValue}'` : ` DEFAULT ${options.defaultValue}`) : ''}${(options.autoIncrement && options.type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : ""}`);
         target._columns = columns;
     };
 }
@@ -27,39 +38,13 @@ export function Entity(tableName: string): ClassDecorator {
         target.prototype._tableName = tableName;
 
         target.prototype.createModel = async function (): Promise<QueryResult> {
-            const columns = Object.keys(this._columns).map(attribute => {
-                const { type, unique, allowNull, defaultValue, autoIncrement, primaryKey } = this._columns[attribute];
-                if (!type) {
-                    dbError.QueryError(`Type for attribute ${attribute} is undefined.`);
-                }
-                let columnDefinition: string = `${attribute} ${type}`;
-                columnDefinition += (unique) ? " UNIQUE" : "";
-                columnDefinition += (!allowNull) ? " NOT NULL" : "";
-                if (defaultValue) {
-                    (typeof defaultValue === 'string') ? columnDefinition += ` DEFAULT '${defaultValue}'` : columnDefinition += ` DEFAULT ${defaultValue}`;
-                }
-                if (primaryKey && autoIncrement) {
-                    columnDefinition += " PRIMARY KEY GENERATED ALWAYS AS IDENTITY";
-                } else {
-                    columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
-                    columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
-                }
-                return columnDefinition;
-            });
-
+            const columns = target._columns || [];
             let query: string = `CREATE TABLE IF NOT EXISTS ${this._tableName} (${columns.join(",")});`;
             return this.runQuery(query);
         };
 
         const instance = new target();
         instance.createModel();
-    };
-}
-
-export function PrimaryGeneratedColumn(): PropertyDecorator {
-    return function (target: any, key: string) {
-        target._columns = target._columns || {};
-        target._columns[key] = { type: dataType.Integer, autoIncrement: true, primaryKey: true };
     };
 }
 
