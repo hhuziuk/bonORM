@@ -2,75 +2,86 @@ import { QueryResult } from "pg";
 import { pgConfig } from "../../../../../../configs/pgConfig";
 import { toolCommandsInterface } from "../tool-commands/tool-commands-interface";
 import dbError from "../errors/dbError";
-import * as console from "console";
-import {dataType} from "../data-types/PgDataTypes";
+import { dataType } from "../data-types/PgDataTypes";
+import "reflect-metadata";
 
-interface ColumnOptions {
-    type?: string;
-    unique?: boolean;
-    allowNull?: boolean;
-    defaultValue?: string | number;
-    autoIncrement?: boolean;
-    primaryKey?: boolean;
+const columnsMetadataKey = Symbol('columns');
+
+export function PrimaryGeneratedColumn(): PropertyDecorator {
+    return (target: any, propertyKey: string) => {
+        const columns = Reflect.getMetadata(columnsMetadataKey, target) || [];
+        Reflect.defineMetadata(columnsMetadataKey, [
+            ...columns,
+            { propertyKey, options: { type: 'INTEGER', autoIncrement: true, primaryKey: true } }
+        ], target);
+    };
 }
 
-export function Column(options: ColumnOptions = {}): PropertyDecorator {
-    return function (target: any, key: string) {
-        const columns = target._columns || {};
-        columns[key] = options;
-        target._columns = columns;
+export function Column(options: any = {}): PropertyDecorator {
+    return (target: any, propertyKey: string) => {
+        const columns = Reflect.getMetadata(columnsMetadataKey, target) || [];
+        Reflect.defineMetadata(columnsMetadataKey, [...columns, { propertyKey, options }], target);
     };
 }
 
 export function Entity(tableName: string): ClassDecorator {
-    return function (target: any) {
-        target.prototype._tableName = tableName;
+    return (target: any) => {
+        Reflect.defineMetadata('tableName', tableName, target);
+        const columns = Reflect.getMetadata(columnsMetadataKey, target.prototype) || [];
+        const columnsStrings = columns.map(({ propertyKey, options }: any) => {
+            const { type, allowNull, defaultValue, autoIncrement, primaryKey } = options;
+            let columnDefinition: string = `${propertyKey} ${type}`;
+            columnDefinition += (!allowNull) ? " NOT NULL" : "";
+            columnDefinition += (defaultValue) ? ` DEFAULT '${defaultValue}'` : "";
+            columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
+            columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
+            return columnDefinition;
+        });
 
-        target.prototype.createModel = async function (): Promise<QueryResult> {
-            const columns = Object.keys(this._columns).map(attribute => {
-                const { type, unique, allowNull, defaultValue, autoIncrement, primaryKey } = this._columns[attribute];
-                if (!type) {
-                    dbError.QueryError(`Type for attribute ${attribute} is undefined.`);
-                }
-                let columnDefinition: string = `${attribute} ${type}`;
-                columnDefinition += (unique) ? " UNIQUE" : "";
-                columnDefinition += (!allowNull) ? " NOT NULL" : "";
-                if (defaultValue) {
-                    (typeof defaultValue === 'string') ? columnDefinition += ` DEFAULT '${defaultValue}'` : columnDefinition += ` DEFAULT ${defaultValue}`;
-                }
-                if (primaryKey && autoIncrement) {
-                    columnDefinition += " PRIMARY KEY GENERATED ALWAYS AS IDENTITY";
-                } else {
-                    columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
-                    columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
-                }
-                return columnDefinition;
-            });
-
-            let query: string = `CREATE TABLE IF NOT EXISTS ${this._tableName} (${columns.join(",")});`;
+        const createModel = async function (this: any): Promise<QueryResult | void> {
+            if (!columnsStrings || columnsStrings.length === 0) {
+                return Promise.resolve();
+            }
+            const columnsQuery = columnsStrings.join(", ");
+            const tableName = Reflect.getMetadata('tableName', target);
+            const query: string = `CREATE TABLE IF NOT EXISTS ${tableName} (${columnsQuery});`;
             return this.runQuery(query);
         };
 
-        const instance = new target();
-        instance.createModel();
+        target.prototype.createModel = createModel;
+        target.prototype.runQuery = async function (this: any, query: string): Promise<QueryResult> {
+            try {
+                const client = await pgConfig.connect();
+                const res: QueryResult = await client.query(query);
+                client.release();
+                console.log("connected to database");
+                return res;
+            } catch (err) {
+                dbError.QueryError(err);
+            }
+        };
+
+        createModel.call(target.prototype);
     };
 }
 
-export function PrimaryGeneratedColumn(): PropertyDecorator {
-    return function (target: any, key: string) {
-        target._columns = target._columns || {};
-        target._columns[key] = { type: dataType.Integer, autoIncrement: true, primaryKey: true };
-    };
-}
 
 export class Model implements toolCommandsInterface {
     private readonly tableName: string;
-    private _columns: Record<string, ColumnOptions> = {};
-    private _primaryColumn: string;
+    private readonly columns: string[];
 
     public constructor(tableName: string) {
         this.tableName = tableName;
     }
+
+    private async createModel(): Promise<QueryResult | void> {
+        if (this.columns.length === 0) {
+            return Promise.resolve();
+        }
+        const query: string = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${this.columns.join(",")});`;
+        return this.runQuery(query);
+    }
+
 
     private async runQuery(query: string): Promise<QueryResult> {
         try {
