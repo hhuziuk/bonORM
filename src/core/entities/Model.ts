@@ -2,87 +2,13 @@ import { QueryResult } from "pg";
 import { pgConfig } from "../../../../../../configs/pgConfig";
 import { toolCommandsInterface } from "../tool-commands/tool-commands-interface";
 import dbError from "../errors/dbError";
-import { dataType } from "../data-types/PgDataTypes";
-import "reflect-metadata";
-
-const columnsMetadataKey = Symbol('columns');
-
-export function PrimaryGeneratedColumn(): PropertyDecorator {
-    return (target: any, propertyKey: string) => {
-        const columns = Reflect.getMetadata(columnsMetadataKey, target) || [];
-        Reflect.defineMetadata(columnsMetadataKey, [
-            ...columns,
-            { propertyKey, options: { type: 'INTEGER', autoIncrement: true, primaryKey: true } }
-        ], target);
-    };
-}
-
-export function Column(options: any = {}): PropertyDecorator {
-    return (target: any, propertyKey: string) => {
-        const columns = Reflect.getMetadata(columnsMetadataKey, target) || [];
-        Reflect.defineMetadata(columnsMetadataKey, [...columns, { propertyKey, options }], target);
-    };
-}
-
-export function Entity(tableName: string): ClassDecorator {
-    return (target: any) => {
-        Reflect.defineMetadata('tableName', tableName, target);
-        const columns = Reflect.getMetadata(columnsMetadataKey, target.prototype) || [];
-        const columnsStrings = columns.map(({ propertyKey, options }: any) => {
-            const { type, allowNull, defaultValue, autoIncrement, primaryKey } = options;
-            let columnDefinition: string = `${propertyKey} ${type}`;
-            columnDefinition += (!allowNull) ? " NOT NULL" : "";
-            columnDefinition += (defaultValue) ? ` DEFAULT '${defaultValue}'` : "";
-            columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
-            columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
-            return columnDefinition;
-        });
-
-        const createModel = async function (this: any): Promise<QueryResult | void> {
-            if (!columnsStrings || columnsStrings.length === 0) {
-                return Promise.resolve();
-            }
-            const columnsQuery = columnsStrings.join(", ");
-            const tableName = Reflect.getMetadata('tableName', target);
-            const query: string = `CREATE TABLE IF NOT EXISTS ${tableName} (${columnsQuery});`;
-            return this.runQuery(query);
-        };
-
-        target.prototype.createModel = createModel;
-        target.prototype.runQuery = async function (this: any, query: string): Promise<QueryResult> {
-            try {
-                const client = await pgConfig.connect();
-                const res: QueryResult = await client.query(query);
-                client.release();
-                console.log("connected to database");
-                return res;
-            } catch (err) {
-                dbError.QueryError(err);
-            }
-        };
-
-        createModel.call(target.prototype);
-    };
-}
-
 
 export class Model implements toolCommandsInterface {
     private readonly tableName: string;
-    private readonly columns: string[];
 
     public constructor(tableName: string) {
         this.tableName = tableName;
     }
-
-    private async createModel(): Promise<QueryResult | void> {
-        if (this.columns.length === 0) {
-            return Promise.resolve();
-        }
-        const query: string = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${this.columns.join(",")});`;
-        return this.runQuery(query);
-    }
-
-
     private async runQuery(query: string): Promise<QueryResult> {
         try {
             const client = await pgConfig.connect();

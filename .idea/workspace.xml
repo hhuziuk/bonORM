@@ -6,7 +6,56 @@
   <component name="ChangeListManager">
     <list default="true" id="b0e06f0b-2abe-47e1-859f-200dc543ed1b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data-types/PgDataTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data-types/PgDataTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/cli.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/cli.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/cli.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generateMySqlConfig.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generateMySqlConfig.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generateMySqlConfig.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generatePgConfig.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generatePgConfig.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generatePgConfig.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/MySqlDataTypes.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/MySqlDataTypes.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/MySqlDataTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/decorators/decorators.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/PgDataTypes.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/PgDataTypes.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/PgDataTypes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/createModel.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/createModel.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/createModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/errors/dbError.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/errors/dbError.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/errors/dbError.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/createMigration.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/createMigration.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/createMigration.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migration-test.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migration-test.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migration-test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migrationInterface.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migrationInterface.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migrationInterface.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/Many-To-Many.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/Many-To-Many.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/Many-To-Many.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-Many.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-Many.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-Many.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-One.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-One.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-One.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/tool-commands/tool-commands-interface.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/tool-commands/tool-commands-interface.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/tool-commands/tool-commands-interface.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/validators/validator.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/validators/validator.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/validators/validator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/entities/createModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/entities/Model.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +142,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/core" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
@@ -157,7 +207,14 @@
       <workItem from="1706957022703" duration="969000" />
       <workItem from="1706971381092" duration="1608000" />
       <workItem from="1707002045354" duration="42000" />
-      <workItem from="1707002164799" duration="4000" />
+      <workItem from="1707002164799" duration="2081000" />
+      <workItem from="1707005119348" duration="56000" />
+      <workItem from="1707005214080" duration="477000" />
+      <workItem from="1707005771273" duration="1178000" />
+      <workItem from="1707044597035" duration="171000" />
+      <workItem from="1707044816081" duration="134000" />
+      <workItem from="1707044988486" duration="69000" />
+      <workItem from="1707045117494" duration="30000" />
     </task>
     <servers />
   </component>
@@ -170,7 +227,6 @@
         <option value="$PROJECT_DIR$/src/core/data-types/PgDataTypes.js" />
         <option value="$PROJECT_DIR$/src/core/tool-commands/tool-commands-interface.js" />
         <option value="$PROJECT_DIR$/src/validators/validator.js" />
-        <option value="$PROJECT_DIR$/src/core/entities/createModel.js" />
         <option value="$PROJECT_DIR$/src/core/relations/One-To-Many.js" />
         <option value="$PROJECT_DIR$/src/core/relations/Many-To-Many.js" />
         <option value="$PROJECT_DIR$/src/core/relations/One-To-One.js" />

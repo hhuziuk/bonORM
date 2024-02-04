@@ -11,7 +11,6 @@ var dataType;
     dataType["Boolean"] = "BOOLEAN";
     dataType["Object"] = "JSON";
     dataType["ObjectB"] = "JSONB";
-    dataType["Enum"] = "ENUM";
     dataType["UUID"] = "UUID";
     dataType["XML"] = "XML";
     dataType["Money"] = "MONEY";

@@ -12,86 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Model = exports.Entity = exports.Column = exports.PrimaryGeneratedColumn = void 0;
+exports.Model = void 0;
 const pgConfig_1 = require("../../../../../../configs/pgConfig");
 const dbError_1 = __importDefault(require("../errors/dbError"));
-require("reflect-metadata");
-const columnsMetadataKey = Symbol('columns');
-function PrimaryGeneratedColumn() {
-    return (target, propertyKey) => {
-        const columns = Reflect.getMetadata(columnsMetadataKey, target) || [];
-        Reflect.defineMetadata(columnsMetadataKey, [
-            ...columns,
-            { propertyKey, options: { type: 'INTEGER', autoIncrement: true, primaryKey: true } }
-        ], target);
-    };
-}
-exports.PrimaryGeneratedColumn = PrimaryGeneratedColumn;
-function Column(options = {}) {
-    return (target, propertyKey) => {
-        const columns = Reflect.getMetadata(columnsMetadataKey, target) || [];
-        Reflect.defineMetadata(columnsMetadataKey, [
-            ...columns,
-            { propertyKey, options }
-        ], target);
-    };
-}
-exports.Column = Column;
-function Entity(tableName) {
-    return (target) => {
-        Reflect.defineMetadata('tableName', tableName, target);
-        const columns = Reflect.getMetadata(columnsMetadataKey, target.prototype) || [];
-        const columnsStrings = columns.map(({ propertyKey, options }) => {
-            const { type, allowNull, defaultValue, autoIncrement, primaryKey } = options;
-            let columnDefinition = `${propertyKey} ${type}`;
-            columnDefinition += (!allowNull) ? " NOT NULL" : "";
-            columnDefinition += (defaultValue) ? ` DEFAULT '${defaultValue}'` : "";
-            columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
-            columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
-            return columnDefinition;
-        });
-        const createModel = function () {
-            return __awaiter(this, void 0, void 0, function* () {
-                if (!columnsStrings || columnsStrings.length === 0) {
-                    return Promise.resolve();
-                }
-                const columnsQuery = columnsStrings.join(", ");
-                const tableName = Reflect.getMetadata('tableName', target);
-                const query = `CREATE TABLE IF NOT EXISTS ${tableName} (${columnsQuery});`;
-                return this.runQuery(query);
-            });
-        };
-        target.prototype.createModel = createModel;
-        target.prototype.runQuery = function (query) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const client = yield pgConfig_1.pgConfig.connect();
-                    const res = yield client.query(query);
-                    client.release();
-                    console.log("connected to database");
-                    return res;
-                }
-                catch (err) {
-                    dbError_1.default.QueryError(err);
-                }
-            });
-        };
-        createModel.call(target.prototype); // Виклик createModel на екземплярі класу
-    };
-}
-exports.Entity = Entity;
 class Model {
     constructor(tableName) {
         this.tableName = tableName;
-    }
-    createModel() {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (this.columns.length === 0) {
-                return Promise.resolve();
-            }
-            const query = `CREATE TABLE IF NOT EXISTS ${this.tableName} (${this.columns.join(",")});`;
-            return this.runQuery(query);
-        });
     }
     runQuery(query) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -7,7 +7,6 @@ export declare enum dataType {
     Boolean = "BOOLEAN",
     Object = "JSON",
     ObjectB = "JSONB",
-    Enum = "ENUM",
     UUID = "UUID",
     XML = "XML",
     Money = "MONEY",
