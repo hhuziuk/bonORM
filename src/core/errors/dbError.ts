@@ -16,5 +16,9 @@ class dbError extends Error {
     static EmptyQuery(){
         throw new dbError(`No data for insertion`);
     }
+
+    static InvalidFormat(){
+        throw new dbError(`Invalid Format`);
+    }
 }
 export default dbError;

@@ -20,13 +20,16 @@
       <change beforePath="$PROJECT_DIR$/dist/src/configs/generatePgConfig.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/MySqlDataTypes.d.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/MySqlDataTypes.d.ts.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/MySqlDataTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/decorators/decorators.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/MySqlDataTypes.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/PgDataTypes.d.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/PgDataTypes.d.ts.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/PgDataTypes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/createModel.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/createModel.d.ts.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/createModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/decorators/decorators.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/decorators/decorators.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/decorators/decorators.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/Model.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/Model.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/Model.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/src/core/errors/dbError.d.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/src/core/errors/dbError.d.ts.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/src/core/errors/dbError.js" beforeDir="false" />
@@ -55,7 +58,8 @@
       <change beforePath="$PROJECT_DIR$/dist/src/validators/validator.d.ts.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/src/validators/validator.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/entities/createModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/entities/Model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/errors/dbError.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/errors/dbError.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validators/validator.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validators/validator.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,7 +218,37 @@
       <workItem from="1707044597035" duration="171000" />
       <workItem from="1707044816081" duration="134000" />
       <workItem from="1707044988486" duration="69000" />
-      <workItem from="1707045117494" duration="30000" />
+      <workItem from="1707045117494" duration="333000" />
+      <workItem from="1707053278065" duration="807000" />
+      <workItem from="1707055818450" duration="2204000" />
+      <workItem from="1707058233020" duration="1255000" />
+      <workItem from="1707075611446" duration="370000" />
+      <workItem from="1707076090915" duration="95000" />
+      <workItem from="1707076617589" duration="965000" />
+      <workItem from="1707078729289" duration="179000" />
+      <workItem from="1707081163806" duration="68000" />
+      <workItem from="1707081269689" duration="68000" />
+      <workItem from="1707081528905" duration="43000" />
+      <workItem from="1707082264411" duration="644000" />
+      <workItem from="1707083597802" duration="641000" />
+      <workItem from="1707085407122" duration="407000" />
+      <workItem from="1707086214866" duration="1144000" />
+      <workItem from="1707122894451" duration="18000" />
+      <workItem from="1707122938720" duration="276000" />
+      <workItem from="1707123307143" duration="15000" />
+      <workItem from="1707124601838" duration="45000" />
+      <workItem from="1707124835407" duration="1028000" />
+      <workItem from="1707126073669" duration="1447000" />
+      <workItem from="1707143183297" duration="49000" />
+      <workItem from="1707143317840" duration="1027000" />
+      <workItem from="1707145866035" duration="281000" />
+      <workItem from="1707146234159" duration="170000" />
+      <workItem from="1707146521271" duration="49000" />
+      <workItem from="1707146640322" duration="24000" />
+      <workItem from="1707146714388" duration="21000" />
+      <workItem from="1707147131401" duration="21000" />
+      <workItem from="1707147473930" duration="635000" />
+      <workItem from="1707148869928" duration="131000" />
     </task>
     <servers />
   </component>

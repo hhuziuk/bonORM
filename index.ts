@@ -8,3 +8,4 @@ export * from './src/core/relations/One-To-One';
 export * from './src/core/relations/Many-To-Many';
 export * from './src/core/relations/One-To-Many';
 export * from './src/core/decorators/decorators';
+export * from './src/validators/validator';
