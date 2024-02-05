@@ -10,14 +10,13 @@ class dbError extends Error {
     static ConnectionError(){
         throw new dbError(`Can not connect to database`);
     }
-    static QueryError(message: any[] | string){
+    static QueryError(message: string[]){
         throw new dbError(`Error doing query: ${message}`);
     }
     static EmptyQuery(){
         throw new dbError(`No data for insertion`);
     }
-
-    static InvalidFormat(){
+    static InvalidFormat(){ // for validators
         throw new dbError(`Invalid Format`);
     }
 }
