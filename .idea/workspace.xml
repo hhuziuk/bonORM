@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b0e06f0b-2abe-47e1-859f-200dc543ed1b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/errors/dbError.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/errors/dbError.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data-types/MySqlDataTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data-types/MySqlDataTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data-types/PgDataTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data-types/PgDataTypes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,7 +198,7 @@
       <workItem from="1707147473930" duration="635000" />
       <workItem from="1707148869928" duration="131000" />
       <workItem from="1707149046664" duration="304000" />
-      <workItem from="1707158672188" duration="47000" />
+      <workItem from="1707158672188" duration="488000" />
     </task>
     <servers />
   </component>

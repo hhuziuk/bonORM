@@ -1,4 +1,4 @@
-export enum dataType {
+export enum pgDataType {
     Integer = 'INTEGER', // signed four-byte integer
     String = 'VARCHAR', // variable-length character string
     Date = 'DATE', // calendar date (year, month, day)
