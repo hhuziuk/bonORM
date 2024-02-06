@@ -1,26 +1,28 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class dbError extends Error {
-    constructor(message?: string, readonly errors: any[] = []){
+    constructor(message, errors = []) {
         super(message);
+        this.errors = errors;
         Object.setPrototypeOf(this, dbError.prototype);
     }
-
-    static ExistingDataError(values: any[]){
+    static ExistingDataError(values) {
         throw new dbError(`${values} already exists in database`);
     }
-    static ConnectionError(){
+    static ConnectionError() {
         throw new dbError(`Can not connect to database`);
     }
-    static EmptyError(){
+    static EmptyError() {
         throw new dbError(`Data cannot be empty.`);
     }
-    static QueryError(message: string[]){
+    static QueryError(message) {
         throw new dbError(`Error doing query: ${message}`);
     }
-    static EmptyQuery(){
+    static EmptyQuery() {
         throw new dbError(`No data for insertion`);
     }
-    static InvalidFormat(){ // for validators
+    static InvalidFormat() {
         throw new dbError(`Invalid Format`);
     }
 }
-export default dbError;
+exports.default = dbError;
