@@ -2,6 +2,9 @@ import { QueryResult } from "pg";
 import { pgConfig } from "../../../../../../configs/pgConfig";
 import { toolCommandsInterface } from "../tool-commands/tool-commands-interface";
 import dbError from "../errors/dbError";
+import {validate} from "class-validator";
+import {pgDataType} from "../data-types/PgDataTypes";
+import {mySqlDataType} from "../data-types/MySqlDataTypes";
 
 const columnsMetadataKey = "columns";
 
@@ -34,7 +37,7 @@ export class Model implements toolCommandsInterface {
     async find(options: {
         select?: string[];
         relations?: string[];
-        where?: Record<string, string | object>;
+        where?: Record<string, any>;
         order?: Record<string, 'ASC' | 'DESC'>;
         skip?: number;
         take?: number;
@@ -69,7 +72,7 @@ export class Model implements toolCommandsInterface {
     }
 
     async findOne(options: {
-        where?: Record<string, string | object>;
+        where?: Record<string, any>;
     }): Promise<QueryResult> {
         let query = `SELECT * FROM ${this.tableName}`;
 
@@ -81,7 +84,7 @@ export class Model implements toolCommandsInterface {
 
         return this.runQuery(query);
     }
-    async create(data?: Record<string, any>): Promise<QueryResult> {
+    async create(data: Record<string, any>): Promise<QueryResult> {
         if (!data || Object.keys(data).length < 0) {
             dbError.EmptyQuery();
         }
@@ -109,7 +112,7 @@ export class Model implements toolCommandsInterface {
         return this.runQuery(query);
     }
     async delete(options: {
-        where?: Record<string, string | object>;
+        where?: Record<string, any>;
     }): Promise<QueryResult> {
         let query = `DELETE FROM ${this.tableName}`;
 

@@ -57,14 +57,20 @@ function Entity(tableName) {
                 const tableName = Reflect.getMetadata('tableName', target);
                 const query = `CREATE TABLE IF NOT EXISTS ${tableName} (${columnsQuery});`;
                 yield this.runQuery(query); // Create the table
-                // Validate the table data using class-validator
-                const targetConstructor = Reflect.getMetadata('design:paramtypes', target);
-                const instance = new (target.bind.apply(target, [null].concat(targetConstructor)))();
-                const schema = yield (0, class_validator_1.validate)(instance);
-                if (schema.length > 0) {
-                    // Handle validation errors
-                    console.error("Validation errors:", schema);
-                    throw new Error("Validation error occurred while creating the table.");
+                // Validate each field using class-validator
+                for (const { propertyKey } of columns) {
+                    const fieldValue = this[propertyKey];
+                    if (fieldValue !== undefined && fieldValue !== null) {
+                        const errors = yield (0, class_validator_1.validate)(fieldValue);
+                        if (errors.length > 0) {
+                            // Handle validation errors
+                            console.error(`Validation errors for field '${propertyKey}':`, errors);
+                            throw new Error(`Validation error occurred while creating the table for field '${propertyKey}'.`);
+                        }
+                    }
+                    else {
+                        console.error(`Skipping validation for field '${propertyKey}' because fieldValue is undefined or null.`);
+                    }
                 }
             });
         };

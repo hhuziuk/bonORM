@@ -5,14 +5,64 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0e06f0b-2abe-47e1-859f-200dc543ed1b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/core/options/ColumnOptions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/cli.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/cli.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/cli.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generateMySqlConfig.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generateMySqlConfig.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generateMySqlConfig.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generatePgConfig.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generatePgConfig.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/configs/generatePgConfig.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/MySqlDataTypes.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/MySqlDataTypes.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/MySqlDataTypes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/PgDataTypes.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/PgDataTypes.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/data-types/PgDataTypes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/decorators/decorators.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/decorators/decorators.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/decorators/decorators.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/Model.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/Model.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/entities/Model.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/errors/dbError.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/errors/dbError.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/errors/dbError.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/createMigration.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/createMigration.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/createMigration.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migration-test.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migration-test.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migration-test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migrationInterface.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migrationInterface.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/migrations/migrationInterface.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/options/ColumnGeneralOptions.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/options/ColumnGeneralOptions.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/options/ColumnGeneralOptions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/options/ColumnOptions.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/options/ColumnOptions.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/options/ColumnOptions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/Many-To-Many.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/Many-To-Many.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/Many-To-Many.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-Many.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-Many.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-Many.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-One.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-One.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/relations/One-To-One.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/tool-commands/tool-commands-interface.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/tool-commands/tool-commands-interface.d.ts.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/src/core/tool-commands/tool-commands-interface.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/decorators/decorators.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/decorators/decorators.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/entities/Model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/entities/Model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/errors/dbError.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/errors/dbError.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/tool-commands/tool-commands-interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/tool-commands/tool-commands-interface.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,7 +311,53 @@
       <workItem from="1707253310577" duration="424000" />
       <workItem from="1707253838962" duration="5000" />
       <workItem from="1707254314344" duration="100000" />
-      <workItem from="1707254533974" duration="49000" />
+      <workItem from="1707254533974" duration="350000" />
+      <workItem from="1707254951644" duration="136000" />
+      <workItem from="1707256216425" duration="638000" />
+      <workItem from="1707257565948" duration="69000" />
+      <workItem from="1707257667225" duration="25000" />
+      <workItem from="1707257930940" duration="137000" />
+      <workItem from="1707258165356" duration="130000" />
+      <workItem from="1707258361480" duration="235000" />
+      <workItem from="1707258730000" duration="297000" />
+      <workItem from="1707260013206" duration="906000" />
+      <workItem from="1707296081118" duration="25000" />
+      <workItem from="1707296382523" duration="123000" />
+      <workItem from="1707296541779" duration="288000" />
+      <workItem from="1707297015143" duration="21000" />
+      <workItem from="1707297087321" duration="1436000" />
+      <workItem from="1707300566390" duration="108000" />
+      <workItem from="1707300709214" duration="128000" />
+      <workItem from="1707300918689" duration="83000" />
+      <workItem from="1707301449461" duration="169000" />
+      <workItem from="1707301686837" duration="22000" />
+      <workItem from="1707301782819" duration="29000" />
+      <workItem from="1707301834727" duration="66000" />
+      <workItem from="1707309528948" duration="48000" />
+      <workItem from="1707309954210" duration="93000" />
+      <workItem from="1707310674152" duration="101000" />
+      <workItem from="1707310903057" duration="670000" />
+      <workItem from="1707321704799" duration="73000" />
+      <workItem from="1707321818034" duration="124000" />
+      <workItem from="1707322409496" duration="200000" />
+      <workItem from="1707322724436" duration="32000" />
+      <workItem from="1707323349442" duration="211000" />
+      <workItem from="1707323624182" duration="624000" />
+      <workItem from="1707325077547" duration="396000" />
+      <workItem from="1707325504505" duration="292000" />
+      <workItem from="1707325856549" duration="1206000" />
+      <workItem from="1707328060079" duration="621000" />
+      <workItem from="1707331035210" duration="27000" />
+      <workItem from="1707331185578" duration="618000" />
+      <workItem from="1707340948829" duration="18000" />
+      <workItem from="1707341047842" duration="78000" />
+      <workItem from="1707341212124" duration="168000" />
+      <workItem from="1707341553351" duration="19000" />
+      <workItem from="1707341665798" duration="142000" />
+      <workItem from="1707341887709" duration="140000" />
+      <workItem from="1707342070888" duration="246000" />
+      <workItem from="1707342524030" duration="79000" />
+      <workItem from="1707342697307" duration="1206000" />
     </task>
     <servers />
   </component>
