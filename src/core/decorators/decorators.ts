@@ -3,6 +3,8 @@ import { QueryResult } from "pg";
 import dbError from "../errors/dbError";
 import { pgConfig } from "../../../../../../configs/pgConfig";
 import {validate, ValidatorOptions} from "class-validator";
+import {plainToClass} from "class-transformer";
+import {ColumnData} from "../entities/Model";
 
 const columnsMetadataKey = "columns";
 
@@ -26,55 +28,49 @@ export function Entity(tableName: string): ClassDecorator {
     return (target: any) => {
         Reflect.defineMetadata('tableName', tableName, target);
         const columns = Reflect.getMetadata(columnsMetadataKey, target.prototype) || [];
-        const columnsStrings = columns.map(({ propertyKey, options }: any) => {
-            const { type, allowNull, defaultValue, autoIncrement, primaryKey } = options;
-            let columnDefinition: string = `${propertyKey} ${type}`;
-            columnDefinition += (!allowNull) ? " NOT NULL" : "";
-            columnDefinition += (defaultValue) ? ` DEFAULT '${defaultValue}'` : "";
-            columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
-            columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
-            return columnDefinition;
-        });
-
-        const createModel = async function (this: any): Promise<QueryResult | void> {
-            if (!columnsStrings || columnsStrings.length === 0) {
+        const createModel = async function (this: any, data: ColumnData): Promise<QueryResult | void> {
+            if (!columns || columns.length === 0) {
                 return Promise.resolve();
             }
-            const columnsQuery = columnsStrings.join(", ");
-            const tableName = Reflect.getMetadata('tableName', target);
-            const query: string = `CREATE TABLE IF NOT EXISTS ${tableName} (${columnsQuery});`;
-            await this.runQuery(query); // Create the table
 
-            // Validate each field using class-validator
-            for (const { propertyKey } of columns) {
-                const fieldValue = this[propertyKey];
-                if (fieldValue !== undefined && fieldValue !== null) {
-                    const errors = await validate(fieldValue);
-                    if (errors.length > 0) {
-                        // Handle validation errors
-                        console.error(`Validation errors for field '${propertyKey}':`, errors);
-                        throw new Error(`Validation error occurred while creating the table for field '${propertyKey}'.`);
-                    }
-                } else {
-                    console.error(`Skipping validation for field '${propertyKey}' because fieldValue is undefined or null.`);
+            const tableName = Reflect.getMetadata('tableName', target); // Отримуємо назву таблиці з метаданих
+            const columnsQuery = columns.map(({ propertyKey, options }: any) => {
+                const { type, allowNull, defaultValue, autoIncrement, primaryKey } = options;
+                let columnDefinition: string = `${propertyKey} ${type}`;
+                columnDefinition += (!allowNull) ? " NOT NULL" : "";
+                columnDefinition += (defaultValue) ? ` DEFAULT '${defaultValue}'` : "";
+                columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
+                columnDefinition += (autoIncrement && type === 'INTEGER') ? " GENERATED ALWAYS AS IDENTITY" : "";
+                return columnDefinition;
+            }).join(", ");
+            const query: string = `CREATE TABLE IF NOT EXISTS ${tableName} (${columnsQuery});`;
+            await this.runQuery(query); // Створюємо таблицю
+
+            for (const column of columns) {
+                const { propertyKey, options } = column;
+                const fieldValue = data[propertyKey];
+                if (!fieldValue) {
+                    console.error(`Skipping validation for field '${propertyKey}' because its value is undefined.`);
+                    continue;
+                }
+                if (propertyKey === 'id') {
+                    console.error(`Skipping validation for field 'id'.`);
+                    continue; // Skipping validation for the 'id' field
+                }
+                const { type } = options;
+                const objectToValidate = { [propertyKey]: fieldValue };
+                const validationErrors = await validate(objectToValidate);
+                if (validationErrors.length > 0) {
+                    console.error(`Validation errors for field '${propertyKey}':`, validationErrors);
+                    throw new Error(`Validation error occurred while creating the record for field '${propertyKey}'.`);
                 }
             }
         };
-
-        target.prototype.createModel = createModel;
-        target.prototype.runQuery = async function (this: any, query: string): Promise<QueryResult> {
-            try {
-                const client = await pgConfig.connect();
-                const res: QueryResult = await client.query(query);
-                client.release();
-                console.log("connected to the database");
-                return res;
-            } catch (err) {
-                dbError.QueryError(err);
-            }
-        };
-
-        createModel.call(target.prototype);
     };
 }
+
+
+
+
+
 

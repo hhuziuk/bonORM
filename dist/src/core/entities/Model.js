@@ -8,6 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -15,15 +26,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Model = void 0;
 const pgConfig_1 = require("../../../../../../configs/pgConfig");
 const dbError_1 = __importDefault(require("../errors/dbError"));
-const columnsMetadataKey = "columns";
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
 class Model {
     constructor(tableName) {
         this.tableName = tableName;
-    }
-    static getModel(tableName) {
-        if (!tableName)
-            throw new Error(`Table name is not set for this model.`);
-        return new this(tableName);
     }
     runQuery(query) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -31,7 +38,7 @@ class Model {
                 const client = yield pgConfig_1.pgConfig.connect();
                 const res = yield client.query(query);
                 client.release();
-                console.log("connected to database");
+                console.log("Connected to the database");
                 return res;
             }
             catch (err) {
@@ -82,31 +89,36 @@ class Model {
     }
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!data || Object.keys(data).length < 0) {
+            if (!data || Object.keys(data).length === 0) {
                 dbError_1.default.EmptyQuery();
             }
+            // Перевірка на існування запису за назвою
             const checkQuery = `SELECT * FROM ${this.tableName} WHERE name = '${data.name}'`;
             const checkQueryResult = yield this.runQuery(checkQuery);
             if (checkQueryResult.rows.length > 0) {
                 dbError_1.default.ExistingDataError(data.name);
             }
-            const columns = Object.keys(data).join(', ');
-            const values = Object.values(data)
-                .map(value => {
-                if (typeof value === 'string') {
-                    return `'${value}'`;
-                }
-                return value;
-            })
+            // Створення запису
+            const { id } = data, restData = __rest(data, ["id"]); // Деструктуризація, щоб відокремити значення "id" від інших даних
+            const columns = Object.keys(restData).join(', ');
+            const values = Object.values(restData)
+                .map(value => typeof value === 'string' ? `'${value}'` : value)
                 .join(', ');
+            // Валідація даних перед створенням запису
+            const entityInstance = (0, class_transformer_1.plainToClass)(Model, data);
+            const errors = yield (0, class_validator_1.validate)(entityInstance);
+            if (errors.length > 0) {
+                console.error(`Validation errors for creating record:`, errors);
+                throw new Error(`Validation error occurred while creating the record.`);
+            }
             const query = `INSERT INTO ${this.tableName} (${columns}) VALUES (${values});`;
             return this.runQuery(query);
         });
     }
     save() {
         return __awaiter(this, void 0, void 0, function* () {
-            let query = `UPDATE ${this.tableName} SET $;`;
-            return this.runQuery(query);
+            // This function needs to be implemented based on your requirements
+            throw new Error("Method not implemented.");
         });
     }
     delete(options) {

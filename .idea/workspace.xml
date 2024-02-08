@@ -62,7 +62,6 @@
       <change beforePath="$PROJECT_DIR$/dist/src/core/tool-commands/tool-commands-interface.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/decorators/decorators.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/decorators/decorators.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/entities/Model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/entities/Model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/tool-commands/tool-commands-interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/tool-commands/tool-commands-interface.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -357,7 +356,43 @@
       <workItem from="1707341887709" duration="140000" />
       <workItem from="1707342070888" duration="246000" />
       <workItem from="1707342524030" duration="79000" />
-      <workItem from="1707342697307" duration="1206000" />
+      <workItem from="1707342697307" duration="2521000" />
+      <workItem from="1707384149646" duration="360000" />
+      <workItem from="1707384592631" duration="262000" />
+      <workItem from="1707386670007" duration="32000" />
+      <workItem from="1707386727965" duration="65000" />
+      <workItem from="1707386857693" duration="337000" />
+      <workItem from="1707387307429" duration="1648000" />
+      <workItem from="1707390189107" duration="1246000" />
+      <workItem from="1707400373826" duration="155000" />
+      <workItem from="1707401591919" duration="48000" />
+      <workItem from="1707401718383" duration="139000" />
+      <workItem from="1707402220528" duration="20000" />
+      <workItem from="1707405174960" duration="278000" />
+      <workItem from="1707405494836" duration="1150000" />
+      <workItem from="1707406810203" duration="38000" />
+      <workItem from="1707406902521" duration="95000" />
+      <workItem from="1707407920216" duration="245000" />
+      <workItem from="1707408237760" duration="848000" />
+      <workItem from="1707410290963" duration="674000" />
+      <workItem from="1707411010025" duration="193000" />
+      <workItem from="1707411261622" duration="138000" />
+      <workItem from="1707411469099" duration="24000" />
+      <workItem from="1707411809648" duration="25000" />
+      <workItem from="1707411895926" duration="643000" />
+      <workItem from="1707413367799" duration="310000" />
+      <workItem from="1707413765789" duration="573000" />
+      <workItem from="1707414409385" duration="743000" />
+      <workItem from="1707415250474" duration="58000" />
+      <workItem from="1707415351532" duration="120000" />
+      <workItem from="1707415517778" duration="349000" />
+      <workItem from="1707415934409" duration="23000" />
+      <workItem from="1707416005241" duration="358000" />
+      <workItem from="1707416414504" duration="1465000" />
+      <workItem from="1707424954699" duration="394000" />
+      <workItem from="1707428747170" duration="415000" />
+      <workItem from="1707431475237" duration="470000" />
+      <workItem from="1707432353484" duration="234000" />
     </task>
     <servers />
   </component>

@@ -1,9 +1,11 @@
 import { QueryResult } from "pg";
 import { toolCommandsInterface } from "../tool-commands/tool-commands-interface";
+export interface ColumnData {
+    [columnName: string]: any;
+}
 export declare class Model implements toolCommandsInterface {
     private readonly tableName;
     constructor(tableName: string);
-    static getModel<T extends Model>(tableName: string): Model;
     private runQuery;
     find(options: {
         select?: string[];
@@ -16,7 +18,7 @@ export declare class Model implements toolCommandsInterface {
     findOne(options: {
         where?: Record<string, any>;
     }): Promise<QueryResult>;
-    create(data: Record<string, any>): Promise<QueryResult>;
+    create(data: ColumnData): Promise<QueryResult>;
     save(): Promise<QueryResult>;
     delete(options: {
         where?: Record<string, any>;
