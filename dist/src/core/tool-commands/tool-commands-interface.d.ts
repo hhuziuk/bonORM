@@ -1,4 +1,5 @@
 import { QueryResult } from "pg";
+import { ColumnData } from "../entities/Model";
 export interface toolCommandsInterface {
     find(options: {
         select?: string[];
@@ -11,7 +12,7 @@ export interface toolCommandsInterface {
     findOne(options: {
         where?: Record<string, any>;
     }): Promise<QueryResult>;
-    create(data?: Record<string, any>): Promise<QueryResult>;
+    create(data: ColumnData, entityConstructor: any): Promise<QueryResult>;
     save(object: Object): Promise<QueryResult>;
     delete(options: {
         where?: Record<string, any>;

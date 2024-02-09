@@ -87,32 +87,41 @@ class Model {
             return this.runQuery(query);
         });
     }
-    create(data) {
+    create(data, entityConstructor) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!data || Object.keys(data).length === 0) {
                 dbError_1.default.EmptyQuery();
             }
-            // Перевірка на існування запису за назвою
-            const checkQuery = `SELECT * FROM ${this.tableName} WHERE name = '${data.name}'`;
-            const checkQueryResult = yield this.runQuery(checkQuery);
-            if (checkQueryResult.rows.length > 0) {
-                dbError_1.default.ExistingDataError(data.name);
-            }
-            // Створення запису
-            const { id } = data, restData = __rest(data, ["id"]); // Деструктуризація, щоб відокремити значення "id" від інших даних
+            const { id } = data, restData = __rest(data, ["id"]);
             const columns = Object.keys(restData).join(', ');
             const values = Object.values(restData)
                 .map(value => typeof value === 'string' ? `'${value}'` : value)
                 .join(', ');
-            // Валідація даних перед створенням запису
-            const entityInstance = (0, class_transformer_1.plainToClass)(Model, data);
-            const errors = yield (0, class_validator_1.validate)(entityInstance);
+            const query = `INSERT INTO ${this.tableName} (${columns}) VALUES (${values});`;
+            const errors = yield this.validateData(data, entityConstructor);
             if (errors.length > 0) {
                 console.error(`Validation errors for creating record:`, errors);
                 throw new Error(`Validation error occurred while creating the record.`);
             }
-            const query = `INSERT INTO ${this.tableName} (${columns}) VALUES (${values});`;
             return this.runQuery(query);
+        });
+    }
+    validateData(data, entityConstructor) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const errors = [];
+            if (typeof data === 'object' && data !== null) {
+                const entity = (0, class_transformer_1.plainToClass)(entityConstructor, data);
+                const validationErrors = yield (0, class_validator_1.validate)(entity);
+                for (const error of validationErrors) {
+                    for (const constraint of Object.values(error.constraints)) {
+                        errors.push(`Validation error for property ${error.property}: ${constraint}`);
+                    }
+                }
+            }
+            else {
+                errors.push('Data must be an object');
+            }
+            return errors;
         });
     }
     save() {

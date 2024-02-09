@@ -80,37 +80,46 @@ export class Model implements toolCommandsInterface {
         return this.runQuery(query);
     }
 
-    async create(data: ColumnData): Promise<QueryResult> {
+    async create(data: ColumnData, entityConstructor: any): Promise<QueryResult> {
         if (!data || Object.keys(data).length === 0) {
             dbError.EmptyQuery();
         }
 
-        // Перевірка на існування запису за назвою
-        const checkQuery = `SELECT * FROM ${this.tableName} WHERE name = '${data.name}'`;
-        const checkQueryResult = await this.runQuery(checkQuery);
-        if (checkQueryResult.rows.length > 0) {
-            dbError.ExistingDataError(data.name);
-        }
-
-        // Створення запису
-        const { id, ...restData } = data; // Деструктуризація, щоб відокремити значення "id" від інших даних
+        const { id, ...restData } = data;
         const columns = Object.keys(restData).join(', ');
         const values = Object.values(restData)
             .map(value => typeof value === 'string' ? `'${value}'` : value)
             .join(', ');
 
-        // Валідація даних перед створенням запису
-        const entityInstance = plainToClass(Model, data);
-        const errors = await validate(entityInstance);
+        const query: string = `INSERT INTO ${this.tableName} (${columns}) VALUES (${values});`;
+
+        const errors = await this.validateData(data, entityConstructor);
         if (errors.length > 0) {
             console.error(`Validation errors for creating record:`, errors);
             throw new Error(`Validation error occurred while creating the record.`);
         }
 
-        const query: string = `INSERT INTO ${this.tableName} (${columns}) VALUES (${values});`;
         return this.runQuery(query);
     }
 
+    private async validateData(data: ColumnData, entityConstructor: any): Promise<string[]> {
+        const errors: string[] = [];
+
+        if (typeof data === 'object' && data !== null) {
+            const entity = plainToClass(entityConstructor, data);
+            const validationErrors = await validate(entity as object);
+
+            for (const error of validationErrors) {
+                for (const constraint of Object.values(error.constraints)) {
+                    errors.push(`Validation error for property ${error.property}: ${constraint}`);
+                }
+            }
+        } else {
+            errors.push('Data must be an object');
+        }
+
+        return errors;
+    }
 
     async save(): Promise<QueryResult> {
         // This function needs to be implemented based on your requirements

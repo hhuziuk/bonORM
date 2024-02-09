@@ -62,6 +62,7 @@
       <change beforePath="$PROJECT_DIR$/dist/src/core/tool-commands/tool-commands-interface.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/decorators/decorators.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/decorators/decorators.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/entities/Model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/entities/Model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/tool-commands/tool-commands-interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/tool-commands/tool-commands-interface.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -411,7 +412,18 @@
       <workItem from="1707478657382" duration="1257000" />
       <workItem from="1707480009144" duration="1016000" />
       <workItem from="1707483986848" duration="35000" />
-      <workItem from="1707486140212" duration="654000" />
+      <workItem from="1707486140212" duration="1339000" />
+      <workItem from="1707516840422" duration="119000" />
+      <workItem from="1707517339498" duration="48000" />
+      <workItem from="1707517397329" duration="11000" />
+      <workItem from="1707517450431" duration="70000" />
+      <workItem from="1707517572924" duration="17000" />
+      <workItem from="1707517662076" duration="37000" />
+      <workItem from="1707517704104" duration="13000" />
+      <workItem from="1707517766599" duration="601000" />
+      <workItem from="1707518420321" duration="57000" />
+      <workItem from="1707518564072" duration="17000" />
+      <workItem from="1707518647646" duration="165000" />
     </task>
     <servers />
   </component>

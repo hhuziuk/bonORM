@@ -1,6 +1,7 @@
 import {QueryResult} from "pg";
 import {pgDataType} from "../data-types/PgDataTypes";
 import {mySqlDataType} from "../data-types/MySqlDataTypes";
+import {ColumnData} from "../entities/Model";
 
 export interface toolCommandsInterface {
     find(options: {
@@ -14,7 +15,7 @@ export interface toolCommandsInterface {
     findOne(options: {
         where?: Record<string, any>;
     }): Promise<QueryResult>;
-    create(data?: Record<string, any>): Promise<QueryResult>;
+    create(data: ColumnData, entityConstructor: any): Promise<QueryResult>;
     save(object: Object): Promise<QueryResult>;
     delete(options: {
         where?: Record<string, any>;

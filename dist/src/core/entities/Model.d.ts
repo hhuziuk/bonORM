@@ -18,7 +18,8 @@ export declare class Model implements toolCommandsInterface {
     findOne(options: {
         where?: Record<string, any>;
     }): Promise<QueryResult>;
-    create(data: ColumnData): Promise<QueryResult>;
+    create(data: ColumnData, entityConstructor: any): Promise<QueryResult>;
+    private validateData;
     save(): Promise<QueryResult>;
     delete(options: {
         where?: Record<string, any>;
