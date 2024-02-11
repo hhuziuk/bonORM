@@ -23,3 +23,7 @@ __exportStar(require("./src/core/relations/One-To-One"), exports);
 __exportStar(require("./src/core/relations/Many-To-Many"), exports);
 __exportStar(require("./src/core/relations/One-To-Many"), exports);
 __exportStar(require("./src/core/decorators/decorators"), exports);
+<<<<<<< HEAD
+=======
+//export * from './src/validators/validator';
+>>>>>>> parent of 5979734 (wrote save function in Model.ts and deleted export for custom validators in index.tsc)

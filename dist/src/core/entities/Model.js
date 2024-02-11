@@ -126,8 +126,13 @@ class Model {
     }
     save() {
         return __awaiter(this, void 0, void 0, function* () {
+<<<<<<< HEAD
             let query = `UPDATE ${this.tableName} SET $;`;
             return this.runQuery(query);
+=======
+            // This function needs to be implemented based on your requirements
+            throw new Error("Method not implemented.");
+>>>>>>> parent of 5979734 (wrote save function in Model.ts and deleted export for custom validators in index.tsc)
         });
     }
     delete(options) {

@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0e06f0b-2abe-47e1-859f-200dc543ed1b" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> parent of 5979734 (wrote save function in Model.ts and deleted export for custom validators in index.tsc)
       <change beforePath="$PROJECT_DIR$/dist/index.d.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.d.ts.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.js" beforeDir="false" />
@@ -65,6 +69,7 @@
       <change beforePath="$PROJECT_DIR$/dist/src/core/tool-commands/tool-commands-interface.d.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/src/core/tool-commands/tool-commands-interface.d.ts.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/src/core/tool-commands/tool-commands-interface.js" beforeDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logo.PNG" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
@@ -87,6 +92,11 @@
       <change beforePath="$PROJECT_DIR$/src/core/relations/One-To-One.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/tool-commands/tool-commands-interface.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/core/decorators/decorators.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/decorators/decorators.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/entities/Model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/entities/Model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/tool-commands/tool-commands-interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/tool-commands/tool-commands-interface.ts" afterDir="false" />
+>>>>>>> parent of 5979734 (wrote save function in Model.ts and deleted export for custom validators in index.tsc)
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -448,7 +458,10 @@
       <workItem from="1707518420321" duration="57000" />
       <workItem from="1707518564072" duration="17000" />
       <workItem from="1707518647646" duration="165000" />
+<<<<<<< HEAD
       <workItem from="1707518860060" duration="1738000" />
+=======
+>>>>>>> parent of 5979734 (wrote save function in Model.ts and deleted export for custom validators in index.tsc)
     </task>
     <servers />
   </component>

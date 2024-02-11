@@ -25,7 +25,7 @@ export class Model implements toolCommandsInterface {
             return res;
         } catch (err) {
             dbError.QueryError(err);
-            throw err; // Rethrow the error after handling
+            throw err;
         }
     }
 
