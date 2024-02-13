@@ -20,7 +20,10 @@ export declare class Model implements toolCommandsInterface {
     }): Promise<QueryResult>;
     create(data: ColumnData, entityConstructor: any): Promise<QueryResult>;
     private validateData;
-    save(): Promise<QueryResult>;
+    save(options: {
+        where?: Record<string, any>;
+        data?: Record<string, any>;
+    }): Promise<QueryResult>;
     delete(options: {
         where?: Record<string, any>;
     }): Promise<QueryResult>;

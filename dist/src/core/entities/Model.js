@@ -122,9 +122,19 @@ class Model {
             return errors;
         });
     }
-    save() {
+    save(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            let query = `UPDATE ${this.tableName} SET $;`;
+            let query = `UPDATE ${this.tableName}`;
+            const dataEntries = Object.entries(options.data || {});
+            const whereEntries = Object.entries(options.where || {});
+            if (dataEntries.length > 0) {
+                const setData = dataEntries.map(([key, value]) => `${key} = ${typeof value === 'string' ? `'${value}'` : value}`).join(", ");
+                query += ` SET ${setData}`;
+            }
+            if (whereEntries.length > 0) {
+                const whereConditions = whereEntries.map(([key, value]) => `${key} = ${typeof value === 'string' ? `'${value}'` : value}`).join(" AND ");
+                query += ` WHERE ${whereConditions}`;
+            }
             return this.runQuery(query);
         });
     }

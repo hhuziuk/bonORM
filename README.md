@@ -39,7 +39,7 @@ BonORM is my own implementation of an object-relational mapping (ORM) designed f
 
 This section describes the technologies and frameworks ORM can be used with.
 
-[![Technologies](https://skillicons.dev/icons?i=ts,postgres&perline=5)](https://skillicons.dev)
+[![Technologies](https://skillicons.dev/icons?i=ts,postgres,mysql&perline=5)](https://skillicons.dev)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -119,53 +119,128 @@ export const mySqlConfig  = createPool({
 ## Features
 ### Data types
 In this section, you can learn more about the available data types that ORM works with.
-To access a built-in data type, you must import dataTypes:
+To access a built-in data type, you must import a right module for your database:
   ```ts
-  import {dataType} from "bonorm";
+  import { pgDataType } from "bonorm"; // for PostgreSQL types
+  import { mySqlDataType } from "bonorm"; // for MySQL types
   ```
-#### Numbers
+#### Numeric Types
+**for PostgreSQL:**
   ```ts
-  dataType.Integer // INTEGER
+  pgDataType.Integer // signed four-byte integer
+  pgDataType.Float // single precision floating-point number (4 bytes)
+  pgDataType.SmallInt // signed two-byte integer
+  pgDataType.SmallSerial // autoincrementing two-byte integer
+  pgDataType.SmallSerial // autoincrementing four-byte integer
+  pgDataType.Double // double precision floating-point number (8 bytes)
   ```
-#### Strings
+**for MySQL:**
   ```ts
-  dataType.String
+
   ```
-#### Dates
+#### Text Types
+**for PostgreSQL:**
   ```ts
-  dataType.Date
+  pgDataType.String // variable-length character string
+  pgDataType.Text // variable-length character string
   ```
-#### Enum
+**for MySQL:**
   ```ts
-  dataType.Enum
+
   ```
-#### JSON
+#### Date/Time Types
+**for PostgreSQL:**
   ```ts
-  dataType.Object
+  pgDataType.Date // calendar date (year, month, day)
   ```
-#### Arrays
+**for MySQL:**
   ```ts
-  dataType.Array
+
   ```
-#### Boolean
+ #### Binary Types
+**for PostgreSQL:**
   ```ts
-  dataType.Boolean
+  pgDataType.Date // logical boolean (true/false)
   ```
-#### UUID
+**for MySQL:**
   ```ts
-  dataType.UUID
+
+  ```
+ ### Specific Data Types
+#### Network Address Types
+**for PostgreSQL:**
+  ```ts
+  pgDataType.Inet // IPv4 or IPv6 host address
+  ```
+**for MySQL:**
+  ```ts
+
+  ```
+#### Text Search Types
+**for PostgreSQL:**
+  ```ts
+  pgDataType.TsQuery // text search query
+  pgDataType.TsVector // text search document
+  ```
+**for MySQL:**
+  ```ts
+
+  ```
+#### Monetary Types
+**for PostgreSQL:**
+  ```ts
+  pgDataType.Money // currency amount
+  ```
+**for MySQL:**
+  ```ts
+
+  ```
+#### UUID Type
+**for PostgreSQL:**
+  ```ts
+  pgDataType.UUID // universally unique identifier
+  ```
+**for MySQL:**
+  ```ts
+
+  ```
+#### XML Type
+**for PostgreSQL:**
+  ```ts
+  pgDataType.XML // XML data
+  ```
+**for MySQL:**
+  ```ts
+
+  ```
+#### JSON Types
+**for PostgreSQL:**
+  ```ts
+  pgDataType.Object // textual JSON data
+  pgDataType.ObjectB // binary JSON data, decomposed
+  ```
+**for MySQL:**
+  ```ts
+
   ```
 
-### Models
-To create your own model, you need to use the Model class and pass the name of 
-the table to it as arguments. After that, you need to call the `createModel` 
-method and pass it the necessary attributes and options as arguments. 
+### Entities
+To define your own entity, you need to use `@Entity("name for your table")` decorator. After that, you need to use the Model class and pass the name of
+the table to it as arguments and to define there columns with needed options. 
 Here is an example:
 ```ts
-import { Model, dataType } from 'bonorm';
-const table = new Model('Name');
-table.createModel({...}); // here you should add all the options and attributes you want to use
+import {Column, pgDataType, Entity, Model} from "bonorm";
+@Entity("table1")
+export class table1 extends Model{
+    @PrimaryGeneratedColumn()
+    id: number
+    @Column({type: pgDataType.String})
+    name: string
+}
 ```
+
+### Columns
+
 ### Attributes
 ```ts
 id: {
@@ -179,7 +254,7 @@ id: {
 * #### type
 Each attribute must be assigned a type, so you can use data types that already exist in `data-types`
 ```ts
-type: dataType.Integer
+type: pgDataType.Integer
 ```
 Find more here: <a href="#data-types">data types</a>
 
