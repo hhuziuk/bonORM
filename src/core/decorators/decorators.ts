@@ -48,5 +48,6 @@ export function Entity(tableName: string): ClassDecorator {
         };
 
         target.prototype.createModel = createModel;
+        createModel.call(target.prototype);
     };
 }

@@ -57,6 +57,7 @@ function Entity(tableName) {
             });
         };
         target.prototype.createModel = createModel;
+        createModel.call(target.prototype);
     };
 }
 exports.Entity = Entity;
