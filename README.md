@@ -136,7 +136,13 @@ To access a built-in data type, you must import a right module for your database
   ```
 **for MySQL:**
   ```ts
-
+  mySqlDataType.Integer // whole number, signed
+  mySqlDataType.SmallInt // small integer, signed
+  mySqlDataType.Decimal // fixed-point number
+  mySqlDataType.Numeric // fixed-point number
+  mySqlDataType.Float // floating-point number (single precision)
+  mySqlDataType.Real // floating-point number (single precision)
+  mySqlDataType.BigInt // large integer, signed
   ```
 * #### Text Types
 **for PostgreSQL:**
@@ -146,25 +152,37 @@ To access a built-in data type, you must import a right module for your database
   ```
 **for MySQL:**
   ```ts
-
+  mySqlDataType.Char // fixed-length character string
+  mySqlDataType.Varchar // variable-length character string
+  mySqlDataType.Text // variable-length character string (large)
   ```
 * #### Date/Time Types
 **for PostgreSQL:**
   ```ts
   pgDataType.Date // calendar date (year, month, day)
+  pgDataType.Timestamp // date and time (no time zone)
+  pgDataType.TimestampWithTimeZone // date and time, including time zone
+  pgDataType.Time // time of day (no date)
+  pgDataType.TimeWithTimeZone // time of day, including time zone
+  pgDataType.Interval // time interval
   ```
 **for MySQL:**
   ```ts
-
+  mySqlDataType.Date // calendar date (year, month, day)
+  mySqlDataType.Time // time of day
+  mySqlDataType.DateTime // date and time
+  mySqlDataType.Timestamp // date and time
   ```
 * #### Binary Types
 **for PostgreSQL:**
   ```ts
-  pgDataType.Date // logical boolean (true/false)
+ pgDataType.Boolean // logical Boolean (true/false)
   ```
 **for MySQL:**
   ```ts
-
+  mySqlDataType.Binary // fixed-length binary string
+  mySqlDataType.Varbinary // variable-length binary string
+  mySqlDataType.Blob // binary large object
   ```
  ### Specific Data Types
 * #### Network Address Types
@@ -172,56 +190,47 @@ To access a built-in data type, you must import a right module for your database
   ```ts
   pgDataType.Inet // IPv4 or IPv6 host address
   ```
-**for MySQL:**
-  ```ts
-
-  ```
 * #### Text Search Types
 **for PostgreSQL:**
   ```ts
   pgDataType.TsQuery // text search query
   pgDataType.TsVector // text search document
   ```
-**for MySQL:**
-  ```ts
-
-  ```
 * #### Monetary Types
 **for PostgreSQL:**
   ```ts
   pgDataType.Money // currency amount
   ```
-**for MySQL:**
-  ```ts
 
-  ```
 * #### UUID Type
 **for PostgreSQL:**
   ```ts
   pgDataType.UUID // universally unique identifier
   ```
-**for MySQL:**
-  ```ts
 
-  ```
 * #### XML Type
 **for PostgreSQL:**
   ```ts
   pgDataType.XML // XML data
   ```
-**for MySQL:**
-  ```ts
 
-  ```
 * #### JSON Types
 **for PostgreSQL:**
   ```ts
   pgDataType.Object // textual JSON data
   pgDataType.ObjectB // binary JSON data, decomposed
   ```
+* #### Spatial Data Types
 **for MySQL:**
   ```ts
-
+    mySqlDataType.Geometry // geometric object
+    mySqlDataType.Point // geometric point
+    mySqlDataType.LineString // geometric line
+    mySqlDataType.Polygon // geometric polygon
+    mySqlDataType.MultiPoint // collection of points
+    mySqlDataType.MultiLineString // collection of lines
+    mySqlDataType.MultiPolygon // collection of polygons
+    mySqlDataType.GeometryCollection // collection of geometric objects
   ```
 
 ### Entities
