@@ -16,7 +16,10 @@ export interface toolCommandsInterface {
         where?: Record<string, any>;
     }): Promise<QueryResult>;
     create(data: ColumnData, entityConstructor: any): Promise<QueryResult>;
-    save(object: Object): Promise<QueryResult>;
+    save(options: {
+        where?: Record<string, any>,
+        data?: Record<string, any>,
+    }): Promise<QueryResult>;
     delete(options: {
         where?: Record<string, any>;
     }): Promise<QueryResult>;

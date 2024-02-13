@@ -119,8 +119,25 @@ export class Model implements toolCommandsInterface {
         return errors;
     }
 
-    async save(): Promise<QueryResult> {
-        let query: string = `UPDATE ${this.tableName} SET $;`;
+    async save(options: {
+        where?: Record<string, any>,
+        data?: Record<string, any>,
+    }): Promise<QueryResult> {
+        let query = `UPDATE ${this.tableName}`;
+
+        const dataEntries = Object.entries(options.data || {});
+        const whereEntries = Object.entries(options.where || {});
+
+        if (dataEntries.length > 0) {
+            const setData = dataEntries.map(([key, value]) => `${key} = ${typeof value === 'string' ? `'${value}'` : value}`).join(", ");
+            query += ` SET ${setData}`;
+        }
+
+        if (whereEntries.length > 0) {
+            const whereConditions = whereEntries.map(([key, value]) => `${key} = ${typeof value === 'string' ? `'${value}'` : value}`).join(" AND ");
+            query += ` WHERE ${whereConditions}`;
+        }
+
         return this.runQuery(query);
     }
 
