@@ -1,0 +1,27 @@
+export declare enum pgDataType {
+    Integer = "INTEGER",
+    String = "VARCHAR",
+    Date = "DATE",
+    TsQuery = "TSQUERY",
+    TsVector = "TSVECTOR",
+    Boolean = "BOOLEAN",
+    Object = "JSON",
+    ObjectB = "JSONB",
+    UUID = "UUID",
+    XML = "XML",
+    Money = "MONEY",
+    Inet = "INET",
+    PgSnapshot = "PG_SNAPSHOT",
+    Float = "REAL",
+    SmallInt = "SMALLINT",
+    SmallSerial = "SMALLSERIAL",
+    Serial = "SERIAL",
+    Double = "DOUBLE PRECISION",
+    Text = "TEXT",
+    Timestamp = "TIMESTAMP",
+    TimestampWithTimeZone = "TIMESTAMP WITH TIME ZONE",
+    Time = "TIME",
+    TimeWithTimeZone = "TIME WITH TIME ZONE",
+    Interval = "INTERVAL"
+}
+//# sourceMappingURL=PgDataTypes.d.ts.map
