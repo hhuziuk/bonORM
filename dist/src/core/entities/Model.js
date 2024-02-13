@@ -43,7 +43,6 @@ class Model {
             }
             catch (err) {
                 dbError_1.default.QueryError(err);
-                throw err; // Rethrow the error after handling
             }
         });
     }
@@ -100,8 +99,7 @@ class Model {
             const query = `INSERT INTO ${this.tableName} (${columns}) VALUES (${values});`;
             const errors = yield this.validateData(data, entityConstructor);
             if (errors.length > 0) {
-                console.error(`Validation errors for creating record:`, errors);
-                throw new Error(`Validation error occurred while creating the record.`);
+                dbError_1.default.QueryError(errors);
             }
             return this.runQuery(query);
         });
@@ -126,13 +124,8 @@ class Model {
     }
     save() {
         return __awaiter(this, void 0, void 0, function* () {
-<<<<<<< HEAD
             let query = `UPDATE ${this.tableName} SET $;`;
             return this.runQuery(query);
-=======
-            // This function needs to be implemented based on your requirements
-            throw new Error("Method not implemented.");
->>>>>>> parent of 5979734 (wrote save function in Model.ts and deleted export for custom validators in index.tsc)
         });
     }
     delete(options) {

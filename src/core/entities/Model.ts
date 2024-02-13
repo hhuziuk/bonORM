@@ -25,7 +25,6 @@ export class Model implements toolCommandsInterface {
             return res;
         } catch (err) {
             dbError.QueryError(err);
-            throw err;
         }
     }
 
@@ -95,8 +94,7 @@ export class Model implements toolCommandsInterface {
 
         const errors = await this.validateData(data, entityConstructor);
         if (errors.length > 0) {
-            console.error(`Validation errors for creating record:`, errors);
-            throw new Error(`Validation error occurred while creating the record.`);
+            dbError.QueryError(errors);
         }
 
         return this.runQuery(query);

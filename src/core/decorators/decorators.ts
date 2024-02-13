@@ -1,10 +1,4 @@
 import "reflect-metadata";
-import { QueryResult } from "pg";
-import dbError from "../errors/dbError";
-import { pgConfig } from "../../../../../../configs/pgConfig";
-import {validate, ValidatorOptions} from "class-validator";
-import {plainToClass} from "class-transformer";
-import {ColumnData} from "../entities/Model";
 
 const columnsMetadataKey = "columns";
 
@@ -13,7 +7,6 @@ export function Column(options: any = {}, ...validators: any[]): PropertyDecorat
         const columns = Reflect.getMetadata(columnsMetadataKey, target) || [];
         Reflect.defineMetadata(columnsMetadataKey, [...columns, { propertyKey, options, validators }], target);
 
-        // Set validators metadata
         if (validators && validators.length > 0) {
             Reflect.defineMetadata("validators", validators, target, propertyKey);
         }
