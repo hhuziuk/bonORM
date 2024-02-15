@@ -16,6 +16,9 @@ class dbError extends Error {
     static QueryError(message: string[]){
         throw new dbError(`Error doing query: ${message}`);
     }
+    static DbTypeError(){
+        throw new dbError(`Unsupported database type`);
+    }
     static EmptyQuery(){
         throw new dbError(`No data for insertion`);
     }

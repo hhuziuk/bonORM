@@ -5,6 +5,7 @@ declare class dbError extends Error {
     static ConnectionError(): void;
     static EmptyError(): void;
     static QueryError(message: string[]): void;
+    static DbTypeError(): void;
     static EmptyQuery(): void;
     static InvalidFormat(): void;
 }
