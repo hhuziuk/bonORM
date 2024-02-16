@@ -17,7 +17,9 @@
     <li><a href="#features">Features</a></li>
       <ul>
         <li><a href="#data-types">Data types</a></li>
-        <li><a href="#models">Models</a></li>
+        <li><a href="#entities">Entities</a></li>
+        <li><a href="#columns">Columns</a></li>
+        <li><a href="#validation">Validation</a></li>
         <li><a href="#errors">Errors</a></li>
         <li><a href="#migrations">Migrations</a></li>
         <li><a href="#basic-operations">Basic operations</a></li>
@@ -278,28 +280,28 @@ export class table1 extends Model{
 }
 ```
 ### Attributes
-* #### type
+* #### `type`
 Each attribute must be assigned a type, so you can use data types that already exist in `data-types`
 ```ts
 @Column({type: pgDataType.String})
 name: string
 ```
 Find more here: <a href="#data-types">data types</a>
-* #### unique
+* #### `unique`
 To create an unique index you need to specify `{ unique: true }` in the attribute options
 ```ts
 @Column({type: pgDataType.String, unique: false})
 name: string
 ```
-* #### allowNull
+* #### `allowNull`
 Makes column NULL or NOT NULL in the database. By default column is `{ allowNull: true }`.
 ```ts
 @Column({type: pgDataType.String, allowNull: false})
 name: string
 ```
-* #### autoIncrement
+* #### `autoIncrement`
 Indicates whether the attribute should auto-increment
-* #### defaultValue
+* #### `defaultValue`
 The `defaultValue` field in the context of creating a table model
 in the database indicates the default value for a particular attribute of this table.
 This value will be used for new records if no specific value is specified for this
@@ -395,7 +397,41 @@ examplePlayer.create({
 
 ```
 
-### Errors
+## Validation
+If you want to use validation in your entity you should use <a href="#https://github.com/typestack/class-validator.git">`class-validator`</a> library.
+Here is a small example how you can use it:
+```ts
+import { Column, Entity, Model, pgDataType, PrimaryGeneratedColumn } from "bonorm";
+import { IsEmail, Length, Min } from "class-validator";
+
+@Entity("Player13")
+export class Player13 extends Model {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column({ type: pgDataType.String, unique: true })
+    @Length(10, 20)
+    name: string;
+
+    @Column({ type: pgDataType.String, default: () => "Zalupenko" })
+    @Length(10, 20)
+    surname: string;
+
+    @Column({ type: pgDataType.String, nullable: true })
+    @Min(0)
+    notes: string;
+
+    @Column({ type: pgDataType.String, nullable: false })
+    @IsEmail()
+    email: string;
+    
+    @Column({ type: pgDataType.String, nullable: false })
+    @IsISBN()
+    isbn: string;
+}
+```
+
+## Errors
 The `dbError` class is a custom error class extending the built-in Error class. 
 It is designed to handle various types of errors related to database operations.
 here is a typical example of using the `dbError` class to check for the presence 
@@ -406,39 +442,39 @@ if(!type) {
 }
 ```
 
-#### ExistingDataError
+* #### `ExistingDataError`
 Throws an error when attempting to insert data that already exists in the database.
 ```ts
 static ExistingDataError(values: any[]);
 ```
-#### ConnectionError
+* #### `ConnectionError`
 Throws an error when unable to connect to the database.
 ```ts
 static ConnectionError();
 ```
-#### QueryError
+* #### `QueryError`
 Throws an error when there is an issue with executing a database query.
 ```ts
 static QueryError(message: any[] | string);
 ```
-#### EmptyQuery
+* #### `EmptyQuery`
 Throws an error when attempting to perform a database query with no data for insertion.
 ```ts
 static EmptyQuery();
 ```
-#### DbTypeError
+* #### `DbTypeError`
 Throws an error when user used invalid name of database.
 ```ts
 static DbTypeError();
 ```
-#### InvalidFormat
+* #### `InvalidFormat`
 Throws an error when user provided invalid data format
 ```ts
 static InvalidFormat()
 ```
 
 
-### Migrations
+## Migrations
 You can also use the migration generator and additional tools to install and roll back migrations.
 To generate migrations, you need to add a few lines of code to the `"scripts"` area of the `package.json` file:
 ```json
@@ -463,9 +499,9 @@ export class MigrationV1700835172879 implements MigrationInterface {
 }
 export { MigrationV1700835172879 as Migration };
 ```
-### Basic operations
+## Basic operations
 
-* ### create
+* ### `create`
 The `create` function designed to simplify the process of inserting new records into a specified database table.
 This function supports asynchronous execution and returns a Promise that resolves to a QueryResult object.
 ```ts
@@ -486,7 +522,7 @@ const newData = {
 };
 const result = await dbModel.create(newData);
 ```
-* ### find
+* ### `find`
 The `find` function was designed
 to facilitate the retrieval of records from a specified database table based on specified criteria.
 This function supports asynchronous execution and returns a Promise that resolves to a QueryResult object.
@@ -520,7 +556,7 @@ const findResult = await dbModel.find({
 });
 ```
 
-* ### findOne
+* ### `findOne`
 The `findOne` function was designed to retrieve a single record from a specified database table based on specified criteria.
 This function supports asynchronous execution and returns a Promise that resolves to a QueryResult object.
 #### Arguments:
@@ -533,7 +569,7 @@ const data = await playerTable.find({
 });
 ```
 
-* ### save
+* ### `save`
 The `save` function was designed for updating existing records in a specified database table.
 This function supports asynchronous execution and returns a Promise that resolves to a QueryResult object.
 #### Example:
@@ -542,7 +578,7 @@ const dbModel = new Model('Employers');
 const saveResult = await dbModel.save();
 ```
 
-* ### delete
+* ### `delete`
 The `delete` function was designed to simplify
 the process of removing records from a specified database table. This function supports asynchronous execution
 and returns a Promise that resolves to a QueryResult object.
@@ -558,7 +594,7 @@ const deleteResult = await dbModel.delete({
 });
 ```
 
-### Relations
+## Relations
 ORM also makes it possible to create relations between databases. 
 Relations help you to work with related entities easily. 
 There are several types of relationships:
@@ -568,7 +604,7 @@ There are several types of relationships:
 <li><a href="#many-to-many">Many-To-Many</a></li>
 </ul>
 
-* ### One-To-One
+* ### `One-To-One`
 In a one-to-one relationship, each record in one table is associated with exactly one 
 record in another table, and vice versa. This is achieved by having a foreign key in one table 
 that references the primary key of the other table.
@@ -608,7 +644,7 @@ The `"player"` table gets a foreign key column named `"teamId"` referencing the 
 in the `"team"` table. This relationship implies that each player can be associated with one team, 
 and each team can be associated with one player.
 
-* ### One-To-Many
+* ### `One-To-Many`
 In a one-to-many relationship, each record in the primary table can be associated with multiple 
 records in the related table, but each record in the related table is associated with only one 
 record in the primary table. This is typically implemented by having a foreign key in the related 
@@ -648,7 +684,7 @@ In the following example, a one-to-many relationship is established between the 
 `"Team"` tables. The primary table, "player," gains a foreign key column named `"teamId"` which references 
 the primary key `"id"` in the related table `"team"`.
 
-* ### Many-To-Many
+* ### `Many-To-Many`
 In a many-to-many relationship, each record in the primary table can be associated with multiple 
 records in the related table, and vice versa. This relationship is typically implemented using an 
 intermediate table that contains foreign keys referencing both primary tables.
