@@ -10,7 +10,13 @@ export function Entity(tableName: string): ClassDecorator {
             const { type, allowNull, defaultValue, autoIncrement, primaryKey } = options;
             let columnDefinition: string = `${propertyKey} ${type}`;
             columnDefinition += (!allowNull) ? " NOT NULL" : "";
-            columnDefinition += (defaultValue) ? ` DEFAULT '${defaultValue}'` : "";
+            if(defaultValue){
+                columnDefinition += ` DEFAULT '${defaultValue}'`;
+            } else {
+                if(type === 'TIMESTAMP' || type === 'DATE'){
+                    columnDefinition += ` DEFAULT ${type === 'TIMESTAMP' ? 'CURRENT_TIMESTAMP' : 'CURRENT_DATE'}`;
+                }
+            }
             columnDefinition += (primaryKey) ? " PRIMARY KEY" : "";
             if (type === 'UUID') {
                 columnDefinition += (process.env.DB_TYPE === 'postgres') ? " DEFAULT uuid_generate_v4()" : ""; // PostgreSQL

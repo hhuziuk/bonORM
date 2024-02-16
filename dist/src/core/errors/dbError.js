@@ -12,9 +12,6 @@ class dbError extends Error {
     static ConnectionError() {
         throw new dbError(`Can not connect to database`);
     }
-    static EmptyError() {
-        throw new dbError(`Data cannot be empty.`);
-    }
     static QueryError(message) {
         throw new dbError(`Error doing query: ${message}`);
     }
