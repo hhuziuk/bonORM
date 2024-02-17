@@ -1,0 +1,4 @@
+node_modules/
+.env
+src/configs/pgConfig.ts
+.DS_Store
