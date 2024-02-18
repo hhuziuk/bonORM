@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 {"version":3,"file":"buildTableQuery.d.ts","sourceRoot":"","sources":["../../../../src/core/queries/buildTableQuery.ts"],"names":[],"mappings":"AAEA,cAAM,eAAe;IACjB,MAAM,CAAC,qBAAqB,CAAC,EAAE,WAAW,EAAE,OAAO,EAAE,EAAE,GAAG,GAAG,MAAM;IA4DnE,MAAM,CAAC,qBAAqB,CAAC,SAAS,EAAE,MAAM,EAAE,cAAc,EAAE,MAAM,EAAE,GAAG,MAAM;CAIpF;AAED,eAAe,eAAe,CAAC"}
-=======
-{"version":3,"file":"buildTableQuery.d.ts","sourceRoot":"","sources":["../../../../src/core/queries/buildTableQuery.ts"],"names":[],"mappings":"AAEA,cAAM,eAAe;IACjB,MAAM,CAAC,qBAAqB,CAAC,EAAE,WAAW,EAAE,OAAO,EAAE,EAAE,GAAG,GAAG,MAAM;IAkEnE,MAAM,CAAC,qBAAqB,CAAC,SAAS,EAAE,MAAM,EAAE,cAAc,EAAE,MAAM,EAAE,GAAG,MAAM;CAIpF;AAED,eAAe,eAAe,CAAC"}
->>>>>>> 7308b78ed6ee4fbd56ad460f1de77c916a7b6a68
