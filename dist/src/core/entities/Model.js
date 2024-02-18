@@ -24,40 +24,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Model = void 0;
-const pgConfig_1 = require("../../../../../../configs/pgConfig");
-const mySqlConfig_1 = __importDefault(require("../../../../../../configs/mySqlConfig"));
 const dbError_1 = __importDefault(require("../errors/dbError"));
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
+const connection_1 = require("../connection/connection");
 class Model {
     constructor(tableName) {
         this.tableName = tableName;
     }
     runQuery(query) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (process.env.DB_TYPE === 'postgres') {
-                    const client = yield pgConfig_1.pgConfig.connect();
-                    const res = yield client.query(query);
-                    client.release();
-                    console.log("Connected to the PostgreSQL database");
-                    return res;
-                }
-                else if (process.env.DB_TYPE === 'mysql') {
-                    const connection = yield (0, mySqlConfig_1.default)();
-                    const [rows, fields] = yield connection.execute(query);
-                    console.log("Connected to the MySQL database");
-                    yield connection.end();
-                    return { rows, fields };
-                }
-                else {
-                    dbError_1.default.DbTypeError();
-                }
-            }
-            catch (err) {
-                dbError_1.default.QueryError(err);
-                throw err;
-            }
+            return yield (0, connection_1.connection)(query);
         });
     }
     find(options) {

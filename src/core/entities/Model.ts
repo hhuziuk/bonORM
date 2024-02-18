@@ -1,10 +1,9 @@
 import { QueryResult } from "pg";
-import { pgConfig } from "../../../../../../configs/pgConfig";
-import mySqlConfig from "../../../../../../configs/mySqlConfig";
 import { toolCommandsInterface } from "../tool-commands/tool-commands-interface";
 import dbError from "../errors/dbError";
 import { validate } from "class-validator";
 import { plainToClass } from "class-transformer";
+import {connection} from "../connection/connection";
 
 export interface ColumnData {
     [columnName: string]: any;
@@ -17,26 +16,7 @@ export class Model implements toolCommandsInterface {
         this.tableName = tableName;
     }
     private async runQuery(query: string): Promise<QueryResult> {
-        try {
-            if (process.env.DB_TYPE === 'postgres') {
-                const client = await pgConfig.connect();
-                const res: QueryResult = await client.query(query);
-                client.release();
-                console.log("Connected to the PostgreSQL database");
-                return res;
-            } else if (process.env.DB_TYPE === 'mysql') {
-                const connection = await mySqlConfig();
-                const [rows, fields] = await connection.execute(query);
-                console.log("Connected to the MySQL database");
-                await connection.end();
-                return { rows, fields } as QueryResult<any>;
-            } else {
-                dbError.DbTypeError();
-            }
-        } catch (err) {
-            dbError.QueryError(err);
-            throw err;
-        }
+        return await connection(query);
     }
     async find(options: {
         select?: string[];
