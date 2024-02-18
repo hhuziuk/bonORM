@@ -15,7 +15,7 @@ var mySqlDataType;
     mySqlDataType["Boolean"] = "BOOLEAN";
     // String Data Types
     mySqlDataType["Char"] = "CHAR";
-    mySqlDataType["Varchar"] = "VARCHAR";
+    mySqlDataType["Varchar"] = "VARCHAR(255)";
     mySqlDataType["Text"] = "TEXT";
     // Date and Time Data Types
     mySqlDataType["Date"] = "DATE";

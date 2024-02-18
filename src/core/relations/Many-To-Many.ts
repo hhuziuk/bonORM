@@ -1,5 +1,6 @@
 import {QueryResult} from "pg";
 import { pgConfig } from "../../../../../../configs/pgConfig";
+import { mySqlConfig } from "../../../../../../configs/mySqlConfig";
 import dbError from "../errors/dbError";
 
 export const createManyToManyRelation = async function (

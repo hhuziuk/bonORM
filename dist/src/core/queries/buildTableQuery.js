@@ -9,9 +9,6 @@ class buildTableQuery {
         if (!allowNull) {
             columnDefinition += " NOT NULL";
         }
-        else {
-            columnDefinition += "";
-        }
         // name for column
         if (name) {
             columnDefinition += ` ${name}`;
@@ -21,7 +18,7 @@ class buildTableQuery {
             columnDefinition += " UNIQUE";
         }
         // length
-        if (length) {
+        if (length && (type === 'VARCHAR' || type === 'CHAR')) {
             columnDefinition += `(${length})`;
         }
         // width (for MySQL)
@@ -36,23 +33,19 @@ class buildTableQuery {
         if (primaryKey) {
             columnDefinition += " PRIMARY KEY";
         }
-        else {
-            columnDefinition += "";
-        }
         // defaultValue
         if (defaultValue) {
             columnDefinition += ` DEFAULT '${defaultValue}'`;
-        }
-        else {
-            if (type === 'TIMESTAMP' || type === 'DATE') {
-                columnDefinition += ` DEFAULT ${type === 'TIMESTAMP' ? 'CURRENT_TIMESTAMP' : 'CURRENT_DATE'}`;
-            }
         }
         if (type === 'UUID') {
             columnDefinition += (process.env.DB_TYPE === 'postgres') ? " DEFAULT uuid_generate_v4()" : ""; // PostgreSQL
             columnDefinition += (process.env.DB_TYPE === 'mysql') ? ` DEFAULT '${(0, uuid_1.v4)()}'` : ""; // MySQL
         }
-        if (autoIncrement && type === 'INTEGER') {
+        // autoIncrement (for MySQL)
+        if (autoIncrement && type === 'INTEGER' && process.env.DB_TYPE === 'mysql') {
+            columnDefinition += " AUTO_INCREMENT";
+        }
+        else if (autoIncrement && type === 'INTEGER' && process.env.DB_TYPE === 'postgres') {
             columnDefinition += " GENERATED ALWAYS AS IDENTITY";
         }
         else {
