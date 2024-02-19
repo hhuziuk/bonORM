@@ -13,7 +13,7 @@ export enum mySqlDataType {
 
     // String Data Types
     Char = 'CHAR', // fixed-length character string
-    Varchar = 'VARCHAR', // variable-length character string
+    Varchar = 'VARCHAR(255)', // variable-length character string
     Text = 'TEXT', // variable-length character string (large)
 
     // Date and Time Data Types

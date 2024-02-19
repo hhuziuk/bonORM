@@ -24,26 +24,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Model = void 0;
-const pgConfig_1 = require("../../../../../../configs/pgConfig");
 const dbError_1 = __importDefault(require("../errors/dbError"));
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
+const connection_1 = require("../connection/connection");
 class Model {
     constructor(tableName) {
         this.tableName = tableName;
     }
     runQuery(query) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const client = yield pgConfig_1.pgConfig.connect();
-                const res = yield client.query(query);
-                client.release();
-                console.log("Connected to the database");
-                return res;
-            }
-            catch (err) {
-                dbError_1.default.QueryError(err);
-            }
+            return yield (0, connection_1.connection)(query);
         });
     }
     find(options) {

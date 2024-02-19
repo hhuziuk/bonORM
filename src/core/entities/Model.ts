@@ -1,9 +1,9 @@
 import { QueryResult } from "pg";
-import { pgConfig } from "../../../../../../configs/pgConfig";
 import { toolCommandsInterface } from "../tool-commands/tool-commands-interface";
 import dbError from "../errors/dbError";
 import { validate } from "class-validator";
 import { plainToClass } from "class-transformer";
+import {connection} from "../connection/connection";
 
 export interface ColumnData {
     [columnName: string]: any;
@@ -15,19 +15,9 @@ export class Model implements toolCommandsInterface {
     public constructor(tableName: string) {
         this.tableName = tableName;
     }
-
     private async runQuery(query: string): Promise<QueryResult> {
-        try {
-            const client = await pgConfig.connect();
-            const res: QueryResult = await client.query(query);
-            client.release();
-            console.log("Connected to the database");
-            return res;
-        } catch (err) {
-            dbError.QueryError(err);
-        }
+        return await connection(query);
     }
-
     async find(options: {
         select?: string[];
         relations?: string[];

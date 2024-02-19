@@ -1,9 +1,13 @@
 export interface ColumnGeneralOptions {
+    primaryKey?: boolean;
+    autoIncrement?: boolean;
+    length?: number;
+    width?: number;
+    name?: string;
+    type: string;
     unique?: boolean;
-    defaultValue?: any;
+    defaultValue?: string;
     allowNull?: boolean;
     onUpdate?: string;
-    generated?: boolean | "increment" | "uuid" | "rowid" | "identity";
-    name?: string;
 }
 //# sourceMappingURL=ColumnGeneralOptions.d.ts.map
