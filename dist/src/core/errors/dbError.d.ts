@@ -6,7 +6,7 @@ declare class dbError extends Error {
     static QueryError(message: string[]): void;
     static DbTypeError(): void;
     static EmptyQuery(): void;
-    static InvalidFormat(): void;
+    static InvalidFormat(message: string[] | string): void;
 }
 export default dbError;
 //# sourceMappingURL=dbError.d.ts.map

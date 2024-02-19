@@ -8,7 +8,7 @@ export declare enum mySqlDataType {
     BigInt = "BIGINT",
     Boolean = "BOOLEAN",
     Char = "CHAR",
-    Varchar = "VARCHAR",
+    Varchar = "VARCHAR(255)",
     Text = "TEXT",
     Date = "DATE",
     Time = "TIME",

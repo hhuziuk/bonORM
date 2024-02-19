@@ -13,26 +13,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createManyToManyRelation = void 0;
-const pgConfig_1 = require("../../../../../../configs/pgConfig");
+const connection_1 = require("../connection/connection");
 const dbError_1 = __importDefault(require("../errors/dbError"));
 const createManyToManyRelation = function (tableName, intermediateTableName, referenceTableName) {
     return __awaiter(this, void 0, void 0, function* () {
-        const query = `CREATE TABLE IF NOT EXISTS "${intermediateTableName}" (
-        "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
-        "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
-        "${tableName}Id" BIGINT REFERENCES "${tableName}" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-        "${referenceTableName}Id" BIGINT REFERENCES "${referenceTableName}" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-        PRIMARY KEY ("${tableName}Id","${referenceTableName}Id")
-  )`;
-        try {
-            const client = yield pgConfig_1.pgConfig.connect();
-            const res = yield client.query(query);
-            client.release();
-            return res;
+        let query;
+        if (process.env.DB_TYPE === 'mysql') {
+            query = `
+            CREATE TABLE IF NOT EXISTS \`${intermediateTableName}\` (
+                                                                        \`createdAt\` TIMESTAMP NOT NULL,
+                                                                        \`updatedAt\` TIMESTAMP NOT NULL,
+                                                                        \`PlayerId\` INT,
+                                                                        \`TeamId\` INT,
+                                                                        PRIMARY KEY (\`PlayerId\`, \`TeamId\`),
+                FOREIGN KEY (\`PlayerId\`) REFERENCES \`${tableName}\` (\`id\`) ON DELETE CASCADE ON UPDATE CASCADE,
+                FOREIGN KEY (\`TeamId\`) REFERENCES \`${referenceTableName}\` (\`id\`) ON DELETE CASCADE ON UPDATE CASCADE
+                )
+        `;
         }
-        catch (err) {
-            dbError_1.default.QueryError(err);
+        else if (process.env.DB_TYPE === 'postgres') {
+            query = `
+            CREATE TABLE IF NOT EXISTS "${intermediateTableName}" (
+                "createdAt" TIMESTAMP NOT NULL,
+                "updatedAt" TIMESTAMP NOT NULL,
+                "${tableName}Id" BIGINT,
+                "${referenceTableName}Id" BIGINT,
+                PRIMARY KEY ("${tableName}Id", "${referenceTableName}Id"),
+                FOREIGN KEY ("${tableName}Id") REFERENCES "${tableName}" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+                FOREIGN KEY ("${referenceTableName}Id") REFERENCES "${referenceTableName}" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+                )`;
         }
+        else {
+            dbError_1.default.DbTypeError();
+        }
+        return yield (0, connection_1.connection)(query);
     });
 };
 exports.createManyToManyRelation = createManyToManyRelation;

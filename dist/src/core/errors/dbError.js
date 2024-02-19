@@ -21,8 +21,8 @@ class dbError extends Error {
     static EmptyQuery() {
         throw new dbError(`No data for insertion`);
     }
-    static InvalidFormat() {
-        throw new dbError(`Invalid Format`);
+    static InvalidFormat(message) {
+        throw new dbError(`Invalid Format: ${message}`);
     }
 }
 exports.default = dbError;

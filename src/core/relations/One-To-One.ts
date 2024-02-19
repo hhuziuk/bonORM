@@ -1,21 +1,20 @@
-import { pgConfig } from "../../../../../../configs/pgConfig";
+import {connection} from "../connection/connection";
 import {QueryResult} from "pg";
 import dbError from "../errors/dbError";
-
-export const createOneToOneRelation = async function(
+export const createOneToOneRelation = async function (
     tableName: string,
     key: string,
     referenceTable: string,
     referenceKey: string
-) {
-    const query = `${key} BIGINT UNIQUE REFERENCES ${referenceTable} ("${referenceKey}") ON DELETE SET NULL ON UPDATE CASCADE`;
-    const alterQuery = `ALTER TABLE ${tableName} ADD ${query};`;
-    try {
-        const client = await pgConfig.connect();
-        const res: QueryResult = await client.query(alterQuery);
-        client.release();
-        return res;
-    } catch (err) {
-        dbError.QueryError(err);
+): Promise<QueryResult> {
+    let query: string;
+    if (process.env.DB_TYPE === 'mysql') {
+        query = `
+        ALTER TABLE ${tableName} ADD ${key} BIGINT UNIQUE ${process.env.DB_TYPE === 'mysql' ? 'REFERENCES ' + referenceTable + ' (' + referenceKey + ') ON DELETE SET NULL ON UPDATE CASCADE' : ''}`;
+    } else if (process.env.DB_TYPE === 'postgres') {
+        query = `ALTER TABLE ${tableName} ADD ${key} BIGINT UNIQUE REFERENCES ${referenceTable} ("${referenceKey}") ON DELETE SET NULL ON UPDATE CASCADE;`;
+    } else {
+        dbError.DbTypeError()
     }
+    return await connection(query);
 };

@@ -1,0 +1,1 @@
+{"version":3,"file":"buildTableQuery.d.ts","sourceRoot":"","sources":["../../../../src/core/queries/buildTableQuery.ts"],"names":[],"mappings":"AAEA,cAAM,eAAe;IACjB,MAAM,CAAC,qBAAqB,CAAC,EAAE,WAAW,EAAE,OAAO,EAAE,EAAE,GAAG,GAAG,MAAM;IA4DnE,MAAM,CAAC,qBAAqB,CAAC,SAAS,EAAE,MAAM,EAAE,cAAc,EAAE,MAAM,EAAE,GAAG,MAAM;CAIpF;AAED,eAAe,eAAe,CAAC"}

@@ -13,21 +13,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createOneToManyRelation = void 0;
-const pgConfig_1 = require("../../../../../../configs/pgConfig");
+const connection_1 = require("../connection/connection");
 const dbError_1 = __importDefault(require("../errors/dbError"));
 const createOneToManyRelation = function (tableName, key, referenceTable, referenceKey) {
     return __awaiter(this, void 0, void 0, function* () {
-        const query = `${key} BIGINT REFERENCES ${referenceTable}("${referenceKey}") ON DELETE SET NULL ON UPDATE CASCADE`;
-        const alterQuery = `ALTER TABLE ${tableName} ADD ${query};`;
-        try {
-            const client = yield pgConfig_1.pgConfig.connect();
-            const res = yield client.query(alterQuery);
-            client.release();
-            return res;
+        let query;
+        if (process.env.DB_TYPE === 'mysql') {
+            query = `
+        ALTER TABLE ${tableName} ADD ${key} BIGINT ${process.env.DB_TYPE === 'mysql' ? 'REFERENCES ' + referenceTable + ' (' + referenceKey + ') ON DELETE CASCADE ON UPDATE CASCADE' : ''}`;
         }
-        catch (err) {
-            dbError_1.default.QueryError(err);
+        else if (process.env.DB_TYPE === 'postgres') {
+            query = `ALTER TABLE ${tableName} ADD ${key} BIGINT REFERENCES ${referenceTable}("${referenceKey}") ON DELETE SET NULL ON UPDATE CASCADE;`;
         }
+        else {
+            dbError_1.default.DbTypeError();
+        }
+        return yield (0, connection_1.connection)(query);
     });
 };
 exports.createOneToManyRelation = createOneToManyRelation;
