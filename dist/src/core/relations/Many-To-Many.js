@@ -21,11 +21,11 @@ const createManyToManyRelation = function (tableName, intermediateTableName, ref
         if (process.env.DB_TYPE === 'mysql') {
             query = `
             CREATE TABLE IF NOT EXISTS \`${intermediateTableName}\` (
-                                                                        \`createdAt\` TIMESTAMP NOT NULL,
-                                                                        \`updatedAt\` TIMESTAMP NOT NULL,
-                                                                        \`PlayerId\` INT,
-                                                                        \`TeamId\` INT,
-                                                                        PRIMARY KEY (\`PlayerId\`, \`TeamId\`),
+                \`createdAt\` TIMESTAMP NOT NULL,
+                \`updatedAt\` TIMESTAMP NOT NULL,
+                \`PlayerId\` INT,
+                \`TeamId\` INT,
+                PRIMARY KEY (\`PlayerId\`, \`TeamId\`),
                 FOREIGN KEY (\`PlayerId\`) REFERENCES \`${tableName}\` (\`id\`) ON DELETE CASCADE ON UPDATE CASCADE,
                 FOREIGN KEY (\`TeamId\`) REFERENCES \`${referenceTableName}\` (\`id\`) ON DELETE CASCADE ON UPDATE CASCADE
                 )
