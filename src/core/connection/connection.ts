@@ -1,27 +1,32 @@
-import {QueryResult} from "pg";
+import { QueryResult } from "pg";
 import dbError from "../errors/dbError";
-import { pgConfig } from "../../../../../../configs/pgConfig";
-import mySqlConfig from "../../../../../../configs/mySqlConfig";
 
 export async function connection(query: string): Promise<QueryResult> {
     try {
         if (process.env.DB_TYPE === 'postgres') {
+            const { pgConfig } = await import("../../../../../../configs/pgConfig");
             const client = await pgConfig.connect();
-            const res: QueryResult = await client.query(query);
-            client.release();
-            console.log("Connected to the PostgreSQL database");
-            return res;
+            try {
+                const res: QueryResult = await client.query(query);
+                console.log("Connected to the PostgreSQL database");
+                return res;
+            } finally {
+                client.release();
+            }
         } else if (process.env.DB_TYPE === 'mysql') {
+            const { mySqlConfig } = await import("../../../../../../configs/mySqlConfig");
             const connection = await mySqlConfig();
-            const [rows, fields] = await connection.execute(query);
-            console.log("Connected to the MySQL database");
-            await connection.end();
-            return { rows, fields } as QueryResult<any>;
+            try {
+                const [rows, fields] = await connection.execute(query);
+                console.log("Connected to the MySQL database");
+                return { rows, fields } as QueryResult<any>;
+            } finally {
+                await connection.end();
+            }
         } else {
             dbError.DbTypeError();
         }
     } catch (err) {
-        dbError.QueryError(err);
         throw err;
     }
 }

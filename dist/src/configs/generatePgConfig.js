@@ -11,7 +11,6 @@ const generatePgConfig = (argv) => {
     const configFile = `
 import { Pool } from 'pg';
 
-export DB_TYPE = postgres
 export const pgConfig = new Pool({
       user: 'your data',
       host: 'your data',
