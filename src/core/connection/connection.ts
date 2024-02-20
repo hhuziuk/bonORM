@@ -21,7 +21,7 @@ export async function connection(query: string): Promise<QueryResult> {
         } else if (process.env.DB_TYPE === 'mysql') {
             const mySqlConfigPath = "../../../../../../configs/mySqlConfig";
             if (await fileExists(mySqlConfigPath)) {
-                const { mySqlConfig } = await import(mySqlConfigPath);
+                const mySqlConfig = (await import(mySqlConfigPath)).default;
                 const connection = await mySqlConfig();
                 try {
                     const [rows, fields] = await connection.execute(query);

@@ -61,7 +61,7 @@ function connection(query) {
             else if (process.env.DB_TYPE === 'mysql') {
                 const mySqlConfigPath = "../../../../../../configs/mySqlConfig";
                 if (yield fileExists(mySqlConfigPath)) {
-                    const { mySqlConfig } = yield Promise.resolve().then(() => __importStar(require(mySqlConfigPath)));
+                    const mySqlConfig = (yield Promise.resolve().then(() => __importStar(require(mySqlConfigPath)))).default;
                     const connection = yield mySqlConfig();
                     try {
                         const [rows, fields] = yield connection.execute(query);
