@@ -14,11 +14,11 @@ class Migration {
     constructor() {
         this.migrationName = 'MigrationV0001';
     }
-    up(query) {
+    up() {
         return __awaiter(this, void 0, void 0, function* () {
         });
     }
-    down(query) {
+    down() {
         return __awaiter(this, void 0, void 0, function* () {
         });
     }

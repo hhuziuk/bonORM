@@ -1,8 +1,7 @@
-import { Migration } from "./migration-test";
 import fs from 'fs';
 import * as path from "path";
 import {MigrationInterface} from "./migrationInterface";
-import {QueryResult} from "pg";
+import {connection} from "../connection/connection";
 
 export const generateMigration = (argv: any) => {
     const path = argv.path || '.';
@@ -10,19 +9,22 @@ export const generateMigration = (argv: any) => {
     const createFileName = `${path}/${fileName}.ts`;
     const migrationFile = `
 import {MigrationInterface} from "bonorm"
-import {QueryResult} from "pg";
 export class ${fileName} implements MigrationInterface {
     migrationName = '${fileName}';
-    public async up(query: QueryResult) {
+    public async up() {
         // Your migration logic
     }
-    public async down(query: QueryResult) {
+    public async down() {
         // Your rollback logic
     }
 }
 export { ${fileName} as Migration };`;
     fs.writeFileSync(createFileName, migrationFile);
     console.log(`Migration ${createFileName} generated successfully.`);
+};
+
+export const runQuery = async (query: string) => {
+    return await connection(query);
 };
 
 export const runMigration = async (argv: any) => {

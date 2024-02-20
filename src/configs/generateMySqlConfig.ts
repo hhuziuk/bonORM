@@ -14,7 +14,7 @@ const mySqlConfig = () => {
         database: 'your data'
     });
 };
-export default {mySqlConfig};
+export default mySqlConfig;
   `;
     fs.writeFileSync(createFileName, configFile);
     console.log(`Configuration ${createFileName} generated successfully.`);

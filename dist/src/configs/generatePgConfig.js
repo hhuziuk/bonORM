@@ -10,6 +10,7 @@ const generatePgConfig = (argv) => {
     const createFileName = `${path}/pgConfig.ts`;
     const configFile = `
 import { Pool } from 'pg';
+
 export const pgConfig = new Pool({
       user: 'your data',
       host: 'your data',
