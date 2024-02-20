@@ -5,6 +5,7 @@ export * from './src/core/migrations/createMigration';
 export * from './src/core/migrations/migrationInterface';
 export * from './src/core/relations/One-To-One';
 export * from './src/core/relations/Many-To-Many';
+export * from './src/core/connection/connection';
 export * from './src/core/relations/One-To-Many';
 export * from './src/core/decorators/Entity/Entity';
 export * from './src/core/decorators/Columns/PrimaryGeneratedColumn';

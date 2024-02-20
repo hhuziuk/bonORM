@@ -21,6 +21,7 @@ __exportStar(require("./src/core/migrations/createMigration"), exports);
 __exportStar(require("./src/core/migrations/migrationInterface"), exports);
 __exportStar(require("./src/core/relations/One-To-One"), exports);
 __exportStar(require("./src/core/relations/Many-To-Many"), exports);
+__exportStar(require("./src/core/connection/connection"), exports);
 __exportStar(require("./src/core/relations/One-To-Many"), exports);
 __exportStar(require("./src/core/decorators/Entity/Entity"), exports);
 __exportStar(require("./src/core/decorators/Columns/PrimaryGeneratedColumn"), exports);

@@ -41,27 +41,39 @@ function connection(query) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             if (process.env.DB_TYPE === 'postgres') {
-                const { pgConfig } = yield Promise.resolve().then(() => __importStar(require("../../../../../../configs/pgConfig")));
-                const client = yield pgConfig.connect();
-                try {
-                    const res = yield client.query(query);
-                    console.log("Connected to the PostgreSQL database");
-                    return res;
+                const pgConfigPath = "../../../../../../configs/pgConfig";
+                if (yield fileExists(pgConfigPath)) {
+                    const { pgConfig } = yield Promise.resolve().then(() => __importStar(require(pgConfigPath)));
+                    const client = yield pgConfig.connect();
+                    try {
+                        const res = yield client.query(query);
+                        console.log("Connected to the PostgreSQL database");
+                        return res;
+                    }
+                    finally {
+                        client.release();
+                    }
                 }
-                finally {
-                    client.release();
+                else {
+                    throw new Error("PostgreSQL configuration file not found");
                 }
             }
             else if (process.env.DB_TYPE === 'mysql') {
-                const { mySqlConfig } = yield Promise.resolve().then(() => __importStar(require("../../../../../../configs/mySqlConfig")));
-                const connection = yield mySqlConfig();
-                try {
-                    const [rows, fields] = yield connection.execute(query);
-                    console.log("Connected to the MySQL database");
-                    return { rows, fields };
+                const mySqlConfigPath = "../../../../../../configs/mySqlConfig";
+                if (yield fileExists(mySqlConfigPath)) {
+                    const { mySqlConfig } = yield Promise.resolve().then(() => __importStar(require(mySqlConfigPath)));
+                    const connection = yield mySqlConfig();
+                    try {
+                        const [rows, fields] = yield connection.execute(query);
+                        console.log("Connected to the MySQL database");
+                        return { rows, fields };
+                    }
+                    finally {
+                        yield connection.end();
+                    }
                 }
-                finally {
-                    yield connection.end();
+                else {
+                    throw new Error("MySQL configuration file not found");
                 }
             }
             else {
@@ -74,3 +86,17 @@ function connection(query) {
     });
 }
 exports.connection = connection;
+function fileExists(path) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield Promise.resolve().then(() => __importStar(require(path)));
+            return true;
+        }
+        catch (err) {
+            if (err.code === 'MODULE_NOT_FOUND') {
+                return false;
+            }
+            throw err;
+        }
+    });
+}

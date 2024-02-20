@@ -35,22 +35,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.rollbackMigration = exports.runMigration = exports.generateMigration = void 0;
+exports.rollbackMigration = exports.runMigration = exports.runQuery = exports.generateMigration = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path = __importStar(require("path"));
+const connection_1 = require("../connection/connection");
 const generateMigration = (argv) => {
     const path = argv.path || '.';
     const fileName = `MigrationV${new Date().getTime()}`;
     const createFileName = `${path}/${fileName}.ts`;
     const migrationFile = `
 import {MigrationInterface} from "bonorm"
-import {QueryResult} from "pg";
 export class ${fileName} implements MigrationInterface {
     migrationName = '${fileName}';
-    public async up(query: QueryResult) {
+    public async up() {
         // Your migration logic
     }
-    public async down(query: QueryResult) {
+    public async down() {
         // Your rollback logic
     }
 }
@@ -59,6 +59,10 @@ export { ${fileName} as Migration };`;
     console.log(`Migration ${createFileName} generated successfully.`);
 };
 exports.generateMigration = generateMigration;
+const runQuery = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield (0, connection_1.connection)(query);
+});
+exports.runQuery = runQuery;
 const runMigration = (argv) => __awaiter(void 0, void 0, void 0, function* () {
     const MigrationModule = require(path.resolve(argv.path));
     const migration = new MigrationModule.Migration();
