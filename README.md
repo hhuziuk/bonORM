@@ -107,26 +107,27 @@ in place of the brackets:
 // pgConfig.ts
 import { Pool } from 'pg';
 export const pgConfig = new Pool({
-  user: 'username of your database',
-  host: 'name of your host',
-  database: 'name of your database',
-  password: 'password for your database',
-  port: 5432, // or any other port
-  // you can also add any other configurations
+      user: 'your data',
+      host: 'your data',
+      database: 'your data',
+      password: 'your data',
+      port: 5432,
 });
 ```
 
 ```ts
 // mySqlConfig.ts
-import {createPool} from 'mysql';
-export const mySqlConfig  = createPool({
-  // connectionLimit : 10,
-  host: 'name of your host(for example localhost)',
-  user: 'username of your database',
-  password: 'password for your database',
-  database: 'name of your database',
-  // you can also add any other configurations
-});
+import { Connection, createConnection } from 'mysql2/promise';
+const mySqlConfig = () => {
+    return createConnection({
+        host: 'your data',
+        user: 'your data',
+        port: 'your port',
+        password: 'your data',
+        database: 'your data'
+    });
+};
+export default mySqlConfig;
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -394,7 +395,6 @@ examplePlayer.create({
     notes: "This player prefers email communication.",
     email: "john@example.com"
 }, Player13);
-
 ```
 
 ## Validation
@@ -475,7 +475,9 @@ static InvalidFormat()
 
 
 ## Migrations
-You can also use the migration generator and additional tools to install and roll back migrations.
+You can also use the migration generator and additional tools to install and roll back migrations. You have two methods in migration file:
+`up`defines the changes that should be applied to the database schema when migrating up and `down`
+to revert the changes made by the `up` function.
 To generate migrations, you need to add a few lines of code to the `"scripts"` area of the `package.json` file:
 ```json
 "scripts": {
@@ -486,18 +488,19 @@ To generate migrations, you need to add a few lines of code to the `"scripts"` a
 ```
 Here is an example of a generated migration file named `MigrationV1700835172879.ts`:
 ```ts
-import {MigrationInterface} from "bonorm"
-import {QueryResult} from "pg";
-export class MigrationV1700835172879 implements MigrationInterface {
-    migrationName = 'MigrationV1700835172879';
-    public async up(query: QueryResult) {
+import {MigrationInterface, runQuery} from "bonorm"
+export class ${fileName} implements MigrationInterface {
+    migrationName = '${fileName}';
+    public async up() {
         // Your migration logic
+        await runQuery('CREATE TABLE IF NOT EXISTS example (id SERIAL PRIMARY KEY, name VARCHAR(255));');
     }
-    public async down(query: QueryResult) {
+    public async down() {
         // Your rollback logic
+        await runQuery('DROP TABLE IF EXISTS example;');
     }
 }
-export { MigrationV1700835172879 as Migration };
+export { ${fileName} as Migration };
 ```
 ## Basic operations
 
@@ -753,7 +756,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Contact
 Heorhii Huziuk - huziukwork@gmail.com
 
-Why BonOrm?(it's like a word game with Bono and ORM): https://en.wikipedia.org/wiki/Bono
+Why BonOrm?(it's like a word game with <a href="https://en.wikipedia.org/wiki/Bono">Bono</a> and ORM)
 
 Project link: [https://github.com/hhuziuk/bonORM.git](https://github.com/hhuziuk/bonORM.git)
 
