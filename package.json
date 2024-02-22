@@ -1,5 +1,6 @@
 {
   "name": "bonorm",
+  "author": "hhuziuk",
   "version": "2.0.0",
   "description": "BonORM is my implementation of an object-relational mapping (ORM) designed for use on the NodeJS platform and in projects developed using Typescript.",
   "main": "index.js",
@@ -35,7 +36,6 @@
     "up:migration": "ts-node node_modules/bonorm/src/cli.ts up:migration <path>",
     "down:migration": "ts-node node_modules/bonorm/src/cli.ts down:migration <path>"
   },
-  "author": "hhuziuk",
   "license": "MIT",
   "dependencies": {
     "@types/express": "^4.17.20",
